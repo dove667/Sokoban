@@ -1,0 +1,55 @@
+package Sokoban.Controller;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Objects;
+
+public class VictoryController {
+
+    @FXML
+    private Button Btn_Home;
+
+    @FXML
+    private Button Btn_NextLevel;
+
+    @FXML
+    private Label Label_Victory;
+
+    @FXML
+    void HomeBtnReleased(MouseEvent event) throws IOException {
+        Stage primaryStage = (Stage) Btn_Home.getScene().getWindow();
+        URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
+        Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+    }
+
+    @FXML
+    void NextLevelBtnReleased(MouseEvent event) throws IOException {
+        String nextLevelPath = LevelManager.getNextLevel();
+        if (nextLevelPath != null) {
+            Stage primaryStage = (Stage) Btn_Home.getScene().getWindow();
+            URL url = getClass().getResource(nextLevelPath);
+            Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            // 更新当前关卡信息
+            LevelManager.setCurrentLevel(nextLevelPath);
+        } else {
+            System.out.println("没有更多的关卡可加载");
+        }
+
+
+    }
+
+
+}
