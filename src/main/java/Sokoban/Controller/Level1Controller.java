@@ -9,6 +9,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
@@ -22,42 +24,17 @@ import java.util.Objects;
 import java.util.Set;
 
 public class Level1Controller {
+    @FXML
+    private Label Label_clock;
 
     @FXML
-    private Button Btn_back;
+    private Button Btn_back,Btn_down,Btn_up,Btn_left,Btn_right,Btn_home;
 
     @FXML
-    private Button Btn_down;
+    private ImageView Img_Back,Img_home,Img_Move;
 
     @FXML
-    private Button Btn_home;
-
-    @FXML
-    private Button Btn_left;
-
-    @FXML
-    private Button Btn_right;
-
-    @FXML
-    private Button Btn_up;
-
-    @FXML
-    private ImageView Img_Back;
-
-    @FXML
-    private ImageView Img_Move;
-
-    @FXML
-    private ImageView Img_home;
-
-    @FXML
-    private Label Label_Level1;
-
-    @FXML
-    private Label Label_steps;
-
-    @FXML
-    private Label Label_timer;
+    private Label Label_Level1,Label_steps,Label_timer,steps,time;
 
     @FXML
     private Circle Niker;
@@ -68,19 +45,10 @@ public class Level1Controller {
             box1, box2;
 
     @FXML
-    private Label steps;
+    private Polygon target1,target2;
 
     @FXML
-    private Polygon target1;
-
-    @FXML
-    private Polygon target2;
-
-    @FXML
-    private Label time;
-
-    @FXML
-    private GridPane myGridPane;
+    private GridPane Movement,GridBoard;
 
     @FXML
     void HomeBtnPressed(MouseEvent event) throws IOException {
@@ -103,9 +71,13 @@ public class Level1Controller {
     }
     @FXML
     void BackBtnPressed(MouseEvent event) throws IOException {
-        //保存进度
+        Stage primaryStage = (Stage) Btn_back.getScene().getWindow();
+        URL url = getClass().getResource("/Sokoban/Level1.fxml");
+        Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        initialize();
     }
-
 
     GameSystem gameSystem = new GameSystem(2,2,6,5);
 
@@ -124,6 +96,12 @@ public class Level1Controller {
         setWallPositions();
         gameSystem.setBoxPositons();
         gameSystem.setPlayerPositons(1,1);
+        Movement.requestFocus(); // 确保焦点设置
+
+    }
+
+    void stepsUpdate() {
+        steps.setText(gameSystem.getSteps() + "");
     }
 
     /*setWallPositions用来初始化walls，以便通过isWall判断Player是否碰到墙
@@ -184,56 +162,164 @@ public class Level1Controller {
         return column == GridPane.getColumnIndex(box2) && row == GridPane.getRowIndex(box2);
     }
 
+    @FXML
+    void MovePlayer(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.W) {
+            UpBtnPressed();
+        } else if (event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.S) {
+            DownBtnPressed();
+        } else if (event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.A) {
+            LeftBtnPressed();
+        } else if (event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.D) {
+            RightBtnPressed();
+        }
+        event.consume();  // 确保事件不会被其他地方消费
+    }
+
     Integer currentColumnIndex = 1;
     Integer currentRowIndex = 1;
     @FXML
-    void DownBtnPressed(MouseEvent event) {
+    void DownBtnPressed() throws IOException {
         int targetRow = currentRowIndex + 1;
         //纯移动
         if (!isWall(currentColumnIndex, targetRow)&&!isBox1(currentColumnIndex, targetRow)&&!isBox2(currentColumnIndex, targetRow)) {
             currentRowIndex = targetRow;
             GridPane.setRowIndex(Niker, currentRowIndex);
             gameSystem.moveNiker(currentColumnIndex, currentRowIndex);
+            stepsUpdate();
         }
         //推箱子
         if (isBox1(currentColumnIndex, targetRow)) {
-            if (!isWall(currentColumnIndex, targetRow+1)) {
+            if (!isWall(currentColumnIndex, targetRow+1)&&!isBox2(currentColumnIndex, targetRow+1)) {
                 currentRowIndex = targetRow;
                 GridPane.setRowIndex(Niker, currentRowIndex);
                 gameSystem.moveNiker(currentColumnIndex, currentRowIndex);
                 GridPane.setRowIndex(box1, currentRowIndex+1);
                 gameSystem.moveBox(0, currentColumnIndex, currentRowIndex+1);
+                stepsUpdate();
             }
         }
+        if (isBox2(currentColumnIndex, targetRow)) {
+            if (!isWall(currentColumnIndex, targetRow+1)&&!isBox1(currentColumnIndex, targetRow+1)) {
+                currentRowIndex = targetRow;
+                GridPane.setRowIndex(Niker, currentRowIndex);
+                gameSystem.moveNiker(currentColumnIndex, currentRowIndex);
+                GridPane.setRowIndex(box2, currentRowIndex+1);
+                gameSystem.moveBox(1, currentColumnIndex, currentRowIndex+1);
+                stepsUpdate();
+            }
+        }
+        victoryJudge();
     }
 
     @FXML
-    void LeftBtnPressed(MouseEvent event) {
+    void LeftBtnPressed() throws IOException {
         int targetColumn = currentColumnIndex - 1;
-        if (!isWall(targetColumn, currentRowIndex)) {
+        //纯移动
+        if (!isWall(targetColumn, currentRowIndex)&&!isBox1(targetColumn, currentRowIndex)&&!isBox2(targetColumn, currentRowIndex)) {
             currentColumnIndex = targetColumn;
             GridPane.setColumnIndex(Niker, currentColumnIndex);
             gameSystem.moveNiker(currentColumnIndex, currentRowIndex);
+            stepsUpdate();
         }
+        //推箱子
+        if (isBox1(targetColumn, currentRowIndex)) {
+            if (!isWall(targetColumn-1, currentRowIndex)&&!isBox2(targetColumn-1, currentRowIndex)) {
+                currentColumnIndex = targetColumn;
+                GridPane.setColumnIndex(Niker, currentColumnIndex);
+                gameSystem.moveNiker(currentColumnIndex, currentRowIndex);
+                GridPane.setColumnIndex(box1, currentColumnIndex-1);
+                gameSystem.moveBox(0, currentColumnIndex-1, currentRowIndex);
+                stepsUpdate();
+            }
+        }
+        if (isBox2(targetColumn, currentRowIndex)) {
+            if (!isWall(targetColumn-1, currentRowIndex)&&!isBox1(targetColumn-1, currentRowIndex)) {
+                currentColumnIndex = targetColumn;
+                GridPane.setColumnIndex(Niker, currentColumnIndex);
+                gameSystem.moveNiker(currentColumnIndex, currentColumnIndex);
+                GridPane.setColumnIndex(box2, currentColumnIndex-1);
+                gameSystem.moveBox(1, currentColumnIndex-1, currentRowIndex);
+                stepsUpdate();
+            }
+        }
+        victoryJudge();
     }
 
     @FXML
-    void RightBtnPressed(MouseEvent event) {
+    void RightBtnPressed() throws IOException {
         int targetColumn = currentColumnIndex + 1;
-        if (!isWall(targetColumn, currentRowIndex)) {
+        if (!isWall(targetColumn, currentRowIndex)&&!isBox1(targetColumn, currentRowIndex)&&!isBox2(targetColumn, currentRowIndex)) {
             currentColumnIndex = targetColumn;
             GridPane.setColumnIndex(Niker, currentColumnIndex);
             gameSystem.moveNiker(currentColumnIndex, currentRowIndex);
+            stepsUpdate();
         }
+        //推箱子
+        if (isBox1(targetColumn, currentRowIndex)) {
+            if (!isWall(targetColumn+1, currentRowIndex)&&!isBox2(targetColumn+1, currentRowIndex)) {
+                currentColumnIndex = targetColumn;
+                GridPane.setColumnIndex(Niker, currentColumnIndex);
+                gameSystem.moveNiker(currentColumnIndex, currentRowIndex);
+                GridPane.setColumnIndex(box1, currentColumnIndex+1);
+                gameSystem.moveBox(0, currentColumnIndex+1, currentRowIndex);
+                stepsUpdate();
+            }
+        }
+        if (isBox2(targetColumn, currentRowIndex)) {
+            if (!isWall(targetColumn+1, currentRowIndex)&&!isBox1(targetColumn+1, currentRowIndex)) {
+                currentColumnIndex = targetColumn;
+                GridPane.setColumnIndex(Niker, currentColumnIndex);
+                gameSystem.moveNiker(currentColumnIndex, currentColumnIndex);
+                GridPane.setColumnIndex(box2, currentColumnIndex+1);
+                gameSystem.moveBox(1, currentColumnIndex+1, currentRowIndex);
+                stepsUpdate();
+            }
+        }
+        victoryJudge();
     }
 
     @FXML
-    void UpBtnPressed(MouseEvent event) {
+    void UpBtnPressed() throws IOException {
         int targetRow = currentRowIndex - 1;
-        if (!isWall(currentColumnIndex, targetRow)) {
+        //纯移动
+        if (!isWall(currentColumnIndex, targetRow)&&!isBox1(currentColumnIndex, targetRow)&&!isBox2(currentColumnIndex, targetRow)) {
             currentRowIndex = targetRow;
             GridPane.setRowIndex(Niker, currentRowIndex);
             gameSystem.moveNiker(currentColumnIndex, currentRowIndex);
+            stepsUpdate();
+        }
+        //推箱子
+        if (isBox1(currentColumnIndex, targetRow)) {
+            if (!isWall(currentColumnIndex, targetRow-1)&&!isBox2(currentColumnIndex, targetRow-1)) {
+                currentRowIndex = targetRow;
+                GridPane.setRowIndex(Niker, currentRowIndex);
+                gameSystem.moveNiker(currentColumnIndex, currentRowIndex);
+                GridPane.setRowIndex(box1, currentRowIndex-1);
+                gameSystem.moveBox(0, currentColumnIndex, currentRowIndex-1);
+                stepsUpdate();
+            }
+        }
+        if (isBox2(currentColumnIndex, targetRow)) {
+            if (!isWall(currentColumnIndex, targetRow-1)&&!isBox1(currentColumnIndex, targetRow-1)) {
+                currentRowIndex = targetRow;
+                GridPane.setRowIndex(Niker, currentRowIndex);
+                gameSystem.moveNiker(currentColumnIndex, currentRowIndex);
+                GridPane.setRowIndex(box2, currentRowIndex-1);
+                gameSystem.moveBox(1, currentColumnIndex, currentRowIndex-1);
+                stepsUpdate();
+            }
+        }
+        victoryJudge();
+    }
+
+    public void victoryJudge() throws IOException {
+        if(gameSystem.isVictory()){
+            Stage primaryStage = (Stage) Btn_up.getScene().getWindow();
+            URL url = getClass().getResource("/Sokoban/Victory.fxml");
+            Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
         }
     }
 
