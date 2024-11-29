@@ -2,16 +2,15 @@ package Sokoban.Model;
 import java.io.*;
 
 public class GameSystem implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     private boolean isvictory;
     private boolean isfailed;
-    private int time=0;
+    private int time;
     private int steps;
     Player niker = new Player();
-    private Box[]boxes;
-    private Target[]targets;
-    private int[][] matrix;
+    private final Box[]boxes;
+    private final Target[]targets;
+    private final int[][] matrix;
 
 
     public int getTime() {
