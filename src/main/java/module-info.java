@@ -3,6 +3,7 @@ module Sodoban {
     requires javafx.fxml;
     requires javafx.graphics;
     requires java.desktop;
+    requires annotations;
     opens org.example.demo1 to javafx.fxml;
     opens Sokoban to javafx.fxml, javafx.graphics, javafx.controls,java.base;
     exports org.example.demo1;

@@ -1,6 +1,6 @@
 package Sokoban.Model;
-
-public class Target {
+import java.io.*;
+public class Target implements Serializable {
     private int currentRow;
     private int currentCol;
 

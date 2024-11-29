@@ -1,6 +1,6 @@
 package Sokoban.Model;
-
-public class Board {
+import java.io.*;
+public class Board implements Serializable{
     private int currentRow;
     private int currentCol;
 

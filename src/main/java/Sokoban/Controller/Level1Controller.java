@@ -1,6 +1,7 @@
 package Sokoban.Controller;
 
 import Sokoban.Model.GameSystem;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,29 +13,35 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import static Sokoban.Model.GameSystem.loadGameProgress;
+import static Sokoban.Model.GameSystem.saveGameProgress;
+
 public class Level1Controller {
-    @FXML
-    private Label Label_clock;
 
     @FXML
-    private Button Btn_back,Btn_down,Btn_up,Btn_left,Btn_right,Btn_home;
+    public AnchorPane Pane;
+    @FXML
+    private Button Btn_back,Btn_down,Btn_up,Btn_left,Btn_right,Btn_home,Btn_load,Btn_save;
 
     @FXML
-    private ImageView Img_Back,Img_home,Img_Move;
+    private ImageView Img_Back,Img_home,Img_Move,Img_load,Img_save;
 
     @FXML
-    private Label Label_Level1,Label_steps,Label_timer,steps,time;
+    private Label Label_Level1,Label_steps,Label_timer,steps,myTime;
 
     @FXML
     private Circle Niker;
@@ -50,6 +57,8 @@ public class Level1Controller {
     @FXML
     private GridPane Movement,GridBoard;
 
+    GameSystem gameSystem = new GameSystem(2,2,6,5);
+
     @FXML
     void HomeBtnPressed(MouseEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -58,8 +67,7 @@ public class Level1Controller {
         alert.setContentText("Your progress will be recorded.");
         alert.showAndWait();
         //保存进度
-
-
+        saveGameProgress(gameSystem);
         //切换场景
         Stage primaryStage = (Stage) Btn_back.getScene().getWindow();
         URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
@@ -76,27 +84,44 @@ public class Level1Controller {
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        initialize();
+        gameSystem.reset(GridPane.getRowIndex(box1),GridPane.getColumnIndex(box1),GridPane.getRowIndex(box2),GridPane.getColumnIndex(box2));
     }
 
-    GameSystem gameSystem = new GameSystem(2,2,6,5);
+    @FXML
+    void SaveBtnPressed(MouseEvent event) throws IOException {
+        saveGameProgress(gameSystem);
+    }
+    @FXML
+    void LoadBtnPressed(MouseEvent event) throws IOException {
+        gameSystem = loadGameProgress(); Pane.requestFocus();
+        Platform.runLater(() -> {
+            // 更新界面，如更新玩家、盒子、步数等
+            steps.setText(String.valueOf(gameSystem.getSteps()));
+            myTime.setText(String.valueOf(gameSystem.getTime()));
+            GridPane.setRowIndex(Niker, gameSystem.getPlayerRow());
+            GridPane.setColumnIndex(Niker, gameSystem.getPlayerCol());
+            GridPane.setRowIndex(box1, gameSystem.getBoxRow(1));
+            GridPane.setColumnIndex(box1, gameSystem.getBoxCol(1));
+            GridPane.setRowIndex(box2, gameSystem.getBoxRow(2));
+            GridPane.setColumnIndex(box2, gameSystem.getBoxCol(2));
+            currentColumnIndex = gameSystem.getPlayerCol();
+            currentRowIndex = gameSystem.getPlayerRow();
+        });
+    }
 
-    //Gridpane静态方法不能再类体中调用，只能在initialize中调用
+    //Gridpane静态方法不能再类体中调用，只能在initialize中调用，
+    // 当 JavaFX 加载与控制器类相对应的 FXML 文件时，FXML 文件中定义的 UI 组件（如按钮、标签等）会被实例化并与控制器类中的相应字段进行绑定。
+    //在 FXML 文件中定义的 UI 组件被完全创建并加入到场景图之后，initialize 方法被调用。此时，所有通过 @FXML 注解绑定的控件都已经可以使用。
     public void initialize() {
-        if (GridPane.getColumnIndex(Niker) == null) {
-            GridPane.setColumnIndex(Niker, 1); // 设置默认列
-        }
-        if (GridPane.getRowIndex(Niker) == null) {
-            GridPane.setRowIndex(Niker, 1); // 设置默认行
-        }
         gameSystem.setBox(0,GridPane.getColumnIndex(box1),GridPane.getRowIndex(box1));
         gameSystem.setBox(1,GridPane.getColumnIndex(box2),GridPane.getRowIndex(box2));
         gameSystem.setTarget(0,GridPane.getColumnIndex(target1),GridPane.getRowIndex(target1));
         gameSystem.setTarget(1,GridPane.getColumnIndex(target2),GridPane.getRowIndex(target2));
         setWallPositions();
-        gameSystem.setBoxPositons();
-        gameSystem.setPlayerPositons(1,1);
-        Movement.requestFocus(); // 确保焦点设置
+        gameSystem.addBoxPositons();
+        gameSystem.addTargetPositons();
+        gameSystem.addPlayerPositons(1,1);
+        Pane.requestFocus(); // 确保焦点设置
 
     }
 
@@ -153,7 +178,7 @@ public class Level1Controller {
         // 使用 "row-column" 形式检查是否是墙壁
         return walls.contains(row + "-" + column);//contains方法，判断是否包含元素
     }
-    //像下面这样些isWall也行
+    //像下面这样写isWall也行
     private boolean isBox1(int column, int row) {
         return column == GridPane.getColumnIndex(box1) && row == GridPane.getRowIndex(box1);
     }
@@ -161,7 +186,6 @@ public class Level1Controller {
     private boolean isBox2(int column, int row) {
         return column == GridPane.getColumnIndex(box2) && row == GridPane.getRowIndex(box2);
     }
-
     @FXML
     void MovePlayer(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.W) {
@@ -176,8 +200,8 @@ public class Level1Controller {
         event.consume();  // 确保事件不会被其他地方消费
     }
 
-    Integer currentColumnIndex = 1;
-    Integer currentRowIndex = 1;
+    Integer currentColumnIndex = gameSystem.getPlayerCol();
+    Integer currentRowIndex = gameSystem.getPlayerRow();
     @FXML
     void DownBtnPressed() throws IOException {
         int targetRow = currentRowIndex + 1;

@@ -1,6 +1,6 @@
 package Sokoban.Model;
-
-public class Player {
+import java.io.*;
+public class Player implements Serializable {
     private int currentRow=1;
     private int currentCol=1;
 

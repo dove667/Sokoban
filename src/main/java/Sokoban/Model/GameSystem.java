@@ -1,11 +1,12 @@
 package Sokoban.Model;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Polygon;
+import java.io.*;
 
-public class GameSystem {
+public class GameSystem implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private boolean isvictory;
     private boolean isfailed;
-    private int time;
+    private int time=0;
     private int steps;
     Player niker = new Player();
     private Box[]boxes;
@@ -43,6 +44,34 @@ public class GameSystem {
             targets[i] = new Target();
         }
         matrix = new int[height][width];
+    }
+    public void reset(int InitRow1, int InitCol1,int InitRow2,int InitCol2) {
+        isvictory = false;
+        isfailed = false;
+        time = 0;
+        steps = 0;
+        moveNiker(1, 1);
+        moveBox(0, InitRow1 , InitCol1);
+        moveBox(1, InitRow2, InitCol2);
+    }
+
+    public static void saveGameProgress(GameSystem progress) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("game_progress.ser"))) {
+            out.writeObject(progress);
+            System.out.println("Game progress saved successfully!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static GameSystem loadGameProgress() {
+        GameSystem progress = null;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("game_progress.ser"))) {
+            progress = (GameSystem) in.readObject();
+            System.out.println("Game progress loaded successfully!");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return progress;
     }
 
     public boolean isVictory() {
@@ -84,15 +113,34 @@ public class GameSystem {
          * So that 12 represents a box on the target location and 22 represents the player on the target location.
          */
    //在controller的初始化方法中调用，量化矩阵
-    public void setBoxPositons(){
+    public void addBoxPositons(){
         for(Box box : boxes){
              int x = box.getCurrentRow(); int y = box.getCurrentCol();
             matrix[x][y] =10;
         }
     }
+    public void addTargetPositons(){
+        for(Target target : targets){
+            int x = target.getCurrentRow();
+            int y = target.getCurrentCol();
+            matrix[x][y] = 2;
+        }
+    }
 
-    public void setPlayerPositons(int row,int col){
+    public void addPlayerPositons(int row,int col){
         matrix[row][col] = 20;
+    }
+    public int getPlayerRow(){
+        return niker.getCurrentRow();
+    }
+    public int getPlayerCol(){
+        return niker.getCurrentCol();
+    }
+    public int getBoxRow(int i){
+        return boxes[i-1].getCurrentRow();
+    }
+    public int getBoxCol(int i){
+        return boxes[i-1].getCurrentCol();
     }
 
     public void setBox(int i,int col,int row){
