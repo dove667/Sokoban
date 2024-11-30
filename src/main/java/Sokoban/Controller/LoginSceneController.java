@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
+import static Sokoban.Login_Application.primaryStage;
+
 
 public class LoginSceneController {
 
@@ -40,12 +42,11 @@ public class LoginSceneController {
         String passwd = Input_passwd.getText();
         if (username.equals("admin") && passwd.equals("admin")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("提示");
-            alert.setHeaderText("登录成功");
-            alert.setContentText("登陆成功");
+            alert.setTitle("Reminder");
+            alert.setHeaderText("Welcome");
+            alert.setContentText("Log in successfully.");
             alert.showAndWait();
             //切换场景
-            Stage primaryStage = (Stage) Btn_login.getScene().getWindow();
             URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
             //加载完fxml文件后，获取其中的root
             Parent root = FXMLLoader.load(Objects.requireNonNull(url));
@@ -54,9 +55,9 @@ public class LoginSceneController {
             primaryStage.setScene(scene);
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("提示");
-            alert.setHeaderText("登录失败");
-            alert.setContentText("用户名或密码错误");
+            alert.setTitle("Error");
+            alert.setHeaderText("Failed to log in");
+            alert.setContentText("Incorrect username or password.");
             alert.showAndWait();
         }
     }
@@ -65,21 +66,42 @@ public class LoginSceneController {
     void VisitorBtnReleased() throws IOException {
         GameSystem.setIsVisitor(true);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("提示");
-        alert.setHeaderText("游客模式");
-        alert.setContentText("游客模式下的游戏进度不会被保存！");
+        alert.setTitle("caution");
+        alert.setHeaderText("visitor mode");
+        alert.setContentText("Your game progress will not be saved.");
         alert.showAndWait();
         //切换场景
-        Stage primaryStage = (Stage) Btn_visitor.getScene().getWindow();
-        GameSystem gameSystem = new GameSystem(2,2,18,6,5);
         URL url = getClass().getResource("/Sokoban/Level1.fxml");
         //加载完fxml文件后，获取其中的root
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         //设置场景
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-
     }
+    //执行顺序总结
+    //FXMLLoader.load()
+    //
+    //加载 FXML 文件。
+    //创建对应的 JavaFX 控件。
+    //实例化控制器类（如果 fx:controller 被指定）
+    //
+    //控制器类实例化，并注入 FXML 中的控件。
+    //注入 @FXML 字段：
+    //
+    //根据 fx:id 将 FXML 中的组件注入到控制器中的对应字段。
+    //调用 @FXML 注解的方法（如事件处理方法）。
+    //
+    //执行 FXML 文件中定义的事件（如 onAction）对应的控制器方法。
+    //调用 initialize() 方法：
+    //
+    //如果控制器实现了 Initializable 接口，或者有带 @FXML 注解的 initialize() 方法，在控件注入完成后调用。
+    //设置 Scene 并显示在 Stage 上：
+    //
+    //将加载的 FXML 根节点设置为 Scene 的根节点，并显示窗口。
+    //重要注意点
+    //initialize() 方法在 FXMLLoader.load() 之后、事件方法之前执行。
+    //@FXML 注解的方法会在相应的事件触发时调用。
+    //initialize() 方法不一定每次都被调用，只有在 FXMLLoader 完成控件注入后才会调用。
 
 
 }

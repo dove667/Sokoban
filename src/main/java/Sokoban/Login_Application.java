@@ -10,11 +10,11 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Login_Application extends Application {
-    private static Stage primaryStage;
+    public static Stage primaryStage;
 
     //class Login_Application 不是抽象的，并且不会覆盖 Application 中的抽象方法 start（Stage），重写 start 方法
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage primaryStage) throws IOException {
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Sokoban/LoginScene.fxml")));
         /*  资源文件夹：如果您使用 Maven 或 Gradle 构建项目，src/main/resources 是默认的资源目录。
@@ -25,13 +25,12 @@ public class Login_Application extends Application {
          正确的使用方式：
          应该先将 FXMLLoader.load() 返回的根节点设置为 Scene 的根，然后创建一个 Scene 对象。*/
         Scene scene = new Scene(root); // 用 FXML 文件的根节点创建 Scene
-        stage.setTitle("登录界面");
-        stage.setScene(scene); // 设置场景
-        stage.show(); // 显示窗口
+        primaryStage.setTitle("登录界面");
+        primaryStage.setScene(scene); // 设置场景
+        primaryStage.show(); // 显示窗口
+        Login_Application.primaryStage = primaryStage;
     }
-    public static Stage getPrimaryStage() {
-        return primaryStage;
-    }
+
     public static void main(String[] args) {
         launch(args);
     }
