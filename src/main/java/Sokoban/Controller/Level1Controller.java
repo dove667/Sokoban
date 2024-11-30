@@ -22,9 +22,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashSet;
+import static Sokoban.Login_Application.primaryStage;
 import java.util.Objects;
-import java.util.Set;
 import static Sokoban.Model.GameSystem.*;
 
 public class Level1Controller {
@@ -55,8 +54,8 @@ public class Level1Controller {
     //在 FXML 文件中定义的 UI 组件被完全创建并加入到场景图之后，initialize 方法被调用。此时，所有通过 @FXML 注解绑定的控件都已经可以使用。
     public void initialize() {
         Platform.runLater(() -> {
-           gameSystem.setBox(0,GridPane.getColumnIndex(box1),GridPane.getRowIndex(box1));
-           gameSystem.setBox(1,GridPane.getColumnIndex(box2),GridPane.getRowIndex(box2));
+           gameSystem.setBox(1,GridPane.getColumnIndex(box1),GridPane.getRowIndex(box1));
+           gameSystem.setBox(2,GridPane.getColumnIndex(box2),GridPane.getRowIndex(box2));
            //设置好system中Box的坐标
            gameSystem.addBoxPositons();
            //将Box量化到system的矩阵中
@@ -78,8 +77,10 @@ public class Level1Controller {
         if (gameSystem.verifyVisitor()){
             Img_load.setVisible(false);
             Img_save.setVisible(false);
+            Img_home.setVisible(false);
             Btn_load.setDisable(true);
             Btn_save.setDisable(true);
+            Btn_home.setDisable(true);
         }
         setCurrentLevel(1);setCurrentLevel("1");
         Pane.requestFocus(); // 确保焦点设置
@@ -94,19 +95,15 @@ public class Level1Controller {
         // 显示对话框并等待用户操作
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                if(gameSystem.verifyVisitor()){
-                    saveGameProgress(gameSystem);
-                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                    alert2.setTitle("Quit");
-                    alert2.setHeaderText("Your progress has been saved.");
-                    alert2.setContentText("Your can load your progress next time.");
-                    alert2.showAndWait();
-                }
+                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                alert2.setTitle("Quit");
+                alert2.setHeaderText("Your progress has been saved.");
+                alert2.setContentText("Your can load your progress next time.");
+                alert2.showAndWait();
+                saveGameProgress(gameSystem);
                 //切换场景
-                Stage primaryStage = (Stage) Btn_back.getScene().getWindow();
                 URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
-                //加载完fxml文件后，获取其中的root
-                Parent root = null;
+                Parent root;
                 try {
                     root = FXMLLoader.load(Objects.requireNonNull(url));
                 } catch (IOException e) {
@@ -115,16 +112,14 @@ public class Level1Controller {
                 //设置场景
                 Scene scene = new Scene(root);
                 primaryStage.setScene(scene);
-            } else {
-                System.out.println("操作已取消！");
+            }
+            else {
+                System.out.println("Operation cancelled.");
             }
         });
-
-
     }
     @FXML
     void BackBtnPressed() throws IOException {
-        Stage primaryStage = (Stage) Btn_back.getScene().getWindow();
         URL url = getClass().getResource("/Sokoban/Level1.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
@@ -197,7 +192,7 @@ public class Level1Controller {
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
                 GridPane.setRowIndex(box1, currentRowIndex+1);
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem.moveinBox(0,currentColumnIndex, currentRowIndex+1);
+                gameSystem.moveinBox(1,currentColumnIndex, currentRowIndex+1);
                 stepsUpdate();
             }
         }
@@ -210,7 +205,7 @@ public class Level1Controller {
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
                 GridPane.setRowIndex(box2, currentRowIndex+1);
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem.moveinBox(1,currentColumnIndex, currentRowIndex+1);
+                gameSystem.moveinBox(2,currentColumnIndex, currentRowIndex+1);
                 stepsUpdate();
             }
         }
@@ -238,7 +233,7 @@ public class Level1Controller {
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
                 GridPane.setColumnIndex(box1, currentColumnIndex-1);
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem.moveinBox(0,currentColumnIndex-1, currentRowIndex);
+                gameSystem.moveinBox(1,currentColumnIndex-1, currentRowIndex);
                 stepsUpdate();
             }
         }
@@ -250,7 +245,7 @@ public class Level1Controller {
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
                 GridPane.setColumnIndex(box2, currentColumnIndex-1);
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem.moveinBox(1,currentColumnIndex-1, currentRowIndex);
+                gameSystem.moveinBox(2,currentColumnIndex-1, currentRowIndex);
                 stepsUpdate();
             }
         }
@@ -277,7 +272,7 @@ public class Level1Controller {
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
                 GridPane.setColumnIndex(box1, currentColumnIndex+1);
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem.moveinBox(0,currentColumnIndex+1, currentRowIndex);
+                gameSystem.moveinBox(1,currentColumnIndex+1, currentRowIndex);
                 stepsUpdate();
             }
         }
@@ -289,7 +284,7 @@ public class Level1Controller {
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
                 GridPane.setColumnIndex(box2, currentColumnIndex+1);
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem.moveinBox(1,currentColumnIndex+1, currentRowIndex);
+                gameSystem.moveinBox(2,currentColumnIndex+1, currentRowIndex);
                 stepsUpdate();
             }
         }
@@ -317,7 +312,7 @@ public class Level1Controller {
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
                 GridPane.setRowIndex(box1, currentRowIndex-1);
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem.moveinBox(0,currentColumnIndex, currentRowIndex-1);
+                gameSystem.moveinBox(1,currentColumnIndex, currentRowIndex-1);
                 stepsUpdate();
             }
         }
@@ -329,7 +324,7 @@ public class Level1Controller {
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
                 GridPane.setRowIndex(box2, currentRowIndex-1);
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem.moveinBox(1,currentColumnIndex, currentRowIndex-1);
+                gameSystem.moveinBox(2,currentColumnIndex, currentRowIndex-1);
                 stepsUpdate();
             }
         }

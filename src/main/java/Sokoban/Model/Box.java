@@ -1,14 +1,21 @@
 package Sokoban.Model;
-import javafx.scene.Node;
-import javafx.scene.shape.Rectangle;
+
 
 import java.io.*;
-public class Box extends Rectangle implements Serializable{
+public class Box  implements Serializable{
 
     private int currentRow;
     private int currentCol;
     private boolean movable;
-    private Rectangle rectangle;  // 用于引用 JavaFX 的 Rectangle
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public boolean isMovable() {
         return movable;
