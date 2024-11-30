@@ -1,6 +1,7 @@
 package Sokoban.Model;
+import javafx.scene.shape.Rectangle;
 import java.io.*;
-public class Board implements Serializable{
+public class Board extends Rectangle implements Serializable{
     private int currentRow;
     private int currentCol;
 

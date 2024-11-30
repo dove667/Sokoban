@@ -1,5 +1,18 @@
 package Sokoban.Model;
+
 import java.io.*;
+import java.net.URL;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+import Sokoban.Controller.*;
+import Sokoban.Login_Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 public class GameSystem implements Serializable {
 
@@ -7,29 +20,17 @@ public class GameSystem implements Serializable {
     private boolean isfailed;
     private int time;
     private int steps;
-    Player niker = new Player();
-    private final Box[]boxes;
+    Player niker ;
+    private Box[]boxes;
+    private final Board[] boards;
     private final Target[]targets;
     private final int[][] matrix;
+    private static int currentLevel;
+    private static String CurrentLevel ;
+    private static boolean isVisitor;
+    private final Set<String> walls = new HashSet<>();//集合类，单一性，无序，null允许
 
-
-    public int getTime() {
-        return time;
-    }
-
-    public int getSteps() {
-        return steps;
-    }
-
-    public boolean isIsfailed() {
-        return isfailed;
-    }
-
-    public boolean isIsvictory() {
-        return isvictory;
-    }
-
-    public GameSystem(int boxNumber, int targetNumber, int width, int height) {
+    public GameSystem(int boxNumber, int targetNumber,int boardNumber, int width, int height) {
         isvictory = false;
         isfailed = false;
         time = 0;
@@ -42,16 +43,111 @@ public class GameSystem implements Serializable {
         for (int i = 0; i < targetNumber; i++) {
             targets[i] = new Target();
         }
+        boards = new Board[boardNumber];
+        for (int i = 0; i < boardNumber; i++) {
+            boards[i] = new Board();
+        }
         matrix = new int[height][width];
+        niker = new Player();
     }
+
+    public void setBox(int i,int col,int row){
+        boxes[i].setCurrentCol(col);
+        boxes[i].setCurrentRow(row);
+    }
+    public void setBoard(int i,int col,int row) {
+        boards[i].setCurrentCol(col);
+        boards[i].setCurrentRow(row);
+    }
+    public void setTarget(int i,int col,int row){
+        targets[i].setCurrentCol(col);
+        targets[i].setCurrentRow(row);
+    }
+    public void setPlayer(int col,int row){
+        niker.setCurrentCol(col);
+        niker.setCurrentRow(row);
+    }
+
+
+    public void victoryJudge() throws IOException {
+        if(isVictory()){
+            Stage primaryStage = Login_Application.getPrimaryStage();
+            URL url = getClass().getResource("/Sokoban/Victory.fxml");
+            Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+        }
+    }
+    public boolean isVictory() {
+        int count =0;
+        for(Target target : targets){
+            for(Box box : boxes){
+                if(target.getCurrentCol() == box.getCurrentCol() && target.getCurrentRow() == box.getCurrentRow()) {
+                    count++;
+                    if(count == targets.length) {
+                        isvictory = true;
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    public void failedJudge() throws IOException {
+        int count =0;
+        for(Box box : boxes){
+            if(!box.isMovable()){
+                count++;
+            }
+        }
+        if(count == boxes.length){
+            isfailed = true;
+        }
+    }
+
+    public boolean verifyVisitor() {
+        return isVisitor;
+    }
+
+    public static void setIsVisitor(boolean is) {
+        isVisitor = is;
+    }
+
+    public static String getNextLevel() {
+        return switch (CurrentLevel) {
+            case "Level1" -> "/Sokoban/Level2.fxml";
+            case "Level2" -> "/Sokoban/Level3.fxml";
+            case "Level3" -> "/Sokoban/Level4.fxml";
+            default -> null; // switch现代化表达
+        };
+    }
+
+    public static void setCurrentLevel(String level) {
+        CurrentLevel = level;
+    }
+    public static int getCurrentLevel() {
+        return currentLevel;
+    }
+    public static void setCurrentLevel(int currentLevel) {
+        GameSystem.currentLevel = currentLevel;
+    }
+    public int getTime() {
+        return time;
+    }
+    public int getSteps() {
+        return steps;
+    }
+
     public void reset(int InitRow1, int InitCol1,int InitRow2,int InitCol2) {
         isvictory = false;
         isfailed = false;
         time = 0;
         steps = 0;
-        moveNiker(1, 1);
-        moveBox(0, InitRow1 , InitCol1);
-        moveBox(1, InitRow2, InitCol2);
+        moveoutNiker(niker.getCurrentCol(), niker.getCurrentRow());
+        moveinNiker(1, 1);
+        setBox(0, InitRow1 , InitCol1);
+        setBox(1, InitRow2, InitCol2);
+
     }
 
     public static void saveGameProgress(GameSystem progress) {
@@ -73,24 +169,7 @@ public class GameSystem implements Serializable {
         return progress;
     }
 
-    public boolean isVictory() {
-        int count =0;
-        for(Target target : targets){
-            for(Box box : boxes){
-                if(target.getCurrentCol() == box.getCurrentCol() && target.getCurrentRow() == box.getCurrentRow()) {
-                    count++;
-                    if(count == targets.length) {
-                        isvictory = true;
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    public boolean isFailed() {
-        return false;
-    }
+
 
 
     //矩阵大小初始化，boxes和targets数组已经指向默认类对象
@@ -103,13 +182,14 @@ public class GameSystem implements Serializable {
          * {1, 0,  2, 10, 0, 1},
          * {1, 1,  1, 1,  1, 1}
          * The Unit digit number cannot be changed during one game.
-         * 1 represents the wall
-         * 0 represents the free space
-         * 2 represents the target location
+         * 1  wall
+         * 0 free space
+         * 2  target location
          * The Then digit number can be changed during one game.
-         * 十位数 1 represents the box
-         * 十位数 2 represents the player
-         * So that 12 represents a box on the target location and 22 represents the player on the target location.
+         * 十位数 1 box
+         * 十位数 2  player
+         * So that 12 represents a box on the target location and
+         * 22 represents the player on the target location.
          */
    //在controller的初始化方法中调用，量化矩阵
     public void addBoxPositons(){
@@ -118,6 +198,7 @@ public class GameSystem implements Serializable {
             matrix[x][y] =10;
         }
     }
+
     public void addTargetPositons(){
         for(Target target : targets){
             int x = target.getCurrentRow();
@@ -126,6 +207,12 @@ public class GameSystem implements Serializable {
         }
     }
 
+    public void addBoardPositons(){
+        for(Board board : boards){
+            int x = board.getCurrentRow(); int y = board.getCurrentCol();
+            matrix[x][y] = 1;
+        }
+    }
     public void addPlayerPositons(int row,int col){
         matrix[row][col] = 20;
     }
@@ -142,31 +229,53 @@ public class GameSystem implements Serializable {
         return boxes[i-1].getCurrentCol();
     }
 
-    public void setBox(int i,int col,int row){
-        boxes[i].setCurrentCol(col);
-        boxes[i].setCurrentRow(row);
+
+    //区分不同box的判断方法
+    public boolean isBox1(int col, int row) {
+        return matrix[row][col] == 10;
     }
 
-    public void setTarget(int i,int col,int row){
-        targets[i].setCurrentCol(col);
-        targets[i].setCurrentRow(row);
+    public boolean isBox2(int col, int row) {
+        return matrix[row][col] == 10;
+    }
+    public boolean isWall(int col, int row) {
+        return matrix[row][col] == 1;
     }
 
-    public void moveNiker(int col, int row) {
+    public void moveoutNiker(int col, int row) {
+        if(matrix[row][col] == 20){
+            matrix[row][col] = 0;
+        }
+        else if(matrix[row][col] == 22){
+            matrix[row][col] = 2;
+        }
+    }
+    public void moveinNiker(int col, int row) {
         niker.setCurrentRow(row);
         niker.setCurrentCol(col);
+        if(matrix[row][col] == 0||matrix[row][col] == 10){
+            matrix[row][col] = 20;
+        }
+        else if(matrix[row][col] == 2||matrix[row][col] == 12){
+            matrix[row][col] = 22;
+        }
         steps++;
     }
 
-    public void moveBox(int i,int col,int row){
-        boxes[i].setCurrentCol(col);
-        boxes[i].setCurrentRow(row);
+    public void moveoutBox(int col,int row){
+        if(matrix[row][col] == 10){
+            matrix[row][col] = 0;
+        }
+        else if(matrix[row][col] == 12){
+            matrix[row][col] = 2;
+        }
     }
-
-
-
-
-
+    public void moveinBox(int i,int col,int row){
+        boxes[i].setCurrentRow(row);
+        boxes[i].setCurrentCol(col);
+        matrix[row][col] = 10;
+        steps++;
+    }
 
 
 }

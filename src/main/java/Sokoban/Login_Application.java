@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Login_Application extends Application {
+    private static Stage primaryStage;
+
     //class Login_Application 不是抽象的，并且不会覆盖 Application 中的抽象方法 start（Stage），重写 start 方法
     @Override
     public void start(Stage stage) throws IOException {
@@ -27,9 +29,11 @@ public class Login_Application extends Application {
         stage.setScene(scene); // 设置场景
         stage.show(); // 显示窗口
     }
-
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
     public static void main(String[] args) {
         launch(args);
-
     }
+
 }

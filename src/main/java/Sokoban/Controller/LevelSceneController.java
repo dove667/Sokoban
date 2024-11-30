@@ -36,7 +36,8 @@ public class LevelSceneController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-
+        GameSystem.setCurrentLevel(1);
+        GameSystem.setCurrentLevel("Level1");
     }
 
     @FXML
@@ -47,6 +48,8 @@ public class LevelSceneController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        GameSystem.setCurrentLevel(2);
+        GameSystem.setCurrentLevel("Level2");
     }
 
     @FXML
@@ -57,25 +60,31 @@ public class LevelSceneController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        GameSystem.setCurrentLevel(3);
+        GameSystem.setCurrentLevel("Level3");
     }
     @FXML
     void Level4BtnReleased() throws IOException {
 
-        Stage primaryStage = (Stage) Btn_Level2.getScene().getWindow();
+        Stage primaryStage = (Stage) Btn_Level4.getScene().getWindow();
         URL url = getClass().getResource("/Sokoban/Level4.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        GameSystem.setCurrentLevel(4);
+        GameSystem.setCurrentLevel("Level4");
     }
 
     @FXML
     void Level5BtnReleased() throws IOException {
 
-        Stage primaryStage = (Stage) Btn_Level2.getScene().getWindow();
+        Stage primaryStage = (Stage) Btn_Level5.getScene().getWindow();
         URL url = getClass().getResource("/Sokoban/Level5.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        GameSystem.setCurrentLevel(5);
+        GameSystem.setCurrentLevel("Level5");
     }
 
 }

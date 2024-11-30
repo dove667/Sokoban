@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -32,6 +31,8 @@ public class LoginSceneController {
 
     @FXML
     private Label Label_username;
+
+
 
     @FXML
     void LoginBtnReleased() throws IOException {
@@ -62,6 +63,7 @@ public class LoginSceneController {
 
     @FXML
     void VisitorBtnReleased() throws IOException {
+        GameSystem.setIsVisitor(true);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("提示");
         alert.setHeaderText("游客模式");
@@ -69,7 +71,7 @@ public class LoginSceneController {
         alert.showAndWait();
         //切换场景
         Stage primaryStage = (Stage) Btn_visitor.getScene().getWindow();
-        GameSystem gameSystem = new GameSystem(2,2,6,5);
+        GameSystem gameSystem = new GameSystem(2,2,18,6,5);
         URL url = getClass().getResource("/Sokoban/Level1.fxml");
         //加载完fxml文件后，获取其中的root
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));

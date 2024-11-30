@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
+import static Sokoban.Model.GameSystem.getNextLevel;
+import static Sokoban.Model.GameSystem.setCurrentLevel;
+
 public class VictoryController {
 
     @FXML
@@ -35,7 +38,7 @@ public class VictoryController {
 
     @FXML
     void NextLevelBtnReleased(MouseEvent event) throws IOException {
-        String nextLevelPath = LevelManager.getNextLevel();
+        String nextLevelPath = getNextLevel();
         if (nextLevelPath != null) {
             Stage primaryStage = (Stage) Btn_Home.getScene().getWindow();
             URL url = getClass().getResource(nextLevelPath);
@@ -43,7 +46,7 @@ public class VictoryController {
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             // 更新当前关卡信息
-            LevelManager.setCurrentLevel(nextLevelPath);
+            setCurrentLevel(nextLevelPath);
         } else {
             System.out.println("没有更多的关卡可加载");
         }

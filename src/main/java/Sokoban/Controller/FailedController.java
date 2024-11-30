@@ -1,5 +1,6 @@
 package Sokoban.Controller;
 
+import Sokoban.Model.GameSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,17 +17,14 @@ import java.util.Objects;
 public class FailedController {
 
     @FXML
-    private Button Btn_Exit;
-
-    @FXML
-    private Button Btn_TryAgain;
+    private Button Btn_TryAgain,Btn_Home;
 
     @FXML
     private Label Label_Failed;
 
     @FXML
-    void ExitBtnReleased(MouseEvent event) throws IOException {
-        Stage primaryStage = (Stage) Btn_Exit.getScene().getWindow();
+    void HomeBtnReleased(MouseEvent event) throws IOException {
+        Stage primaryStage = (Stage) Btn_Home.getScene().getWindow();
         URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
@@ -34,8 +32,11 @@ public class FailedController {
     }
 
     @FXML
-    void TryAgainBtnReleased(MouseEvent event) {
-
-    }
+    void TryAgainBtnReleased(MouseEvent event) throws IOException {
+         if(GameSystem.getCurrentLevel()==1){
+             Level1Controller level1Controller = new Level1Controller();
+             level1Controller.BackBtnPressed();
+         }
+    }  //补充其他level的try again按钮事件
 
 }

@@ -5,15 +5,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.VictoryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.FailedController">
     <children>
-        <Label fx:id="Label_Victory" layoutX="197.0" layoutY="71.0" text="Victory!">
+        <Label fx:id="Label_Failed" layoutX="211.0" layoutY="71.0" text="Failed">
             <font>
                 <Font name="Century" size="56.0" />
             </font>
         </Label>
-        <Button fx:id="Btn_NextLevel" layoutX="137.0" layoutY="237.0" mnemonicParsing="false" onMouseReleased="#NextLevelBtnReleased" text="next level">
+        <Button fx:id="Btn_TryAgain" layoutX="137.0" layoutY="237.0" mnemonicParsing="false" onMouseReleased="#TryAgainBtnReleased" text="try again">
             <font>
                 <Font size="20.0" />
             </font>
