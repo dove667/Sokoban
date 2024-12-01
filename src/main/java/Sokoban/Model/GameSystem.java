@@ -86,19 +86,15 @@ public class GameSystem implements Serializable {
     }
 
     public void failedJudge() throws IOException {
-        int count =0;
         for(Box box : boxes){
             judgeBoxMovable(box);
             if(!box.isMovable()){
-                count++;
+                isfailed = true;
+                URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+                Scene scene = new Scene(root);
+                primaryStage.setScene(scene);
             }
-        }
-        if(count == boxes.length){
-            isfailed = true;
-            URL url = getClass().getResource("/Sokoban/Failed.fxml");
-            Parent root = FXMLLoader.load(Objects.requireNonNull(url));
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
         }
     }
 
