@@ -8,12 +8,12 @@ import java.util.Set;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+
 import static Sokoban.Login_Application.primaryStage;
 
 public class GameSystem implements Serializable {
 
-    private boolean isvictory;
-    private boolean isfailed;
     private int time;
     private int steps;
     Player niker ;
@@ -24,12 +24,13 @@ public class GameSystem implements Serializable {
     private static int currentLevel;
     private static String CurrentLevel ;
     private static boolean isVisitor;
-    private final Set<String> walls = new HashSet<>();//集合类，单一性，无序，null允许
+    private static boolean isTimeMode;
+    //静态字段的值不会因为实例创建而改变,允许在没有实例创建时使用
 
+    private final Set<String> walls = new HashSet<>();//集合类，单一性，无序，null允许
+    //constructor
     public GameSystem(int boxNumber, int targetNumber,int boardNumber, int width, int height) {
-        isvictory = false;
-        isfailed = false;
-        time = 0;
+
         steps = 0;
         boxes = new Box[boxNumber];
         for (int i = 0; i < boxNumber; i++) {
@@ -65,7 +66,16 @@ public class GameSystem implements Serializable {
         niker.setCurrentCol(col);
         niker.setCurrentRow(row);
     }
+    public static boolean verifyVisitor() {
+        return isVisitor;
+    }
+    public static boolean isTimeMode() {
+        return isTimeMode;
+    }
 
+    public static void setTimeMode(boolean timeMode) {
+        isTimeMode = timeMode;
+    }
 
     public void victoryJudge() throws IOException {
         int count =0;
@@ -77,7 +87,6 @@ public class GameSystem implements Serializable {
             }
         }
         if(count == targets.length) {
-            isvictory = true;
             URL url = getClass().getResource("/Sokoban/Victory.fxml");
             Parent root = FXMLLoader.load(Objects.requireNonNull(url));
             Scene scene = new Scene(root);
@@ -89,7 +98,6 @@ public class GameSystem implements Serializable {
         for(Box box : boxes){
             judgeBoxMovable(box);
             if(!box.isMovable()){
-                isfailed = true;
                 URL url = getClass().getResource("/Sokoban/Failed.fxml");
                 Parent root = FXMLLoader.load(Objects.requireNonNull(url));
                 Scene scene = new Scene(root);
@@ -162,14 +170,12 @@ public class GameSystem implements Serializable {
        }
     }
 
-    public static boolean verifyVisitor() {
-        return isVisitor;
-    }
+
 
     public static void setIsVisitor(boolean is) {
         isVisitor = is;
     }
-
+    //实现victory的nextLevel按钮多态
     public static String getNextLevel() {
         return switch (CurrentLevel) {
             case "Level1" -> "/Sokoban/Level2.fxml";
@@ -188,30 +194,28 @@ public class GameSystem implements Serializable {
     public static void setCurrentLevel(int currentLevel) {
         GameSystem.currentLevel = currentLevel;
     }
-    public int getTime() {
-        return time;
-    }
+
+
     public int getSteps() {
         return steps;
     }
 
-    public void reset(int InitRow1, int InitCol1,int InitRow2,int InitCol2) {
-        isvictory = false;
-        isfailed = false;
-        time = 0;
-        steps = 0;
-        moveoutNiker(niker.getCurrentCol(), niker.getCurrentRow());
-        moveinNiker(1, 1);
-        setBox(1, InitRow1 , InitCol1);
-        setBox(2, InitRow2, InitCol2);
+    public void setSteps(int steps) {
+        this.steps = steps;
     }
 
     public static void saveGameProgress(GameSystem progress) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("game_progress.ser"))) {
             out.writeObject(progress);
             System.out.println("Game progress saved successfully!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText("Game progress saved successfully!");
+            alert.setContentText("You can load it in the next time.");
+            alert.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
+
         }
     }
     public static GameSystem loadGameProgress() {
@@ -221,6 +225,11 @@ public class GameSystem implements Serializable {
             System.out.println("Game progress loaded successfully!");
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Failed to load game progress");
+            alert.setContentText("The file might be corrupted");
+            alert.showAndWait();
         }
         return progress;
     }
@@ -254,7 +263,6 @@ public class GameSystem implements Serializable {
             matrix[x][y] =10;
         }
     }
-
     public void addTargetPositons(){
         for(Target target : targets){
             int x = target.getCurrentRow();
@@ -262,7 +270,6 @@ public class GameSystem implements Serializable {
             matrix[x][y] = 2;
         }
     }
-
     public void addBoardPositons(){
         for(Board board : boards){
             int x = board.getCurrentRow(); int y = board.getCurrentCol();
@@ -272,6 +279,7 @@ public class GameSystem implements Serializable {
     public void addPlayerPositons(int row,int col){
         matrix[row][col] = 20;
     }
+
     public int getPlayerRow(){
         return niker.getCurrentRow();
     }
@@ -330,5 +338,13 @@ public class GameSystem implements Serializable {
         boxes[i-1].setCurrentRow(row);
         boxes[i-1].setCurrentCol(col);
         matrix[row][col] = 10;
+    }
+
+    public void reset(int InitRow1, int InitCol1,int InitRow2,int InitCol2) {
+        steps = 0;
+        moveoutNiker(niker.getCurrentCol(), niker.getCurrentRow());
+        moveinNiker(1, 1);
+        setBox(1, InitRow1 , InitCol1);
+        setBox(2, InitRow2, InitCol2);
     }
 }
