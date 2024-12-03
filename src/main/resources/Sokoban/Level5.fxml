@@ -94,7 +94,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="myTime" layoutX="857.0" layoutY="87.0" text="00:00">
+      <Label fx:id="myTime" layoutX="857.0" layoutY="87.0" >
          <font>
             <Font size="18.0" />
          </font>
