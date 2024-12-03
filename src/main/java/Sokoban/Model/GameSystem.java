@@ -93,7 +93,7 @@ public class GameSystem implements Serializable {
                 count++;
             }
         }
-        if(count == boxes.length){
+        if(count >=1){
             isfailed = true;
             URL url = getClass().getResource("/Sokoban/Failed.fxml");
             Parent root = FXMLLoader.load(Objects.requireNonNull(url));
