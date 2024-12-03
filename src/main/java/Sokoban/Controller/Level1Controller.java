@@ -74,7 +74,7 @@ public class Level1Controller {
            gameSystem.addPlayerPositons(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
         });
         //判断是否为游客模式
-        if (gameSystem.verifyVisitor()){
+        if (verifyVisitor()){
             Img_load.setVisible(false);
             Img_save.setVisible(false);
             Img_home.setVisible(false);
