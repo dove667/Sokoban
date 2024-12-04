@@ -45,6 +45,7 @@ public class LevelSceneController {
         primaryStage.setScene(scene);
         GameSystem.setCurrentLevel(1);
         GameSystem.setCurrentLevel("Level1");
+        GameSystem.setTimeMode(setMode());
     }
 
     @FXML
@@ -57,6 +58,7 @@ public class LevelSceneController {
         primaryStage.setScene(scene);
         GameSystem.setCurrentLevel(2);
         GameSystem.setCurrentLevel("Level2");
+        GameSystem.setTimeMode(setMode());
     }
 
     @FXML
@@ -69,6 +71,7 @@ public class LevelSceneController {
         primaryStage.setScene(scene);
         GameSystem.setCurrentLevel(3);
         GameSystem.setCurrentLevel("Level3");
+        GameSystem.setTimeMode(setMode());
     }
     @FXML
     void Level4BtnReleased() throws IOException {
@@ -80,6 +83,7 @@ public class LevelSceneController {
         primaryStage.setScene(scene);
         GameSystem.setCurrentLevel(4);
         GameSystem.setCurrentLevel("Level4");
+        GameSystem.setTimeMode(setMode());
     }
 
     @FXML
@@ -92,6 +96,7 @@ public class LevelSceneController {
         primaryStage.setScene(scene);
         GameSystem.setCurrentLevel(5);
         GameSystem.setCurrentLevel("Level5");
+        GameSystem.setTimeMode(setMode());
     }
 
     @FXML
@@ -105,6 +110,7 @@ public class LevelSceneController {
              GameSystem.setTimeMode(false);
          }
     }
+
     public void initialize() {
         if(GameSystem.isTimeMode()) {
             Label_Mode.setText("open");

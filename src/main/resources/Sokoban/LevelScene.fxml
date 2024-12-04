@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import javafx.scene.control.Label?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.LevelSceneController">
 
         <Button fx:id="Btn_Level1" layoutX="61.0" layoutY="67.0" mnemonicParsing="false" onMouseReleased="#Level1BtnReleased" text="Level1" />
@@ -10,4 +11,6 @@
         <Button fx:id="Btn_Level3" layoutX="333.0" layoutY="67.0" mnemonicParsing="false" onMouseReleased="#Level3BtnReleased" text="Level3" />
         <Button fx:id="Btn_Level4" layoutX="61.0" layoutY="188.0" mnemonicParsing="false" onMouseReleased="#Level4BtnReleased" text="Level4" />
         <Button fx:id="Btn_Level5" layoutX="195.0" layoutY="188.0" mnemonicParsing="false" onMouseReleased="#Level5BtnReleased" text="Level5" />
+        <Button fx:id="Btn_TimeMode" layoutX="451.0" layoutY="289.0" mnemonicParsing="false" onMouseReleased="#TimeModeBtnReleased" text="TimeMode" />
+        <Label fx:id="Label_Mode" layoutX="541.0" layoutY="293.0" text="closed" />
 </AnchorPane>

@@ -90,7 +90,7 @@ public class Level1Controller {
 
         //计时模式
 
-        if (gameSystem.isTimeMode()) {
+        if (GameSystem.isTimeMode()) {
             Timeline timeline = new Timeline(
                     new KeyFrame(Duration.seconds(1), event -> {
                         gameSystem.setTimeRemaining(gameSystem.getTimeRemaining()-1); // 每秒减少 1
@@ -146,6 +146,11 @@ public class Level1Controller {
             }
             else {
                 System.out.println("Operation cancelled.");
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                alert1.setTitle("Cancel");
+                alert1.setHeaderText(null);
+                alert1.setContentText("Operation cancelled.");
+                alert1.showAndWait();
             }
         });
     }
