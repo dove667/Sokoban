@@ -28,7 +28,64 @@ import static Sokoban.Model.GameSystem.*;
 public class Level3Controller {
 
     @FXML
+    private Button Btn_back;
+
+    @FXML
+    private Button Btn_down;
+
+    @FXML
+    private Button Btn_home;
+
+    @FXML
+    private Button Btn_left;
+
+    @FXML
+    private Button Btn_load;
+
+    @FXML
+    private Button Btn_right;
+
+    @FXML
+    private Button Btn_save;
+
+    @FXML
+    private Button Btn_up;
+
+    @FXML
+    private GridPane GridBoard;
+
+    @FXML
+    private ImageView Img_Back;
+
+    @FXML
+    private ImageView Img_Move;
+
+    @FXML
+    private ImageView Img_home;
+
+    @FXML
+    private ImageView Img_load;
+
+    @FXML
+    private ImageView Img_save;
+
+    @FXML
+    private Label Label_Level3;
+
+    @FXML
+    private Label Label_steps;
+
+    @FXML
+    private Label Label_timer;
+
+    @FXML
+    private GridPane Movement;
+
+    @FXML
     private Circle Niker;
+
+    @FXML
+    private AnchorPane Pane;
 
     @FXML
     private Rectangle board1;
@@ -112,12 +169,19 @@ public class Level3Controller {
     private Rectangle box2;
 
     @FXML
+    private Label myTime;
+
+    @FXML
+    private Label steps;
+
+    @FXML
     private Polygon target1;
 
     @FXML
     private Polygon target2;
 
     @FXML
+
     public AnchorPane Pane;
 
     @FXML
@@ -410,6 +474,7 @@ public class Level3Controller {
         gameSystem.victoryJudge();
         gameSystem.failedJudge();
     }
+
 }
 
 

@@ -1,10 +1,11 @@
 package Sokoban.Controller;
 
 import Sokoban.Model.*;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -19,12 +20,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
+import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import static Sokoban.Login_Application.primaryStage;
 import java.util.Objects;
-import static Sokoban.Model.GameSystem.*;
+
 
 public class Level1Controller {
     @FXML
@@ -47,6 +48,8 @@ public class Level1Controller {
     @FXML
     private GridPane Movement,GridBoard;
 
+
+    private int timeRemaining ;
     GameSystem gameSystem = new GameSystem(2,2,18,6,5);
     //在boxes，targets，boards，matrix数组中都规定大小并建立新引用，初始化全局变量
     //Gridpane静态方法不能再类体中调用，只能在initialize中调用，
@@ -74,7 +77,7 @@ public class Level1Controller {
            gameSystem.addPlayerPositons(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
         });
         //判断是否为游客模式
-        if (gameSystem.verifyVisitor()){
+        if (GameSystem.verifyVisitor()){
             Img_load.setVisible(false);
             Img_save.setVisible(false);
             Img_home.setVisible(false);
@@ -82,8 +85,41 @@ public class Level1Controller {
             Btn_save.setDisable(true);
             Btn_home.setDisable(true);
         }
-        setCurrentLevel(1);setCurrentLevel("1");
+        GameSystem.setCurrentLevel(1);GameSystem.setCurrentLevel("1");
         Pane.requestFocus(); // 确保焦点设置
+
+        //计时模式
+        if (GameSystem.isTimeMode()) {
+            timeRemaining = 30;
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.seconds(1), event -> {
+                        timeRemaining--; // 每秒减少 1
+                        myTime.setText(String.valueOf(timeRemaining)); // 更新标签文字
+
+                        // 检查倒计时是否结束
+                        if (timeRemaining <= 0) {
+                            myTime.setText("time's up");
+                            URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                            Parent root = null;
+                            try {
+                                root = FXMLLoader.load(Objects.requireNonNull(url));
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            Scene scene = new Scene(root);
+                            primaryStage.setScene(scene);
+                            // 切换场景
+                        }
+                    })
+            );
+            timeline.setCycleCount(timeRemaining); // 设置循环次数
+            timeline.play(); // 开始计时
+        }
+        else {
+            myTime.setVisible(false);
+            Label_timer.setVisible(false);
+        }
+
     }
 
     @FXML
@@ -100,7 +136,7 @@ public class Level1Controller {
                 alert2.setHeaderText("Your progress has been saved.");
                 alert2.setContentText("Your can load your progress next time.");
                 alert2.showAndWait();
-                saveGameProgress(gameSystem);
+                GameSystem.saveGameProgress(gameSystem);
                 //切换场景
                 URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
                 Parent root;
@@ -129,15 +165,14 @@ public class Level1Controller {
 
     @FXML
     void SaveBtnPressed() throws IOException {
-        saveGameProgress(gameSystem);
+        GameSystem.saveGameProgress(gameSystem);
     }
     @FXML
     void LoadBtnPressed() throws IOException {
-        gameSystem = loadGameProgress(); Pane.requestFocus();
+        gameSystem = GameSystem.loadGameProgress(); Pane.requestFocus();
         Platform.runLater(() -> {
             // 更新界面，如更新玩家、盒子、步数等
             steps.setText(String.valueOf(gameSystem.getSteps()));
-            myTime.setText(String.valueOf(gameSystem.getTime()));
             GridPane.setRowIndex(Niker, gameSystem.getPlayerRow());
             GridPane.setColumnIndex(Niker, gameSystem.getPlayerCol());
             GridPane.setRowIndex(box1, gameSystem.getBoxRow(1));
@@ -152,7 +187,7 @@ public class Level1Controller {
     void stepsUpdate() {
         steps.setText(gameSystem.getSteps() + "");
     }
-    //像下面这样写isWall也行
+
 
     @FXML
     void MovePlayer(KeyEvent event) throws IOException {

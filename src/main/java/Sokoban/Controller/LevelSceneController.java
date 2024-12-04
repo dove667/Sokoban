@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,6 +28,12 @@ public class LevelSceneController {
 
     @FXML
     private Button Btn_Level5;
+
+    @FXML
+    private Button Btn_TimeMode;
+
+    @FXML
+    private Label Label_Mode;
 
     @FXML
     void Level1BtnReleased() throws IOException {
@@ -85,6 +92,18 @@ public class LevelSceneController {
         primaryStage.setScene(scene);
         GameSystem.setCurrentLevel(5);
         GameSystem.setCurrentLevel("Level5");
+    }
+
+    @FXML
+    void TimeModeBtnReleased() {
+         if(Label_Mode.getText().equals("closed")) {
+             Label_Mode.setText("open");
+             GameSystem.setTimeMode(true);
+         }
+         else {
+             Label_Mode.setText("closed");
+             GameSystem.setTimeMode(false);
+         }
     }
 
 }

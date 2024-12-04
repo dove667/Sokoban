@@ -29,91 +29,154 @@ import static Sokoban.Model.GameSystem.*;
 public class Level5Controller {
 
     @FXML
+    private Button Btn_back;
+
+    @FXML
+    private Button Btn_down;
+
+    @FXML
+    private Button Btn_home;
+
+    @FXML
+    private Button Btn_left;
+
+    @FXML
+    private Button Btn_load;
+
+    @FXML
+    private Button Btn_right;
+
+    @FXML
+    private Button Btn_save;
+
+    @FXML
+    private Button Btn_up;
+
+    @FXML
+    private GridPane GridBoard;
+
+    @FXML
+    private ImageView Img_Back;
+
+    @FXML
+    private ImageView Img_Move;
+
+    @FXML
+    private ImageView Img_home;
+
+    @FXML
+    private ImageView Img_load;
+
+    @FXML
+    private ImageView Img_save;
+
+    @FXML
+    private Label Label_Level5;
+
+    @FXML
+    private Label Label_steps;
+
+    @FXML
+    private Label Label_timer;
+
+    @FXML
+    private GridPane Movement;
+
+    @FXML
     private Circle Niker;
+
+    @FXML
+    private AnchorPane Pane;
+
+    @FXML
+    private Rectangle board1;
+
+    @FXML
+    private Rectangle board10;
+
+    @FXML
+    private Rectangle board11;
+
+    @FXML
+    private Rectangle board12;
+
+    @FXML
+    private Rectangle board13;
+
+    @FXML
+    private Rectangle board14;
+
+    @FXML
+    private Rectangle board15;
+
+    @FXML
+    private Rectangle board16;
 
     @FXML
     private Rectangle board17;
 
     @FXML
-    private Rectangle board171;
+    private Rectangle board18;
 
     @FXML
-    private Rectangle board1710;
+    private Rectangle board19;
 
     @FXML
-    private Rectangle board1711;
+    private Rectangle board2;
 
     @FXML
-    private Rectangle board1712;
+    private Rectangle board20;
 
     @FXML
-    private Rectangle board1713;
+    private Rectangle board21;
 
     @FXML
-    private Rectangle board1714;
+    private Rectangle board22;
 
     @FXML
-    private Rectangle board1715;
+    private Rectangle board23;
 
     @FXML
-    private Rectangle board1716;
+    private Rectangle board24;
 
     @FXML
-    private Rectangle board1717;
+    private Rectangle board25;
 
     @FXML
-    private Rectangle board1718;
+    private Rectangle board3;
 
     @FXML
-    private Rectangle board1719;
+    private Rectangle board4;
 
     @FXML
-    private Rectangle board172;
+    private Rectangle board5;
 
     @FXML
-    private Rectangle board1720;
+    private Rectangle board6;
 
     @FXML
-    private Rectangle board1721;
+    private Rectangle board7;
 
     @FXML
-    private Rectangle board1722;
+    private Rectangle board8;
 
     @FXML
-    private Rectangle board17231;
+    private Rectangle board9;
 
     @FXML
-    private Rectangle board172311;
+    private Rectangle box1;
 
     @FXML
-    private Rectangle board172312;
+    private Rectangle box2;
 
     @FXML
-    private Rectangle board17233;
+    private Rectangle box3;
 
     @FXML
-    private Rectangle board1724;
+    private Label myTime;
 
     @FXML
-    private Rectangle board173;
-
-    @FXML
-    private Rectangle board174;
-
-    @FXML
-    private Rectangle board175;
-
-    @FXML
-    private Rectangle board176;
-
-    @FXML
-    private Rectangle board177;
-
-    @FXML
-    private Rectangle board178;
-
-    @FXML
-    private Rectangle board179;
+    private Label steps;
 
     @FXML
     private Polygon target1;
@@ -124,8 +187,7 @@ public class Level5Controller {
     @FXML
     private Polygon target3;
 
+
     GameSystem gameSystem = new GameSystem(3,3,25,8,6);
-
-
 
 }
