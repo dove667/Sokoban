@@ -17,7 +17,7 @@ import static Sokoban.Login_Application.primaryStage;
 public class LoginSceneController {
 
     @FXML
-    private Button Btn_login;
+    private Button Btn_login,Btn_SignUp;
 
     @FXML
     private Button Btn_visitor;
@@ -61,6 +61,17 @@ public class LoginSceneController {
             alert.showAndWait();
         }
     }
+
+    @FXML
+    void SignUpReleased() throws IOException {
+        URL url = getClass().getResource("/Sokoban/SignUp.fxml");
+        //加载完fxml文件后，获取其中的root
+        Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+        //设置场景
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+    }
+
 
     @FXML
     void VisitorBtnReleased() throws IOException {
