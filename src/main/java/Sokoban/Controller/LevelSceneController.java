@@ -105,5 +105,21 @@ public class LevelSceneController {
              GameSystem.setTimeMode(false);
          }
     }
+    public void initialize() {
+        if(GameSystem.isTimeMode()) {
+            Label_Mode.setText("open");
+        }
+        else {
+            Label_Mode.setText("closed");
+        }
+    }
 
+    public boolean setMode(){
+        if(Label_Mode.getText().equals("open")) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
@@ -24,10 +23,11 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import static Sokoban.Login_Application.primaryStage;
+import Sokoban.Controller.LevelSceneController.setMode;
 import java.util.Objects;
 
 
-public class Level1Controller {
+public class Level1Controller extends Controller {
     @FXML
     public AnchorPane Pane;
 
@@ -89,6 +89,7 @@ public class Level1Controller {
         Pane.requestFocus(); // 确保焦点设置
 
         //计时模式
+        LevelSceneController.setMode();
         if (GameSystem.isTimeMode()) {
             timeRemaining = 30;
             Timeline timeline = new Timeline(
@@ -123,7 +124,7 @@ public class Level1Controller {
     }
 
     @FXML
-    void HomeBtnPressed(MouseEvent event) throws IOException {
+    void HomeBtnPressed() throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Comfirm");
         alert.setHeaderText("Are you sure to quit?");
@@ -131,11 +132,6 @@ public class Level1Controller {
         // 显示对话框并等待用户操作
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                alert2.setTitle("Quit");
-                alert2.setHeaderText("Your progress has been saved.");
-                alert2.setContentText("Your can load your progress next time.");
-                alert2.showAndWait();
                 GameSystem.saveGameProgress(gameSystem);
                 //切换场景
                 URL url = getClass().getResource("/Sokoban/LevelScene.fxml");

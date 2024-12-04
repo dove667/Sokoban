@@ -30,6 +30,7 @@ public class GameSystem implements Serializable {
     private final Set<String> walls = new HashSet<>();//集合类，单一性，无序，null允许
     //constructor
     public GameSystem(int boxNumber, int targetNumber,int boardNumber, int width, int height) {
+       //静态变量也会自动赋值
 
         steps = 0;
         boxes = new Box[boxNumber];
