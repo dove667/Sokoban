@@ -128,15 +128,6 @@ public class Level5Controller {
     private Rectangle board25;
 
     @FXML
-    private Rectangle board26;
-
-    @FXML
-    private Rectangle board27;
-
-    @FXML
-    private Rectangle board28;
-
-    @FXML
     private Rectangle board3;
 
     @FXML
@@ -156,6 +147,15 @@ public class Level5Controller {
 
     @FXML
     private Rectangle board9;
+
+    @FXML
+    private Rectangle box1;
+
+    @FXML
+    private Rectangle box2;
+
+    @FXML
+    private Rectangle box3;
 
     @FXML
     private Label myTime;
