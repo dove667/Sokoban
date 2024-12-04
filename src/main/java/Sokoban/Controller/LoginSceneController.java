@@ -9,8 +9,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Objects;
-
 import static Sokoban.Login_Application.primaryStage;
 
 
@@ -40,7 +40,8 @@ public class LoginSceneController {
     void LoginBtnReleased() throws IOException {
         String username = Input_username.getText();
         String passwd = Input_passwd.getText();
-        if (username.equals("admin") && passwd.equals("admin")) {
+        if (username.equals("admin") && passwd.equals("admin")|| Arrays.asList(GameSystem.getName()).contains(username) && Arrays.asList(GameSystem.getPassword()).contains(passwd)
+                && GameSystem.checkMatch(GameSystem.getName(), GameSystem.getPassword(), username, passwd)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Reminder");
             alert.setHeaderText("Welcome");
@@ -53,7 +54,8 @@ public class LoginSceneController {
             //设置场景
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
-        } else {
+        }
+        else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Failed to log in");

@@ -2,6 +2,7 @@ package Sokoban.Model;
 
 import java.io.*;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
 
 import static Sokoban.Login_Application.primaryStage;
 
@@ -25,9 +27,66 @@ public class GameSystem implements Serializable {
     private static String CurrentLevel ;
     private static boolean isVisitor;
     private static boolean isTimeMode;
-    //静态字段的值不会因为实例创建而改变,允许在没有实例创建时使用(选择关卡时)
+    //静态字段允许在没有实例创建时使用(选择关卡时),但仍会在构造方法中被赋予默认值
+    private static String[] password = new String[10];
+    private static String[] name = new String[10];
+    private int i=0;
+    private int j=0;
+    private static boolean L1win;
+    private static boolean L2win;
+    private static boolean L3win;
+    private static boolean L4win;
+    private static boolean L5win;
 
-    private final Set<String> walls = new HashSet<>();//集合类，单一性，无序，null允许
+    public static boolean isL1win() {
+        return L1win;
+    }
+
+    public static boolean isL2win() {
+        return L2win;
+    }
+
+    public static boolean isL3win() {
+        return L3win;
+    }
+
+    public static boolean isL4win() {
+        return L4win;
+    }
+
+    public static boolean isL5win() {
+        return L5win;
+    }
+
+    public String[] addName(String a) {
+        for(;i<name.length;i++){
+            name[i]=a;
+        }
+        return name;
+    }
+
+    public static String[] getName() {
+        return name;
+    }
+    public static String[] getPassword() {
+        return password;
+    }
+    public String[] addPassword(String a) {
+        for(;j<password.length;j++){
+            password[j]=a;
+        }
+        return password;
+    }
+    public static boolean checkMatch(String[]name,String[]password,String a,String b){
+        if (name == null || password == null) {
+            return false;
+        }//防止空指针异常
+        int nameIndex = Arrays.asList(name).indexOf(a);
+        int passwordIndex = Arrays.asList(password).indexOf(b);
+        return nameIndex == passwordIndex;
+    }
+
+
     //constructor
     public GameSystem() {}
     public GameSystem(int boxNumber, int targetNumber,int boardNumber, int width, int height,int time) {
@@ -175,12 +234,26 @@ public class GameSystem implements Serializable {
     }
     //实现victory的nextLevel按钮多态
     public static String getNextLevel() {
-        return switch (CurrentLevel) {
-            case "Level1" -> "/Sokoban/Level2.fxml";
-            case "Level2" -> "/Sokoban/Level3.fxml";
-            case "Level3" -> "/Sokoban/Level4.fxml";
-            default -> null; // switch现代化表达
-        };
+        switch (CurrentLevel) {
+            case "Level1" -> {
+                L1win = true;
+                return "/Sokoban/Level2.fxml";
+            }
+
+            case "Level2" -> {
+                L2win = true;
+                return "/Sokoban/Level3.fxml";
+            }
+            case "Level3" -> {
+                L3win = true;
+                return "/Sokoban/Level4.fxml";
+            }
+            case "Level4" -> {
+                L4win = true;
+                return "/Sokoban/Level5.fxml";
+            }
+        }
+        return null;
     }
 
     public static void setCurrentLevel(String level) {

@@ -118,6 +118,25 @@ public class LevelSceneController {
         else {
             Label_Mode.setText("closed");
         }
+        if(!GameSystem.isL1win()){
+            Btn_Level2.setDisable(true); Btn_Level2.setVisible(false);
+            Btn_Level3.setDisable(true);Btn_Level3.setVisible(false);
+            Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
+            Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
+        }
+        else if(!GameSystem.isL2win()){
+            Btn_Level3.setDisable(true);Btn_Level3.setVisible(false);
+            Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
+            Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
+        }
+        else if(!GameSystem.isL3win()){
+            Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
+            Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
+        }
+        else if(!GameSystem.isL4win()){
+            Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
+        }
+
     }
 
     public boolean setMode(){
