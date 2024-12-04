@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
@@ -23,11 +24,10 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import static Sokoban.Login_Application.primaryStage;
-import Sokoban.Controller.LevelSceneController.setMode;
 import java.util.Objects;
 
 
-public class Level1Controller extends Controller {
+public class Level1Controller {
     @FXML
     public AnchorPane Pane;
 
@@ -49,8 +49,8 @@ public class Level1Controller extends Controller {
     private GridPane Movement,GridBoard;
 
 
-    private int timeRemaining ;
-    GameSystem gameSystem = new GameSystem(2,2,18,6,5);
+
+    GameSystem gameSystem = new GameSystem(2,2,18,6,5,30);
     //在boxes，targets，boards，matrix数组中都规定大小并建立新引用，初始化全局变量
     //Gridpane静态方法不能再类体中调用，只能在initialize中调用，
     // 当 JavaFX 加载与控制器类相对应的 FXML 文件时，FXML 文件中定义的 UI 组件（如按钮、标签等）会被实例化并与控制器类中的相应字段进行绑定。
@@ -89,16 +89,15 @@ public class Level1Controller extends Controller {
         Pane.requestFocus(); // 确保焦点设置
 
         //计时模式
-        LevelSceneController.setMode();
-        if (GameSystem.isTimeMode()) {
-            timeRemaining = 30;
+
+        if (gameSystem.isTimeMode()) {
             Timeline timeline = new Timeline(
                     new KeyFrame(Duration.seconds(1), event -> {
-                        timeRemaining--; // 每秒减少 1
-                        myTime.setText(String.valueOf(timeRemaining)); // 更新标签文字
+                        gameSystem.setTimeRemaining(gameSystem.getTimeRemaining()-1); // 每秒减少 1
+                        myTime.setText(String.valueOf(gameSystem.getTimeRemaining())); // 更新标签文字
 
                         // 检查倒计时是否结束
-                        if (timeRemaining <= 0) {
+                        if (gameSystem.getTimeRemaining() <= 0) {
                             myTime.setText("time's up");
                             URL url = getClass().getResource("/Sokoban/Failed.fxml");
                             Parent root = null;
@@ -113,7 +112,7 @@ public class Level1Controller extends Controller {
                         }
                     })
             );
-            timeline.setCycleCount(timeRemaining); // 设置循环次数
+            timeline.setCycleCount(gameSystem.getTimeRemaining()); // 设置循环次数
             timeline.play(); // 开始计时
         }
         else {
@@ -124,7 +123,7 @@ public class Level1Controller extends Controller {
     }
 
     @FXML
-    void HomeBtnPressed() throws IOException {
+    void HomeBtnPressed(MouseEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Comfirm");
         alert.setHeaderText("Are you sure to quit?");
@@ -132,7 +131,7 @@ public class Level1Controller extends Controller {
         // 显示对话框并等待用户操作
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                GameSystem.saveGameProgress(gameSystem);
+                gameSystem.saveGameProgress(gameSystem);
                 //切换场景
                 URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
                 Parent root;
@@ -161,11 +160,11 @@ public class Level1Controller extends Controller {
 
     @FXML
     void SaveBtnPressed() throws IOException {
-        GameSystem.saveGameProgress(gameSystem);
+        gameSystem.saveGameProgress(gameSystem);
     }
     @FXML
     void LoadBtnPressed() throws IOException {
-        gameSystem = GameSystem.loadGameProgress(); Pane.requestFocus();
+        gameSystem = gameSystem.loadGameProgress(); Pane.requestFocus();
         Platform.runLater(() -> {
             // 更新界面，如更新玩家、盒子、步数等
             steps.setText(String.valueOf(gameSystem.getSteps()));

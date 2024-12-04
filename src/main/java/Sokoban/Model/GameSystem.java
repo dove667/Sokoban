@@ -14,24 +14,24 @@ import static Sokoban.Login_Application.primaryStage;
 
 public class GameSystem implements Serializable {
 
-    private int time;
+    private int timeRemaining;
     private int steps;
     Player niker ;
     private Box[]boxes;
-    private final Board[] boards;
-    private final Target[]targets;
-    private final int[][] matrix;
+    private Board[] boards;
+    private Target[]targets;
+    private int[][] matrix;
     private static int currentLevel;
     private static String CurrentLevel ;
     private static boolean isVisitor;
-    private static boolean isTimeMode;
-    //静态字段的值不会因为实例创建而改变,允许在没有实例创建时使用
+    private boolean isTimeMode;
+    //静态字段的值不会因为实例创建而改变,允许在没有实例创建时使用(选择关卡时)
 
     private final Set<String> walls = new HashSet<>();//集合类，单一性，无序，null允许
     //constructor
-    public GameSystem(int boxNumber, int targetNumber,int boardNumber, int width, int height) {
-       //静态变量也会自动赋值
-
+    public GameSystem() {}
+    public GameSystem(int boxNumber, int targetNumber,int boardNumber, int width, int height,int time) {
+        timeRemaining = time;
         steps = 0;
         boxes = new Box[boxNumber];
         for (int i = 0; i < boxNumber; i++) {
@@ -70,13 +70,10 @@ public class GameSystem implements Serializable {
     public static boolean verifyVisitor() {
         return isVisitor;
     }
-    public static boolean isTimeMode() {
-        return isTimeMode;
-    }
 
-    public static void setTimeMode(boolean timeMode) {
-        isTimeMode = timeMode;
-    }
+
+
+
 
     public void victoryJudge() throws IOException {
         int count =0;
@@ -189,6 +186,7 @@ public class GameSystem implements Serializable {
     public static void setCurrentLevel(String level) {
         CurrentLevel = level;
     }
+
     public static int getCurrentLevel() {
         return currentLevel;
     }
@@ -200,12 +198,17 @@ public class GameSystem implements Serializable {
     public int getSteps() {
         return steps;
     }
-
+    public  int getTimeRemaining() {
+        return timeRemaining;
+    }
     public void setSteps(int steps) {
         this.steps = steps;
     }
+    public void setTimeRemaining(int timeRemaining) {
+        this.timeRemaining = timeRemaining;
+    }
 
-    public static void saveGameProgress(GameSystem progress) {
+    public void saveGameProgress(GameSystem progress) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("game_progress.ser"))) {
             out.writeObject(progress);
             System.out.println("Game progress saved successfully!");
@@ -216,14 +219,48 @@ public class GameSystem implements Serializable {
             alert.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
-
         }
     }
-    public static GameSystem loadGameProgress() {
+
+    public  boolean isTimeMode() {
+        return isTimeMode;
+    }
+
+    public void setControllerTimeMode(boolean a) {
+        this.isTimeMode=a;
+    }
+
+  //这里的download可以自动实现计时模式转换
+    public GameSystem loadGameProgress() {
         GameSystem progress = null;
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("game_progress.ser"))) {
             progress = (GameSystem) in.readObject();
-            System.out.println("Game progress loaded successfully!");
+            // 检查加载的进度的计时模式与当前类的计时模式是否一致
+            if (progress != null) {
+                if (progress.isTimeMode() == this.isTimeMode()) {
+                    System.out.println("Game progress loaded successfully!");
+                } else {
+                    // 如果计时模式不一致，设置 progress 为 null，并提示用户
+                    progress = null;
+                    System.out.println("Game progress loaded failed because the time mode is different.");
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning");
+                    alert.setHeaderText("Time Mode Mismatch");
+                    alert.setContentText("The time mode in the saved game does not match the current game settings.");
+                    alert.showAndWait();
+                }
+            } else {
+                // 如果 progress 为 null，说明文件损坏或不符合预期格式
+                System.out.println("Game progress loaded failed because the game progress file is invalid.");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Failed to load game progress");
+                alert.setContentText("The game progress file might be corrupted or incompatible.");
+                alert.showAndWait();
+            }
+
+
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
