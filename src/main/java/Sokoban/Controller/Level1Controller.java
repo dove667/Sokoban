@@ -131,11 +131,6 @@ public class Level1Controller {
         // 显示对话框并等待用户操作
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                alert2.setTitle("Quit");
-                alert2.setHeaderText("Your progress has been saved.");
-                alert2.setContentText("Your can load your progress next time.");
-                alert2.showAndWait();
                 GameSystem.saveGameProgress(gameSystem);
                 //切换场景
                 URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
