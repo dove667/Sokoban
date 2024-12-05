@@ -29,11 +29,6 @@ public class LevelSceneController {
     @FXML
     private Button Btn_Level5;
 
-    @FXML
-    private Button Btn_TimeMode;
-
-    @FXML
-    private Label Label_Mode;
 
     @FXML
     void Level1BtnReleased() throws IOException {
@@ -93,17 +88,7 @@ public class LevelSceneController {
         GameSystem.setCurrentLevel(5);
         GameSystem.setCurrentLevel("Level5");
     }
+    GameSystem game = new GameSystem();
 
-    @FXML
-    void TimeModeBtnReleased() {
-         if(Label_Mode.getText().equals("closed")) {
-             Label_Mode.setText("open");
-             GameSystem.setTimeMode(true);
-         }
-         else {
-             Label_Mode.setText("closed");
-             GameSystem.setTimeMode(false);
-         }
-    }
 
 }
