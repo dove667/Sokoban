@@ -1,15 +1,32 @@
 package Sokoban.Controller;
 
+import Sokoban.Model.*;
+import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.*;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
+import java.net.URL;
+import static Sokoban.Login_Application.primaryStage;
+import java.util.Objects;
 
 public class Level3Controller {
 
@@ -166,7 +183,7 @@ public class Level3Controller {
     @FXML
     private Polygon target2;
 
-    GameSystem gameSystem = new GameSystem(2,2,25,7,7);
+    GameSystem gameSystem = new GameSystem(2,2,25,7,7,30);
     public void initialize() {
         Platform.runLater(() -> {
             gameSystem.setBox(1,GridPane.getColumnIndex(box1),GridPane.getRowIndex(box1));
@@ -197,9 +214,39 @@ public class Level3Controller {
             Btn_save.setDisable(true);
             Btn_home.setDisable(true);
         }
-        setCurrentLevel(3);setCurrentLevel("3");
+        GameSystem.setCurrentLevel(3);GameSystem.setCurrentLevel("3");
         Pane.requestFocus(); // 确保焦点设置
+        if (GameSystem.isTimeMode()) {
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.seconds(1), event -> {
+                        gameSystem.setTimeRemaining(gameSystem.getTimeRemaining()-1); // 每秒减少 1
+                        myTime.setText(String.valueOf(gameSystem.getTimeRemaining())); // 更新标签文字
+
+                        // 检查倒计时是否结束
+                        if (gameSystem.getTimeRemaining() <= 0) {
+                            myTime.setText("time's up");
+                            URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                            Parent root = null;
+                            try {
+                                root = FXMLLoader.load(Objects.requireNonNull(url));
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            Scene scene = new Scene(root);
+                            primaryStage.setScene(scene);
+                            // 切换场景
+                        }
+                    })
+            );
+            timeline.setCycleCount(gameSystem.getTimeRemaining()); // 设置循环次数
+            timeline.play(); // 开始计时
+        }
+        else {
+            myTime.setVisible(false);
+            Label_timer.setVisible(false);
+        }
     }
+
 
     @FXML
     void HomeBtnPressed(MouseEvent event) throws IOException {
