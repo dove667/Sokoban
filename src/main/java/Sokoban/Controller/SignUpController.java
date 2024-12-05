@@ -46,7 +46,7 @@ public class SignUpController {
 
     @FXML
     void ReturnBtnClicked(MouseEvent event) {
-        URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
+        URL url = getClass().getResource("/Sokoban/LoginScene.fxml");
         Parent root;
         try {
             root = FXMLLoader.load(Objects.requireNonNull(url));
@@ -86,12 +86,11 @@ public class SignUpController {
         else{
             Alert success = new Alert(Alert.AlertType.INFORMATION);
             success.setTitle("Success");
-            success.setHeaderText(null);
-            success.setContentText("Sign up successful.");
+            success.setHeaderText("Sign up successful");
+            success.setContentText("You can now log in with your new account.");
             success.showAndWait();
             system.addName(Text_Name.getText());
             system.addPassword(Password_input.getText());
-
             URL url = getClass().getResource("/Sokoban/LoginScene.fxml");
             Parent root;
             try {

@@ -1,0 +1,12 @@
+.text-field{
+    -fx-alignment: center;
+}
+.button {
+    -fx-background-color: linear-gradient(from 50% 100.0% to 50% 0.0%, #ffa14a 0.0%, #ecc079 100.0%);
+    -fx-background-radius: 15;
+
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0.0, 0, 1);
+}
+.button:hover {
+    -fx-background-color: linear-gradient(from 50% 100.0% to 50% 0.0%, #e7bd8b 0.0%, #eacfb4 100.0%);
+}
