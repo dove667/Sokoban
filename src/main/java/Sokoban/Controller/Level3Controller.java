@@ -257,12 +257,7 @@ public class Level3Controller {
         // 显示对话框并等待用户操作
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                alert2.setTitle("Quit");
-                alert2.setHeaderText("Your progress has been saved.");
-                alert2.setContentText("Your can load your progress next time.");
-                alert2.showAndWait();
-                saveGameProgress(gameSystem);
+                gameSystem.saveGameProgress(gameSystem);
                 //切换场景
                 URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
                 Parent root;
@@ -277,12 +272,17 @@ public class Level3Controller {
             }
             else {
                 System.out.println("Operation cancelled.");
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                alert1.setTitle("Cancel");
+                alert1.setHeaderText(null);
+                alert1.setContentText("Operation cancelled.");
+                alert1.showAndWait();
             }
         });
     }
     @FXML
     void BackBtnPressed() throws IOException {
-        URL url = getClass().getResource("/Sokoban/Level1.fxml");
+        URL url = getClass().getResource("/Sokoban/Level3.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -291,15 +291,14 @@ public class Level3Controller {
 
     @FXML
     void SaveBtnPressed() throws IOException {
-        saveGameProgress(gameSystem);
+        gameSystem.saveGameProgress(gameSystem);
     }
     @FXML
     void LoadBtnPressed() throws IOException {
-        gameSystem = loadGameProgress(); Pane.requestFocus();
+        gameSystem = gameSystem.loadGameProgress(); Pane.requestFocus();
         Platform.runLater(() -> {
             // 更新界面，如更新玩家、盒子、步数等
             steps.setText(String.valueOf(gameSystem.getSteps()));
-            myTime.setText(String.valueOf(gameSystem.getTime()));
             GridPane.setRowIndex(Niker, gameSystem.getPlayerRow());
             GridPane.setColumnIndex(Niker, gameSystem.getPlayerCol());
             GridPane.setRowIndex(box1, gameSystem.getBoxRow(1));
