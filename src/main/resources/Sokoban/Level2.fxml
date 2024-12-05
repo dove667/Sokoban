@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.Level2Controller">
+<AnchorPane fx:id="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#MovePlayer" prefHeight="633.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.Level2Controller">
    <children>
       <GridPane fx:id="GridBoard" layoutX="80.0" layoutY="123.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="560.0">
          <columnConstraints>
@@ -89,7 +89,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="myTime" layoutX="837.0" layoutY="67.0" >
+      <Label fx:id="myTime" layoutX="837.0" layoutY="67.0">
          <font>
             <Font size="18.0" />
          </font>

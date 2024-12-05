@@ -41,12 +41,36 @@ public class FailedController {
     void TryAgainBtnReleased(MouseEvent event) throws IOException {
          if(GameSystem.getCurrentLevel()==1){
              URL url = getClass().getResource("/Sokoban/Level1.fxml");
-             //加载完fxml文件后，获取其中的root
              Parent root = FXMLLoader.load(Objects.requireNonNull(url));
-             //设置场景
              Scene scene = new Scene(root);
              primaryStage.setScene(scene);
          }
-    }  //补充其他level的try again按钮事件
+         else if(GameSystem.getCurrentLevel()==2){
+             URL url = getClass().getResource("/Sokoban/Level2.fxml");
+             Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+             Scene scene = new Scene(root);
+             primaryStage.setScene(scene);
+         }
+         else if(GameSystem.getCurrentLevel()==3){
+             URL url = getClass().getResource("/Sokoban/Level3.fxml");
+             Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+             Scene scene = new Scene(root);
+             primaryStage.setScene(scene);
+         }
+         else if(GameSystem.getCurrentLevel()==4){
+             URL url = getClass().getResource("/Sokoban/Level4.fxml");
+             Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+             Scene scene = new Scene(root);
+             primaryStage.setScene(scene);
+         }
+         else if(GameSystem.getCurrentLevel()==5){
+             URL url = getClass().getResource("/Sokoban/Level5.fxml");
+             Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+             Scene scene = new Scene(root);
+             primaryStage.setScene(scene);
+         }
+
+
+    }
 
 }
