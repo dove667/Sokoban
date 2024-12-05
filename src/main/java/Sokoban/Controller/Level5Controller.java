@@ -1,15 +1,30 @@
 package Sokoban.Controller;
 
+import Sokoban.Model.*;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+import java.io.IOException;
+import java.net.URL;
+import static Sokoban.Login_Application.primaryStage;
+import java.util.Objects;
+import static Sokoban.Model.GameSystem.*;
 
 public class Level5Controller {
 
@@ -172,44 +187,7 @@ public class Level5Controller {
     @FXML
     private Polygon target3;
 
-    @FXML
-    void BackBtnPressed(MouseEvent event) {
 
-    }
-
-    @FXML
-    void DownBtnPressed(MouseEvent event) {
-
-    }
-
-    @FXML
-    void HomeBtnPressed(MouseEvent event) {
-
-    }
-
-    @FXML
-    void LeftBtnPressed(MouseEvent event) {
-
-    }
-
-    @FXML
-    void LoadBtnPressed(MouseEvent event) {
-
-    }
-
-    @FXML
-    void RightBtnPressed(MouseEvent event) {
-
-    }
-
-    @FXML
-    void SaveBtnPressed(MouseEvent event) {
-
-    }
-
-    @FXML
-    void UpBtnPressed(MouseEvent event) {
-
-    }
+    GameSystem gameSystem = new GameSystem(3,3,25,8,6);
 
 }
