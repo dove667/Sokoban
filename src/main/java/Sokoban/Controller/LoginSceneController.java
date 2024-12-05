@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
@@ -17,10 +17,7 @@ import static Sokoban.Login_Application.primaryStage;
 public class LoginSceneController {
 
     @FXML
-    private Button Btn_login,Btn_SignUp;
-
-    @FXML
-    private Button Btn_visitor;
+    private Button Btn_login,Btn_SignUp,Btn_visitor;
 
     @FXML
     private PasswordField Input_passwd;
@@ -29,10 +26,10 @@ public class LoginSceneController {
     private TextField Input_username;
 
     @FXML
-    private Label Label_passwd;
+    private ImageView Img_SUST;
 
     @FXML
-    private Label Label_username;
+    private Label Label_username,Label_Sokoban,Label_passwd;
 
 
 

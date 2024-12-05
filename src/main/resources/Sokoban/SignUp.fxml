@@ -4,17 +4,54 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.SignUpController">
+<AnchorPane fx:id="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" stylesheets="@Style/SignUpStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.SignUpController">
    <children>
-      <PasswordField fx:id="Password_Ensure" layoutX="397.0" layoutY="304.0" promptText="intput your password" />
-      <PasswordField fx:id="Password_input" layoutX="397.0" layoutY="225.0" promptText="input your password" />
-      <TextField fx:id="Text_Name" layoutX="397.0" layoutY="149.0" promptText="input your name" />
-      <Label fx:id="Label_UserName" layoutX="266.0" layoutY="149.0" prefHeight="26.0" prefWidth="70.0" text="UserName" />
-      <Label fx:id="Label_Password" layoutX="272.0" layoutY="229.0" text="Password" />
-      <Label fx:id="Label_Ensure" layoutX="282.0" layoutY="308.0" text="Ensure" />
-      <Button fx:id="Btn_SignUp" layoutX="376.0" layoutY="414.0" mnemonicParsing="false" onMouseClicked="#SignUpBtnClicked" text="Sign Up" />
-      <Button fx:id="Btn_Return" layoutX="54.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#ReturnBtnClicked" text="Return" />
+      <PasswordField fx:id="Password_Ensure" layoutX="397.0" layoutY="389.0" prefHeight="48.0" prefWidth="314.0" promptText="comform your password">
+         <font>
+            <Font size="24.0" />
+         </font></PasswordField>
+      <PasswordField fx:id="Password_input" layoutX="397.0" layoutY="307.0" prefHeight="48.0" prefWidth="314.0" promptText="input your password">
+         <font>
+            <Font size="24.0" />
+         </font></PasswordField>
+      <TextField fx:id="Text_Name" layoutX="396.0" layoutY="220.0" prefHeight="48.0" prefWidth="314.0" promptText="input your user name">
+         <font>
+            <Font size="24.0" />
+         </font></TextField>
+      <Label fx:id="Label_UserName" layoutX="227.0" layoutY="228.0" prefHeight="32.0" prefWidth="127.0" text="UserName">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <Label fx:id="Label_Password" layoutX="236.0" layoutY="315.0" text="Password">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <Label fx:id="Label_Ensure" layoutX="236.0" layoutY="397.0" text="Comform">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <Button fx:id="Btn_SignUp" layoutX="479.0" layoutY="504.0" mnemonicParsing="false" onMouseClicked="#SignUpBtnClicked" prefHeight="48.0" prefWidth="147.0" text="Sign Up">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
+      <Button fx:id="Btn_Return" layoutX="313.0" layoutY="510.0" mnemonicParsing="false" onMouseClicked="#ReturnBtnClicked" text="Return">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Label id="Sokoban" fx:id="Label_Sokoban" layoutX="300.0" layoutY="50.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 2, 2); -fx-font-weight: bold;" text="Sokoban" textFill="#ef9607">
+         <font>
+            <Font name="Century" size="96.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="Img_SUST" fitHeight="150.0" fitWidth="200.0" layoutX="50.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Sokoban/pictures/SUST.jpeg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
