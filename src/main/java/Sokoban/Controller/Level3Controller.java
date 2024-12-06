@@ -12,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -24,6 +26,8 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.net.URL;
 import static Sokoban.Login_Application.primaryStage;
+import static Sokoban.Model.GameSystem.verifyVisitor;
+
 import java.util.Objects;
 
 public class Level3Controller {
@@ -181,17 +185,17 @@ public class Level3Controller {
     @FXML
     private Polygon target2;
 
-    GameSystem gameSystem = new GameSystem(2,2,25,7,7);
+    GameSystem gameSystem = new GameSystem(2,2,25,7,7,30);
     public void initialize() {
         Platform.runLater(() -> {
             gameSystem.setBox(1,GridPane.getColumnIndex(box1),GridPane.getRowIndex(box1));
             gameSystem.setBox(2,GridPane.getColumnIndex(box2),GridPane.getRowIndex(box2));
             //设置好system中Box的坐标
-            gameSystem.addBoxPositons();
+            gameSystem.addBoxPositons(); gameSystem.setBoxNum(2);
             //将Box量化到system的矩阵中
             gameSystem.setTarget(0,GridPane.getColumnIndex(target1),GridPane.getRowIndex(target1));
             gameSystem.setTarget(1,GridPane.getColumnIndex(target2),GridPane.getRowIndex(target2));
-            gameSystem.addTargetPositons();
+            gameSystem.addTargetPositons();gameSystem.setTargNum(2);
             //同样操作target
             // 遍历操作Board。注意！Gridpane中0时默认位置，不会在fxml中显示标出，会导致Index.valueOf空指针异常。要手动标出坐标
             Rectangle[] boards = {board1,board2,board3,board4,board5,board6,board7,board8,board9,board10,board11,board12,board13,board14,board15,board16,board17,board18,board19,board20,board21,board22,board23,board24,board25};
@@ -204,7 +208,7 @@ public class Level3Controller {
             gameSystem.addPlayerPositons(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
         });
         //判断是否为游客模式
-        if (gameSystem.verifyVisitor()){
+        if (verifyVisitor()){
             Img_load.setVisible(false);
             Img_save.setVisible(false);
             Img_home.setVisible(false);
@@ -212,9 +216,39 @@ public class Level3Controller {
             Btn_save.setDisable(true);
             Btn_home.setDisable(true);
         }
-        setCurrentLevel(3);setCurrentLevel("3");
+        GameSystem.setCurrentLevel(3);GameSystem.setCurrentLevel("Level3");
         Pane.requestFocus(); // 确保焦点设置
+        if (GameSystem.isTimeMode()) {
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.seconds(1), event -> {
+                        gameSystem.setTimeRemaining(gameSystem.getTimeRemaining()-1); // 每秒减少 1
+                        myTime.setText(String.valueOf(gameSystem.getTimeRemaining())); // 更新标签文字
+
+                        // 检查倒计时是否结束
+                        if (gameSystem.getTimeRemaining() <= 0) {
+                            myTime.setText("time's up");
+                            URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                            Parent root = null;
+                            try {
+                                root = FXMLLoader.load(Objects.requireNonNull(url));
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            Scene scene = new Scene(root);
+                            primaryStage.setScene(scene);
+                            // 切换场景
+                        }
+                    })
+            );
+            timeline.setCycleCount(gameSystem.getTimeRemaining()); // 设置循环次数
+            timeline.play(); // 开始计时
+        }
+        else {
+            myTime.setVisible(false);
+            Label_timer.setVisible(false);
+        }
     }
+
 
     @FXML
     void HomeBtnPressed(MouseEvent event) throws IOException {
@@ -225,12 +259,7 @@ public class Level3Controller {
         // 显示对话框并等待用户操作
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                alert2.setTitle("Quit");
-                alert2.setHeaderText("Your progress has been saved.");
-                alert2.setContentText("Your can load your progress next time.");
-                alert2.showAndWait();
-                saveGameProgress(gameSystem);
+                gameSystem.saveGameProgress(gameSystem);
                 //切换场景
                 URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
                 Parent root;
@@ -245,12 +274,17 @@ public class Level3Controller {
             }
             else {
                 System.out.println("Operation cancelled.");
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                alert1.setTitle("Cancel");
+                alert1.setHeaderText(null);
+                alert1.setContentText("Operation cancelled.");
+                alert1.showAndWait();
             }
         });
     }
     @FXML
     void BackBtnPressed() throws IOException {
-        URL url = getClass().getResource("/Sokoban/Level1.fxml");
+        URL url = getClass().getResource("/Sokoban/Level3.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -259,15 +293,14 @@ public class Level3Controller {
 
     @FXML
     void SaveBtnPressed() throws IOException {
-        saveGameProgress(gameSystem);
+        gameSystem.saveGameProgress(gameSystem);
     }
     @FXML
     void LoadBtnPressed() throws IOException {
-        gameSystem = loadGameProgress(); Pane.requestFocus();
+        gameSystem = gameSystem.loadGameProgress(); Pane.requestFocus();
         Platform.runLater(() -> {
             // 更新界面，如更新玩家、盒子、步数等
             steps.setText(String.valueOf(gameSystem.getSteps()));
-            myTime.setText(String.valueOf(gameSystem.getTime()));
             GridPane.setRowIndex(Niker, gameSystem.getPlayerRow());
             GridPane.setColumnIndex(Niker, gameSystem.getPlayerCol());
             GridPane.setRowIndex(box1, gameSystem.getBoxRow(1));
