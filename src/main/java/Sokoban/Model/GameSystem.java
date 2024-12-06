@@ -3,14 +3,12 @@ package Sokoban.Model;
 import java.io.*;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.PasswordField;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,7 +39,6 @@ public class GameSystem implements Serializable {
     private static boolean L5win;
     private int targNum;
     private int boxNum;
-    private int failedBox;
     public void setTargNum(int targNum) {
         this.targNum = targNum;
     }
@@ -439,8 +436,12 @@ public class GameSystem implements Serializable {
     public boolean isBox2(int col, int row) {
         return boxes[1].getCurrentCol() == col && boxes[1].getCurrentRow() == row;
     }
-    public boolean isWall(int col, int row) {
-        return matrix[row][col] == 1;
+
+    public boolean isBox3(int col, int row) {
+        return boxes[2].getCurrentCol() == col && boxes[2].getCurrentRow() == row;
+    }
+    public boolean notWall(int col, int row) {
+        return matrix[row][col] != 1;
     }
 
     public void moveoutNiker(int col, int row) {

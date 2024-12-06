@@ -21,14 +21,22 @@
             <artifactId>javafx-controls</artifactId>
             <version>23.0.1</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>23.0.1</version>
+        </dependency>
         <!-- JavaFX FXML -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>23.0.1</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>23.0.1</version>
+        </dependency>
         <!-- JUnit 测试库 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
