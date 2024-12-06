@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import static Sokoban.Login_Application.primaryStage;
 
@@ -143,10 +145,6 @@ public class GameSystem implements Serializable {
         return isVisitor;
     }
 
-
-
-
-
     public void victoryJudge() throws IOException {
 
         for(int i=0;i<matrix.length;i++){
@@ -208,7 +206,7 @@ public class GameSystem implements Serializable {
         }
     }
 
-    public void judgeBoxMovable(Box box) throws IOException {
+    public void judgeBoxMovable(@NotNull Box box) throws IOException {
         //左右，上下各有一面时board时
         if((matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 1)
         || (matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 1)
@@ -281,6 +279,7 @@ public class GameSystem implements Serializable {
         isVisitor = is;
     }
     //实现victory的nextLevel按钮多态
+    @Nullable
     public static String getNextLevel() {
         switch (currentLevel) {
             case 1 -> {

@@ -20,6 +20,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.net.URL;
 import static Sokoban.Login_Application.primaryStage;
@@ -311,7 +313,7 @@ public class Level2Controller {
     //像下面这样写isWall也行
 
     @FXML
-    void MovePlayer(KeyEvent event) throws IOException {
+    void MovePlayer(@NotNull KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.W) {
             UpBtnPressed();
         } else if (event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.S) {
