@@ -333,7 +333,7 @@ public class Level2Controller {
     void DownBtnPressed() throws IOException {
         int targetRow = currentRowIndex + 1;
         //纯移动
-        if (!gameSystem2.isWall(currentColumnIndex, targetRow)&&!gameSystem2.isBox1(currentColumnIndex, targetRow)&&!gameSystem2.isBox2(currentColumnIndex, targetRow)) {
+        if (gameSystem2.notWall(currentColumnIndex, targetRow) &&!gameSystem2.isBox1(currentColumnIndex, targetRow)&&!gameSystem2.isBox2(currentColumnIndex, targetRow)) {
             currentRowIndex = targetRow;
             GridPane.setRowIndex(Niker, currentRowIndex);
             gameSystem2.moveoutNiker(currentColumnIndex, currentRowIndex-1);
@@ -342,7 +342,7 @@ public class Level2Controller {
         }
         //推箱子
         if (gameSystem2.isBox1(currentColumnIndex, targetRow)) {
-            if (!gameSystem2.isWall(currentColumnIndex, targetRow+1)&&!gameSystem2.isBox2(currentColumnIndex, targetRow+1)) {
+            if (gameSystem2.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem2.isBox2(currentColumnIndex, targetRow+1)) {
                 //可推
                 currentRowIndex = targetRow;
                 GridPane.setRowIndex(Niker, currentRowIndex);
@@ -355,7 +355,7 @@ public class Level2Controller {
             }
         }
         if (gameSystem2.isBox2(currentColumnIndex, targetRow)) {
-            if (!gameSystem2.isWall(currentColumnIndex, targetRow+1)&&!gameSystem2.isBox1(currentColumnIndex, targetRow+1)) {
+            if (gameSystem2.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem2.isBox1(currentColumnIndex, targetRow+1)) {
                 //可推
                 currentRowIndex = targetRow;
                 GridPane.setRowIndex(Niker, currentRowIndex);
@@ -375,7 +375,7 @@ public class Level2Controller {
     void LeftBtnPressed() throws IOException {
         int targetColumn = currentColumnIndex - 1;
         //纯移动
-        if (!gameSystem2.isWall(targetColumn, currentRowIndex)&&!gameSystem2.isBox1(targetColumn, currentRowIndex)&&!gameSystem2.isBox2(targetColumn, currentRowIndex)) {
+        if (gameSystem2.notWall(targetColumn, currentRowIndex) &&!gameSystem2.isBox1(targetColumn, currentRowIndex)&&!gameSystem2.isBox2(targetColumn, currentRowIndex)) {
             currentColumnIndex = targetColumn;
             GridPane.setColumnIndex(Niker, currentColumnIndex);
             gameSystem2.moveoutNiker(currentColumnIndex+1, currentRowIndex);
@@ -384,7 +384,7 @@ public class Level2Controller {
         }
         //推箱子
         if (gameSystem2.isBox1(targetColumn, currentRowIndex)) {
-            if (!gameSystem2.isWall(targetColumn-1, currentRowIndex)&&!gameSystem2.isBox2(targetColumn-1, currentRowIndex)) {
+            if (gameSystem2.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem2.isBox2(targetColumn-1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
                 GridPane.setColumnIndex(Niker, currentColumnIndex);
                 gameSystem2.moveoutNiker(currentColumnIndex+1, currentRowIndex);
@@ -396,7 +396,7 @@ public class Level2Controller {
             }
         }
         if (gameSystem2.isBox2(targetColumn, currentRowIndex)) {
-            if (!gameSystem2.isWall(targetColumn-1, currentRowIndex)&&!gameSystem2.isBox1(targetColumn-1, currentRowIndex)) {
+            if (gameSystem2.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem2.isBox1(targetColumn-1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
                 GridPane.setColumnIndex(Niker, currentColumnIndex);
                 gameSystem2.moveoutNiker(currentColumnIndex+1, currentRowIndex);
@@ -414,7 +414,7 @@ public class Level2Controller {
     @FXML
     void RightBtnPressed() throws IOException {
         int targetColumn = currentColumnIndex + 1;
-        if (!gameSystem2.isWall(targetColumn, currentRowIndex)&&!gameSystem2.isBox1(targetColumn, currentRowIndex)&&!gameSystem2.isBox2(targetColumn, currentRowIndex)) {
+        if (gameSystem2.notWall(targetColumn, currentRowIndex) &&!gameSystem2.isBox1(targetColumn, currentRowIndex)&&!gameSystem2.isBox2(targetColumn, currentRowIndex)) {
             currentColumnIndex = targetColumn;
             GridPane.setColumnIndex(Niker, currentColumnIndex);
             gameSystem2.moveoutNiker(currentColumnIndex-1, currentRowIndex);
@@ -423,7 +423,7 @@ public class Level2Controller {
         }
         //推箱子
         if (gameSystem2.isBox1(targetColumn, currentRowIndex)) {
-            if (!gameSystem2.isWall(targetColumn+1, currentRowIndex)&&!gameSystem2.isBox2(targetColumn+1, currentRowIndex)) {
+            if (gameSystem2.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem2.isBox2(targetColumn+1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
                 GridPane.setColumnIndex(Niker, currentColumnIndex);
                 gameSystem2.moveoutNiker(currentColumnIndex-1, currentRowIndex);
@@ -435,7 +435,7 @@ public class Level2Controller {
             }
         }
         if (gameSystem2.isBox2(targetColumn, currentRowIndex)) {
-            if (!gameSystem2.isWall(targetColumn+1, currentRowIndex)&&!gameSystem2.isBox1(targetColumn+1, currentRowIndex)) {
+            if (gameSystem2.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem2.isBox1(targetColumn+1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
                 GridPane.setColumnIndex(Niker, currentColumnIndex);
                 gameSystem2.moveoutNiker(currentColumnIndex-1, currentRowIndex);
@@ -454,7 +454,7 @@ public class Level2Controller {
     void UpBtnPressed() throws IOException {
         int targetRow = currentRowIndex - 1;
         //纯移动
-        if (!gameSystem2.isWall(currentColumnIndex, targetRow)&&!gameSystem2.isBox1(currentColumnIndex, targetRow)&&!gameSystem2.isBox2(currentColumnIndex, targetRow)) {
+        if (gameSystem2.notWall(currentColumnIndex, targetRow) &&!gameSystem2.isBox1(currentColumnIndex, targetRow)&&!gameSystem2.isBox2(currentColumnIndex, targetRow)) {
             currentRowIndex = targetRow;
             GridPane.setRowIndex(Niker, currentRowIndex);
             gameSystem2.moveoutNiker(currentColumnIndex, currentRowIndex+1);
@@ -463,7 +463,7 @@ public class Level2Controller {
         }
         //推箱子
         if (gameSystem2.isBox1(currentColumnIndex, targetRow)) {
-            if (!gameSystem2.isWall(currentColumnIndex, targetRow-1)&&!gameSystem2.isBox2(currentColumnIndex, targetRow-1)) {
+            if (gameSystem2.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem2.isBox2(currentColumnIndex, targetRow-1)) {
                 currentRowIndex = targetRow;
                 GridPane.setRowIndex(Niker, currentRowIndex);
                 gameSystem2.moveoutNiker(currentColumnIndex, currentRowIndex+1);
@@ -475,7 +475,7 @@ public class Level2Controller {
             }
         }
         if (gameSystem2.isBox2(currentColumnIndex, targetRow)) {
-            if (!gameSystem2.isWall(currentColumnIndex, targetRow-1)&&!gameSystem2.isBox1(currentColumnIndex, targetRow-1)) {
+            if (gameSystem2.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem2.isBox1(currentColumnIndex, targetRow-1)) {
                 currentRowIndex = targetRow;
                 GridPane.setRowIndex(Niker, currentRowIndex);
                 gameSystem2.moveoutNiker(currentColumnIndex, currentRowIndex+1);

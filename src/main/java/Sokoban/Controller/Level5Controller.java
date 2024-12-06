@@ -188,30 +188,28 @@ public class Level5Controller {
     private Polygon target3;
 
 
-
-
-    GameSystem gameSystem = new GameSystem(3,3,25,8,6,30);
+    GameSystem gameSystem5 = new GameSystem(3,3,25,8,6,30);
 
     public void initialize() {
         Platform.runLater(() -> {
-            gameSystem.setBox(1, GridPane.getColumnIndex(box1),GridPane.getRowIndex(box1));
-            gameSystem.setBox(2,GridPane.getColumnIndex(box2),GridPane.getRowIndex(box2));
+            gameSystem5.setBox(1, GridPane.getColumnIndex(box1),GridPane.getRowIndex(box1));
+            gameSystem5.setBox(2,GridPane.getColumnIndex(box2),GridPane.getRowIndex(box2));
             //设置好system中Box的坐标
-            gameSystem.addBoxPositons();gameSystem.setBoxNum(3);
+            gameSystem5.addBoxPositons();gameSystem5.setBoxNum(3);
             //将Box量化到system的矩阵中
-            gameSystem.setTarget(0,GridPane.getColumnIndex(target1),GridPane.getRowIndex(target1));
-            gameSystem.setTarget(1,GridPane.getColumnIndex(target2),GridPane.getRowIndex(target2));
-            gameSystem.addTargetPositons();gameSystem.setTargNum(3);
+            gameSystem5.setTarget(0,GridPane.getColumnIndex(target1),GridPane.getRowIndex(target1));
+            gameSystem5.setTarget(1,GridPane.getColumnIndex(target2),GridPane.getRowIndex(target2));
+            gameSystem5.addTargetPositons();gameSystem5.setTargNum(3);
             //同样操作target
             // 遍历操作Board。注意！Gridpane中0时默认位置，不会在fxml中显示标出，会导致Index.valueOf空指针异常。要手动标出坐标
             Rectangle[] boards = {board1,board2,board3,board4,board5,board6,board7,board8,board9,board10,board11,board12,board13,board14,board15,board16,board17,board18,board19,board20,board21,board22,board23};
             for (int i = 0; i < boards.length; i++) {
-                gameSystem.setBoard(i, GridPane.getColumnIndex(boards[i]), GridPane.getRowIndex(boards[i]));
+                gameSystem5.setBoard(i, GridPane.getColumnIndex(boards[i]), GridPane.getRowIndex(boards[i]));
             }
-            gameSystem.addBoardPositons();
+            gameSystem5.addBoardPositons();
             //操作player
-            gameSystem.setPlayer(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
-            gameSystem.addPlayerPositons(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
+            gameSystem5.setPlayer(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
+            gameSystem5.addPlayerPositons(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
         });
         //判断是否为游客模式
         if (GameSystem.verifyVisitor()){
@@ -230,11 +228,11 @@ public class Level5Controller {
         if (GameSystem.isTimeMode()) {
             Timeline timeline = new Timeline(
                     new KeyFrame(Duration.seconds(1), event -> {
-                        gameSystem.setTimeRemaining(gameSystem.getTimeRemaining()-1); // 每秒减少 1
-                        myTime.setText(String.valueOf(gameSystem.getTimeRemaining())); // 更新标签文字
+                        gameSystem5.setTimeRemaining(gameSystem5.getTimeRemaining()-1); // 每秒减少 1
+                        myTime.setText(String.valueOf(gameSystem5.getTimeRemaining())); // 更新标签文字
 
                         // 检查倒计时是否结束
-                        if (gameSystem.getTimeRemaining() <= 0) {
+                        if (gameSystem5.getTimeRemaining() <= 0) {
                             myTime.setText("time's up");
                             URL url = getClass().getResource("/Sokoban/Failed.fxml");
                             Parent root = null;
@@ -249,7 +247,7 @@ public class Level5Controller {
                         }
                     })
             );
-            timeline.setCycleCount(gameSystem.getTimeRemaining()); // 设置循环次数
+            timeline.setCycleCount(gameSystem5.getTimeRemaining()); // 设置循环次数
             timeline.play(); // 开始计时
         }
         else {
@@ -268,7 +266,7 @@ public class Level5Controller {
         // 显示对话框并等待用户操作
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                gameSystem.saveGameProgress(gameSystem);
+                gameSystem5.saveGameProgress(gameSystem5);
                 //切换场景
                 URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
                 Parent root;
@@ -297,33 +295,33 @@ public class Level5Controller {
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        gameSystem.reset(GridPane.getRowIndex(box1),GridPane.getColumnIndex(box1),GridPane.getRowIndex(box2),GridPane.getColumnIndex(box2));
+        gameSystem5.reset(GridPane.getRowIndex(box1),GridPane.getColumnIndex(box1),GridPane.getRowIndex(box2),GridPane.getColumnIndex(box2));
     }
 
     @FXML
     void SaveBtnPressed() throws IOException {
-        gameSystem.saveGameProgress(gameSystem);
+        gameSystem5.saveGameProgress(gameSystem5);
     }
     @FXML
     void LoadBtnPressed() throws IOException {
-        gameSystem = gameSystem.loadGameProgress(); Pane.requestFocus();
+        gameSystem5 = gameSystem5.loadGameProgress(); Pane.requestFocus();
         Platform.runLater(() -> {
             // 更新界面，如更新玩家、盒子、步数等
-            steps.setText(String.valueOf(gameSystem.getSteps()));
-            GridPane.setRowIndex(Niker, gameSystem.getPlayerRow());
-            GridPane.setColumnIndex(Niker, gameSystem.getPlayerCol());
-            GridPane.setRowIndex(box1, gameSystem.getBoxRow(1));
-            GridPane.setColumnIndex(box1, gameSystem.getBoxCol(1));
-            GridPane.setRowIndex(box2, gameSystem.getBoxRow(2));
-            GridPane.setColumnIndex(box2, gameSystem.getBoxCol(2));
-            currentColumnIndex = gameSystem.getPlayerCol();
-            currentRowIndex = gameSystem.getPlayerRow();
+            steps.setText(String.valueOf(gameSystem5.getSteps()));
+            GridPane.setRowIndex(Niker, gameSystem5.getPlayerRow());
+            GridPane.setColumnIndex(Niker, gameSystem5.getPlayerCol());
+            GridPane.setRowIndex(box1, gameSystem5.getBoxRow(1));
+            GridPane.setColumnIndex(box1, gameSystem5.getBoxCol(1));
+            GridPane.setRowIndex(box2, gameSystem5.getBoxRow(2));
+            GridPane.setColumnIndex(box2, gameSystem5.getBoxCol(2));
+            currentColumnIndex = gameSystem5.getPlayerCol();
+            currentRowIndex = gameSystem5.getPlayerRow();
         });
     }
 
 
     void stepsUpdate() {
-        steps.setText(gameSystem.getSteps() + "");
+        steps.setText(gameSystem5.getSteps() + "");
     }
     //像下面这样写isWall也行
 
@@ -341,168 +339,168 @@ public class Level5Controller {
         event.consume();  // 确保事件不会被其他地方消费
     }
 
-    Integer currentColumnIndex = gameSystem.getPlayerCol();
-    Integer currentRowIndex = gameSystem.getPlayerRow();
+    Integer currentColumnIndex = gameSystem5.getPlayerCol();
+    Integer currentRowIndex = gameSystem5.getPlayerRow();
 
     @FXML
     void DownBtnPressed() throws IOException {
         int targetRow = currentRowIndex + 1;
         //纯移动
-        if (!gameSystem.isWall(currentColumnIndex, targetRow)&&!gameSystem.isBox1(currentColumnIndex, targetRow)&&!gameSystem.isBox2(currentColumnIndex, targetRow)) {
+        if (gameSystem5.notWall(currentColumnIndex, targetRow) &&!gameSystem5.isBox1(currentColumnIndex, targetRow)&&!gameSystem5.isBox2(currentColumnIndex, targetRow)) {
             currentRowIndex = targetRow;
             GridPane.setRowIndex(Niker, currentRowIndex);
-            gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex-1);
-            gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
+            gameSystem5.moveoutNiker(currentColumnIndex, currentRowIndex-1);
+            gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
         }
         //推箱子
-        if (gameSystem.isBox1(currentColumnIndex, targetRow)) {
-            if (!gameSystem.isWall(currentColumnIndex, targetRow+1)&&!gameSystem.isBox2(currentColumnIndex, targetRow+1)) {
+        if (gameSystem5.isBox1(currentColumnIndex, targetRow)) {
+            if (gameSystem5.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem5.isBox2(currentColumnIndex, targetRow+1)) {
                 //可推
                 currentRowIndex = targetRow;
                 GridPane.setRowIndex(Niker, currentRowIndex);
-                gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex-1);
-                gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
+                gameSystem5.moveoutNiker(currentColumnIndex, currentRowIndex-1);
+                gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
                 GridPane.setRowIndex(box1, currentRowIndex+1);
-                gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem.moveinBox(1,currentColumnIndex, currentRowIndex+1);
+                gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
+                gameSystem5.moveinBox(1,currentColumnIndex, currentRowIndex+1);
                 stepsUpdate();
             }
         }
-        if (gameSystem.isBox2(currentColumnIndex, targetRow)) {
-            if (!gameSystem.isWall(currentColumnIndex, targetRow+1)&&!gameSystem.isBox1(currentColumnIndex, targetRow+1)) {
+        if (gameSystem5.isBox2(currentColumnIndex, targetRow)) {
+            if (gameSystem5.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem5.isBox1(currentColumnIndex, targetRow+1)) {
                 //可推
                 currentRowIndex = targetRow;
                 GridPane.setRowIndex(Niker, currentRowIndex);
-                gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex-1);
-                gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
+                gameSystem5.moveoutNiker(currentColumnIndex, currentRowIndex-1);
+                gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
                 GridPane.setRowIndex(box2, currentRowIndex+1);
-                gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem.moveinBox(2,currentColumnIndex, currentRowIndex+1);
+                gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
+                gameSystem5.moveinBox(2,currentColumnIndex, currentRowIndex+1);
                 stepsUpdate();
             }
         }
-        gameSystem.victoryJudge();
-        gameSystem.failedJudge();
+        gameSystem5.victoryJudge();
+        gameSystem5.failedJudge();
     }
 
     @FXML
     void LeftBtnPressed() throws IOException {
         int targetColumn = currentColumnIndex - 1;
         //纯移动
-        if (!gameSystem.isWall(targetColumn, currentRowIndex)&&!gameSystem.isBox1(targetColumn, currentRowIndex)&&!gameSystem.isBox2(targetColumn, currentRowIndex)) {
+        if (gameSystem5.notWall(targetColumn, currentRowIndex) &&!gameSystem5.isBox1(targetColumn, currentRowIndex)&&!gameSystem5.isBox2(targetColumn, currentRowIndex)) {
             currentColumnIndex = targetColumn;
             GridPane.setColumnIndex(Niker, currentColumnIndex);
-            gameSystem.moveoutNiker(currentColumnIndex+1, currentRowIndex);
-            gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
+            gameSystem5.moveoutNiker(currentColumnIndex+1, currentRowIndex);
+            gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
         }
         //推箱子
-        if (gameSystem.isBox1(targetColumn, currentRowIndex)) {
-            if (!gameSystem.isWall(targetColumn-1, currentRowIndex)&&!gameSystem.isBox2(targetColumn-1, currentRowIndex)) {
+        if (gameSystem5.isBox1(targetColumn, currentRowIndex)) {
+            if (gameSystem5.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem5.isBox2(targetColumn-1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
                 GridPane.setColumnIndex(Niker, currentColumnIndex);
-                gameSystem.moveoutNiker(currentColumnIndex+1, currentRowIndex);
-                gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
+                gameSystem5.moveoutNiker(currentColumnIndex+1, currentRowIndex);
+                gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
                 GridPane.setColumnIndex(box1, currentColumnIndex-1);
-                gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem.moveinBox(1,currentColumnIndex-1, currentRowIndex);
+                gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
+                gameSystem5.moveinBox(1,currentColumnIndex-1, currentRowIndex);
                 stepsUpdate();
             }
         }
-        if (gameSystem.isBox2(targetColumn, currentRowIndex)) {
-            if (!gameSystem.isWall(targetColumn-1, currentRowIndex)&&!gameSystem.isBox1(targetColumn-1, currentRowIndex)) {
+        if (gameSystem5.isBox2(targetColumn, currentRowIndex)) {
+            if (gameSystem5.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem5.isBox1(targetColumn-1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
                 GridPane.setColumnIndex(Niker, currentColumnIndex);
-                gameSystem.moveoutNiker(currentColumnIndex+1, currentRowIndex);
-                gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
+                gameSystem5.moveoutNiker(currentColumnIndex+1, currentRowIndex);
+                gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
                 GridPane.setColumnIndex(box2, currentColumnIndex-1);
-                gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem.moveinBox(2,currentColumnIndex-1, currentRowIndex);
+                gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
+                gameSystem5.moveinBox(2,currentColumnIndex-1, currentRowIndex);
                 stepsUpdate();
             }
         }
-        gameSystem.victoryJudge();
-        gameSystem.failedJudge();
+        gameSystem5.victoryJudge();
+        gameSystem5.failedJudge();
     }
 
     @FXML
     void RightBtnPressed() throws IOException {
         int targetColumn = currentColumnIndex + 1;
-        if (!gameSystem.isWall(targetColumn, currentRowIndex)&&!gameSystem.isBox1(targetColumn, currentRowIndex)&&!gameSystem.isBox2(targetColumn, currentRowIndex)) {
+        if (gameSystem5.notWall(targetColumn, currentRowIndex) &&!gameSystem5.isBox1(targetColumn, currentRowIndex)&&!gameSystem5.isBox2(targetColumn, currentRowIndex)) {
             currentColumnIndex = targetColumn;
             GridPane.setColumnIndex(Niker, currentColumnIndex);
-            gameSystem.moveoutNiker(currentColumnIndex-1, currentRowIndex);
-            gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
+            gameSystem5.moveoutNiker(currentColumnIndex-1, currentRowIndex);
+            gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
         }
         //推箱子
-        if (gameSystem.isBox1(targetColumn, currentRowIndex)) {
-            if (!gameSystem.isWall(targetColumn+1, currentRowIndex)&&!gameSystem.isBox2(targetColumn+1, currentRowIndex)) {
+        if (gameSystem5.isBox1(targetColumn, currentRowIndex)) {
+            if (gameSystem5.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem5.isBox2(targetColumn+1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
                 GridPane.setColumnIndex(Niker, currentColumnIndex);
-                gameSystem.moveoutNiker(currentColumnIndex-1, currentRowIndex);
-                gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
+                gameSystem5.moveoutNiker(currentColumnIndex-1, currentRowIndex);
+                gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
                 GridPane.setColumnIndex(box1, currentColumnIndex+1);
-                gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem.moveinBox(1,currentColumnIndex+1, currentRowIndex);
+                gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
+                gameSystem5.moveinBox(1,currentColumnIndex+1, currentRowIndex);
                 stepsUpdate();
             }
         }
-        if (gameSystem.isBox2(targetColumn, currentRowIndex)) {
-            if (!gameSystem.isWall(targetColumn+1, currentRowIndex)&&!gameSystem.isBox1(targetColumn+1, currentRowIndex)) {
+        if (gameSystem5.isBox2(targetColumn, currentRowIndex)) {
+            if (gameSystem5.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem5.isBox1(targetColumn+1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
                 GridPane.setColumnIndex(Niker, currentColumnIndex);
-                gameSystem.moveoutNiker(currentColumnIndex-1, currentRowIndex);
-                gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
+                gameSystem5.moveoutNiker(currentColumnIndex-1, currentRowIndex);
+                gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
                 GridPane.setColumnIndex(box2, currentColumnIndex+1);
-                gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem.moveinBox(2,currentColumnIndex+1, currentRowIndex);
+                gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
+                gameSystem5.moveinBox(2,currentColumnIndex+1, currentRowIndex);
                 stepsUpdate();
             }
         }
-        gameSystem.victoryJudge();
-        gameSystem.failedJudge();
+        gameSystem5.victoryJudge();
+        gameSystem5.failedJudge();
     }
 
     @FXML
     void UpBtnPressed() throws IOException {
         int targetRow = currentRowIndex - 1;
         //纯移动
-        if (!gameSystem.isWall(currentColumnIndex, targetRow)&&!gameSystem.isBox1(currentColumnIndex, targetRow)&&!gameSystem.isBox2(currentColumnIndex, targetRow)) {
+        if (gameSystem5.notWall(currentColumnIndex, targetRow) &&!gameSystem5.isBox1(currentColumnIndex, targetRow)&&!gameSystem5.isBox2(currentColumnIndex, targetRow)) {
             currentRowIndex = targetRow;
             GridPane.setRowIndex(Niker, currentRowIndex);
-            gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex+1);
-            gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
+            gameSystem5.moveoutNiker(currentColumnIndex, currentRowIndex+1);
+            gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
         }
         //推箱子
-        if (gameSystem.isBox1(currentColumnIndex, targetRow)) {
-            if (!gameSystem.isWall(currentColumnIndex, targetRow-1)&&!gameSystem.isBox2(currentColumnIndex, targetRow-1)) {
+        if (gameSystem5.isBox1(currentColumnIndex, targetRow)) {
+            if (gameSystem5.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem5.isBox2(currentColumnIndex, targetRow-1)) {
                 currentRowIndex = targetRow;
                 GridPane.setRowIndex(Niker, currentRowIndex);
-                gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex+1);
-                gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
+                gameSystem5.moveoutNiker(currentColumnIndex, currentRowIndex+1);
+                gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
                 GridPane.setRowIndex(box1, currentRowIndex-1);
-                gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem.moveinBox(1,currentColumnIndex, currentRowIndex-1);
+                gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
+                gameSystem5.moveinBox(1,currentColumnIndex, currentRowIndex-1);
                 stepsUpdate();
             }
         }
-        if (gameSystem.isBox2(currentColumnIndex, targetRow)) {
-            if (!gameSystem.isWall(currentColumnIndex, targetRow-1)&&!gameSystem.isBox1(currentColumnIndex, targetRow-1)) {
+        if (gameSystem5.isBox2(currentColumnIndex, targetRow)) {
+            if (gameSystem5.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem5.isBox1(currentColumnIndex, targetRow-1)) {
                 currentRowIndex = targetRow;
                 GridPane.setRowIndex(Niker, currentRowIndex);
-                gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex+1);
-                gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
+                gameSystem5.moveoutNiker(currentColumnIndex, currentRowIndex+1);
+                gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
                 GridPane.setRowIndex(box2, currentRowIndex-1);
-                gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem.moveinBox(2,currentColumnIndex, currentRowIndex-1);
+                gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
+                gameSystem5.moveinBox(2,currentColumnIndex, currentRowIndex-1);
                 stepsUpdate();
             }
         }
-        gameSystem.victoryJudge();
-        gameSystem.failedJudge();
+        gameSystem5.victoryJudge();
+        gameSystem5.failedJudge();
     }
 
 }
