@@ -326,8 +326,8 @@ public class Level2Controller {
         event.consume();  // 确保事件不会被其他地方消费
     }
 
-    Integer currentColumnIndex = gameSystem2.getPlayerCol();
-    Integer currentRowIndex = gameSystem2.getPlayerRow();
+    Integer currentColumnIndex = 1;
+    Integer currentRowIndex = 1;
 
     @FXML
     void DownBtnPressed() throws IOException {
