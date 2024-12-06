@@ -11,12 +11,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
@@ -29,58 +31,16 @@ import java.util.Objects;
 public class Level5Controller {
 
     @FXML
-    private Button Btn_back;
+    private Button Btn_back,Btn_down,Btn_home,Btn_left,Btn_right,Btn_up,Btn_load,Btn_save;
 
     @FXML
-    private Button Btn_down;
+    private GridPane GridBoard,Movement;
 
     @FXML
-    private Button Btn_home;
+    private ImageView Img_Back,Img_Move,Img_home,Img_load,Img_save;
 
     @FXML
-    private Button Btn_left;
-
-    @FXML
-    private Button Btn_load;
-
-    @FXML
-    private Button Btn_right;
-
-    @FXML
-    private Button Btn_save;
-
-    @FXML
-    private Button Btn_up;
-
-    @FXML
-    private GridPane GridBoard;
-
-    @FXML
-    private ImageView Img_Back;
-
-    @FXML
-    private ImageView Img_Move;
-
-    @FXML
-    private ImageView Img_home;
-
-    @FXML
-    private ImageView Img_load;
-
-    @FXML
-    private ImageView Img_save;
-
-    @FXML
-    private Label Label_Level5;
-
-    @FXML
-    private Label Label_steps;
-
-    @FXML
-    private Label Label_timer;
-
-    @FXML
-    private GridPane Movement;
+    private Label Label_Level2,Label_steps,Label_timer,myTime,steps;
 
     @FXML
     private Circle Niker;
@@ -89,104 +49,11 @@ public class Level5Controller {
     private AnchorPane Pane;
 
     @FXML
-    private Rectangle board1;
+    private Rectangle box1,box2,box3,board1,board2,board3,board4,board5,board6,board7,board8,board9,board10,board11,board12,board13,board14,board15,board16,board17,board18,board19,board20,board21,board22,board23,board24,board25;
 
     @FXML
-    private Rectangle board10;
-
-    @FXML
-    private Rectangle board11;
-
-    @FXML
-    private Rectangle board12;
-
-    @FXML
-    private Rectangle board13;
-
-    @FXML
-    private Rectangle board14;
-
-    @FXML
-    private Rectangle board15;
-
-    @FXML
-    private Rectangle board16;
-
-    @FXML
-    private Rectangle board17;
-
-    @FXML
-    private Rectangle board18;
-
-    @FXML
-    private Rectangle board19;
-
-    @FXML
-    private Rectangle board2;
-
-    @FXML
-    private Rectangle board20;
-
-    @FXML
-    private Rectangle board21;
-
-    @FXML
-    private Rectangle board22;
-
-    @FXML
-    private Rectangle board23;
-
-    @FXML
-    private Rectangle board24;
-
-    @FXML
-    private Rectangle board25;
-
-    @FXML
-    private Rectangle board3;
-
-    @FXML
-    private Rectangle board4;
-
-    @FXML
-    private Rectangle board5;
-
-    @FXML
-    private Rectangle board6;
-
-    @FXML
-    private Rectangle board7;
-
-    @FXML
-    private Rectangle board8;
-
-    @FXML
-    private Rectangle board9;
-
-    @FXML
-    private Rectangle box1;
-
-    @FXML
-    private Rectangle box2;
-
-    @FXML
-    private Rectangle box3;
-
-    @FXML
-    private Label myTime;
-
-    @FXML
-    private Label steps;
-
-    @FXML
-    private Polygon target1;
-
-    @FXML
-    private Polygon target2;
-
-    @FXML
-    private Polygon target3;
-
+    private Polygon target1,target2,target3;
+    
 
     GameSystem gameSystem5 = new GameSystem(3,3,25,8,6,30);
 
@@ -211,6 +78,7 @@ public class Level5Controller {
             gameSystem5.setPlayer(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
             gameSystem5.addPlayerPositons(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
         });
+
         //判断是否为游客模式
         if (GameSystem.verifyVisitor()){
             Img_load.setVisible(false);
@@ -220,10 +88,10 @@ public class Level5Controller {
             Btn_save.setDisable(true);
             Btn_home.setDisable(true);
         }
+
         GameSystem.setCurrentLevel(5);GameSystem.setCurrentLevel("Level5");
         Pane.requestFocus(); // 确保焦点设置
 
-        //计时模式
 
         if (GameSystem.isTimeMode()) {
             Timeline timeline = new Timeline(
@@ -255,8 +123,12 @@ public class Level5Controller {
             Label_timer.setVisible(false);
         }
 
-    }
+        //图形初始化
+        Image SUST =new Image("file:src/main/resources/Sokoban/Sokoban/pictures/SUST.jpeg");
+        Niker.setFill(new ImagePattern(SUST));
 
+    }
+   
     @FXML
     void HomeBtnPressed(MouseEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -266,6 +138,7 @@ public class Level5Controller {
         // 显示对话框并等待用户操作
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
+                GameSystem.setGameOver(true);
                 gameSystem5.saveGameProgress(gameSystem5);
                 //切换场景
                 URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
@@ -382,6 +255,7 @@ public class Level5Controller {
         }
         gameSystem5.victoryJudge();
         gameSystem5.failedJudge();
+       
     }
 
     @FXML
@@ -422,6 +296,7 @@ public class Level5Controller {
         }
         gameSystem5.victoryJudge();
         gameSystem5.failedJudge();
+        
     }
 
     @FXML
@@ -461,6 +336,7 @@ public class Level5Controller {
         }
         gameSystem5.victoryJudge();
         gameSystem5.failedJudge();
+       
     }
 
     @FXML
@@ -501,6 +377,7 @@ public class Level5Controller {
         }
         gameSystem5.victoryJudge();
         gameSystem5.failedJudge();
+        
     }
 
 }

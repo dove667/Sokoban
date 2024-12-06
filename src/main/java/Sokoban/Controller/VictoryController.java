@@ -36,6 +36,7 @@ public class VictoryController {
             Btn_NextLevel.setVisible(false);
             Btn_Home.setVisible(false);
         }
+
     }
     @FXML
     void HomeBtnReleased(MouseEvent event) throws IOException {

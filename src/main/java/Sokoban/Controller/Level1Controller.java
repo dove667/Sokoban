@@ -11,12 +11,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
@@ -80,6 +82,8 @@ public class Level1Controller {
            gameSystem.setPlayer(1,1);
            gameSystem.addPlayerPositons(1,1);
         });
+
+
         //判断是否为游客模式
         if (GameSystem.verifyVisitor()){
             Img_load.setVisible(false);
@@ -124,6 +128,10 @@ public class Level1Controller {
             Label_timer.setVisible(false);
         }
 
+        //图形初始化
+        Image SUST =new Image("file:src/main/resources/Sokoban/Sokoban/pictures/SUST.jpeg");
+        Niker.setFill(new ImagePattern(SUST));
+
     }
 
     @FXML
@@ -135,6 +143,7 @@ public class Level1Controller {
         // 显示对话框并等待用户操作
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
+                GameSystem.setGameOver(true);
                 gameSystem.saveGameProgress(gameSystem);
                 //切换场景
                 URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
@@ -207,6 +216,11 @@ public class Level1Controller {
         event.consume();  // 确保事件不会被其他地方消费
     }
 
+
+
+
+
+    //以下是移动事件
     Integer currentColumnIndex = 1;
     Integer currentRowIndex = 1;
 
@@ -216,7 +230,7 @@ public class Level1Controller {
         //纯移动
         if (gameSystem.notWall(currentColumnIndex, targetRow) &&!gameSystem.isBox1(currentColumnIndex, targetRow)&&!gameSystem.isBox2(currentColumnIndex, targetRow)) {
             currentRowIndex = targetRow;
-            GridPane.setRowIndex(Niker, currentRowIndex);
+            AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex-1);
             gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
@@ -226,10 +240,10 @@ public class Level1Controller {
             if (gameSystem.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem.isBox2(currentColumnIndex, targetRow+1)) {
                 //可推
                 currentRowIndex = targetRow;
-                GridPane.setRowIndex(Niker, currentRowIndex);
+                AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex-1);
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setRowIndex(box1, currentRowIndex+1);
+                AnimationController.MoveDown(box1, currentColumnIndex, currentRowIndex+1);//动画
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem.moveinBox(1,currentColumnIndex, currentRowIndex+1);
                 stepsUpdate();
@@ -239,10 +253,10 @@ public class Level1Controller {
             if (gameSystem.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem.isBox1(currentColumnIndex, targetRow+1)) {
                 //可推
                 currentRowIndex = targetRow;
-                GridPane.setRowIndex(Niker, currentRowIndex);
+                AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex-1);
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setRowIndex(box2, currentRowIndex+1);
+                AnimationController.MoveDown(box2, currentColumnIndex, currentRowIndex+1);//动画
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem.moveinBox(2,currentColumnIndex, currentRowIndex+1);
                 stepsUpdate();
@@ -258,7 +272,7 @@ public class Level1Controller {
         //纯移动
         if (gameSystem.notWall(targetColumn, currentRowIndex) &&!gameSystem.isBox1(targetColumn, currentRowIndex)&&!gameSystem.isBox2(targetColumn, currentRowIndex)) {
             currentColumnIndex = targetColumn;
-            GridPane.setColumnIndex(Niker, currentColumnIndex);
+            AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem.moveoutNiker(currentColumnIndex+1, currentRowIndex);
             gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
@@ -267,10 +281,10 @@ public class Level1Controller {
         if (gameSystem.isBox1(targetColumn, currentRowIndex)) {
             if (gameSystem.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem.isBox2(targetColumn-1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
-                GridPane.setColumnIndex(Niker, currentColumnIndex);
+                AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem.moveoutNiker(currentColumnIndex+1, currentRowIndex);
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setColumnIndex(box1, currentColumnIndex-1);
+                AnimationController.MoveLeft(box1, currentColumnIndex-1, currentRowIndex);//动画
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem.moveinBox(1,currentColumnIndex-1, currentRowIndex);
                 stepsUpdate();
@@ -279,10 +293,10 @@ public class Level1Controller {
         if (gameSystem.isBox2(targetColumn, currentRowIndex)) {
             if (gameSystem.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem.isBox1(targetColumn-1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
-                GridPane.setColumnIndex(Niker, currentColumnIndex);
+                AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem.moveoutNiker(currentColumnIndex+1, currentRowIndex);
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setColumnIndex(box2, currentColumnIndex-1);
+                AnimationController.MoveLeft(box2, currentColumnIndex-1, currentRowIndex);//动画
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem.moveinBox(2,currentColumnIndex-1, currentRowIndex);
                 stepsUpdate();
@@ -290,6 +304,7 @@ public class Level1Controller {
         }
         gameSystem.victoryJudge();
         gameSystem.failedJudge();
+
     }
 
     @FXML
@@ -297,7 +312,8 @@ public class Level1Controller {
         int targetColumn = currentColumnIndex + 1;
         if (gameSystem.notWall(targetColumn, currentRowIndex) &&!gameSystem.isBox1(targetColumn, currentRowIndex)&&!gameSystem.isBox2(targetColumn, currentRowIndex)) {
             currentColumnIndex = targetColumn;
-            GridPane.setColumnIndex(Niker, currentColumnIndex);
+            AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
+
             gameSystem.moveoutNiker(currentColumnIndex-1, currentRowIndex);
             gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
@@ -306,10 +322,10 @@ public class Level1Controller {
         if (gameSystem.isBox1(targetColumn, currentRowIndex)) {
             if (gameSystem.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem.isBox2(targetColumn+1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
-                GridPane.setColumnIndex(Niker, currentColumnIndex);
+                AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem.moveoutNiker(currentColumnIndex-1, currentRowIndex);
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setColumnIndex(box1, currentColumnIndex+1);
+                AnimationController.MoveRight(box1, currentColumnIndex+1, currentRowIndex);
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem.moveinBox(1,currentColumnIndex+1, currentRowIndex);
                 stepsUpdate();
@@ -318,10 +334,10 @@ public class Level1Controller {
         if (gameSystem.isBox2(targetColumn, currentRowIndex)) {
             if (gameSystem.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem.isBox1(targetColumn+1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
-                GridPane.setColumnIndex(Niker, currentColumnIndex);
+                AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);
                 gameSystem.moveoutNiker(currentColumnIndex-1, currentRowIndex);
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setColumnIndex(box2, currentColumnIndex+1);
+                AnimationController.MoveRight(box2, currentColumnIndex+1, currentRowIndex);
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem.moveinBox(2,currentColumnIndex+1, currentRowIndex);
                 stepsUpdate();
@@ -329,6 +345,7 @@ public class Level1Controller {
         }
         gameSystem.victoryJudge();
         gameSystem.failedJudge();
+
     }
 
     @FXML
@@ -337,7 +354,7 @@ public class Level1Controller {
         //纯移动
         if (gameSystem.notWall(currentColumnIndex, targetRow) &&!gameSystem.isBox1(currentColumnIndex, targetRow)&&!gameSystem.isBox2(currentColumnIndex, targetRow)) {
             currentRowIndex = targetRow;
-            GridPane.setRowIndex(Niker, currentRowIndex);
+            AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex+1);
             gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
@@ -346,10 +363,10 @@ public class Level1Controller {
         if (gameSystem.isBox1(currentColumnIndex, targetRow)) {
             if (gameSystem.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem.isBox2(currentColumnIndex, targetRow-1)) {
                 currentRowIndex = targetRow;
-                GridPane.setRowIndex(Niker, currentRowIndex);
+                AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex+1);
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setRowIndex(box1, currentRowIndex-1);
+                AnimationController.MoveUp(box1, currentColumnIndex, currentRowIndex-1);//动画
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem.moveinBox(1,currentColumnIndex, currentRowIndex-1);
                 stepsUpdate();
@@ -358,10 +375,10 @@ public class Level1Controller {
         if (gameSystem.isBox2(currentColumnIndex, targetRow)) {
             if (gameSystem.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem.isBox1(currentColumnIndex, targetRow-1)) {
                 currentRowIndex = targetRow;
-                GridPane.setRowIndex(Niker, currentRowIndex);
+                AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex+1);
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setRowIndex(box2, currentRowIndex-1);
+                AnimationController.MoveUp(box2, currentColumnIndex, currentRowIndex-1);//动画
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem.moveinBox(2,currentColumnIndex, currentRowIndex-1);
                 stepsUpdate();
@@ -369,5 +386,6 @@ public class Level1Controller {
         }
         gameSystem.victoryJudge();
         gameSystem.failedJudge();
+
     }
 }
