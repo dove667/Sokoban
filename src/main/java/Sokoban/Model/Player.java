@@ -1,8 +1,8 @@
 package Sokoban.Model;
 import java.io.*;
 public class Player implements Serializable {
-    private int currentRow=1;
-    private int currentCol=1;
+    private int currentRow;
+    private int currentCol;
 
     public int getCurrentRow() {
         return currentRow;
