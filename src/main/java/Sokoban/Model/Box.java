@@ -6,7 +6,7 @@ public class Box  implements Serializable{
 
     private int currentRow;
     private int currentCol;
-    private boolean movable;
+    private boolean movable=true;
     private int id;
 
     public int getId() {

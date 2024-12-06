@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -171,4 +172,50 @@ public class Level4Controller {
 
     @FXML
     private Polygon target3;
+
+    @FXML
+    void BackBtnPressed(MouseEvent event) {
+
+    }
+
+    @FXML
+    void DownBtnPressed(MouseEvent event) {
+
+    }
+
+    @FXML
+    void HomeBtnPressed(MouseEvent event) {
+
+    }
+
+    @FXML
+    void LeftBtnPressed(MouseEvent event) {
+
+    }
+
+    @FXML
+    void LoadBtnPressed(MouseEvent event) {
+
+    }
+
+    @FXML
+    void MovePlayer(KeyEvent event) {
+
+    }
+
+    @FXML
+    void RightBtnPressed(MouseEvent event) {
+
+    }
+
+    @FXML
+    void SaveBtnPressed(MouseEvent event) {
+
+    }
+
+    @FXML
+    void UpBtnPressed(MouseEvent event) {
+
+    }
+
 }

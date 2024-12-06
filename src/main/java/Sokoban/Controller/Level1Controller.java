@@ -61,10 +61,12 @@ public class Level1Controller {
            gameSystem.setBox(2,GridPane.getColumnIndex(box2),GridPane.getRowIndex(box2));
            //设置好system中Box的坐标
            gameSystem.addBoxPositons();
+            gameSystem.setBoxNum(2);
            //将Box量化到system的矩阵中
            gameSystem.setTarget(0,GridPane.getColumnIndex(target1),GridPane.getRowIndex(target1));
            gameSystem.setTarget(1,GridPane.getColumnIndex(target2),GridPane.getRowIndex(target2));
            gameSystem.addTargetPositons();
+           gameSystem.setTargNum(2);
           //同样操作target
            // 遍历操作Board。注意！Gridpane中0时默认位置，不会在fxml中显示标出，会导致Index.valueOf空指针异常。要手动标出坐标
            Rectangle[] boards = {board1,board2,board3,board4,board5,board6,board7,board8,board9,board10,board11,board12,board13,board14,board15,board16,board17,board18};
@@ -85,7 +87,7 @@ public class Level1Controller {
             Btn_save.setDisable(true);
             Btn_home.setDisable(true);
         }
-        GameSystem.setCurrentLevel(1);GameSystem.setCurrentLevel("1");
+        GameSystem.setCurrentLevel(1);GameSystem.setCurrentLevel("Level1");
         Pane.requestFocus(); // 确保焦点设置
 
         //计时模式

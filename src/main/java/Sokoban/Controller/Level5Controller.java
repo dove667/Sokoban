@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -194,6 +195,11 @@ public class Level5Controller {
 
     @FXML
     void LoadBtnPressed(MouseEvent event) {
+
+    }
+
+    @FXML
+    void MovePlayer(KeyEvent event) {
 
     }
 

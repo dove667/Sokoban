@@ -37,6 +37,16 @@ public class GameSystem implements Serializable {
     private static boolean L3win;
     private static boolean L4win;
     private static boolean L5win;
+    private int targNum;
+    private int boxNum;
+    private int failedBox;
+    public void setTargNum(int targNum) {
+        this.targNum = targNum;
+    }
+
+    public void setBoxNum(int boxNum) {
+        this.boxNum = boxNum;
+    }
 
     public static boolean isL1win() {
         return L1win;
@@ -92,11 +102,13 @@ public class GameSystem implements Serializable {
     public GameSystem(int boxNumber, int targetNumber,int boardNumber, int width, int height,int time) {
         timeRemaining = time;
         steps = 0;
+        boxNum = boxNumber;
         boxes = new Box[boxNumber];
         for (int i = 0; i < boxNumber; i++) {
             boxes[i] = new Box();
             boxes[i].setMovable(true);
         }
+        targNum = targetNumber;
         targets = new Target[targetNumber];
         for (int i = 0; i < targetNumber; i++) {
             targets[i] = new Target();
@@ -113,6 +125,7 @@ public class GameSystem implements Serializable {
         boxes[i-1].setCurrentCol(col);
         boxes[i-1].setCurrentRow(row);
         boxes[i-1].setId(i);
+        boxes[i-1].setMovable(true);
     }
     public void setBoard(int i,int col,int row) {
         boards[i].setCurrentCol(col);
@@ -135,35 +148,63 @@ public class GameSystem implements Serializable {
 
 
     public void victoryJudge() throws IOException {
-        int count =0;
-        for(Target target : targets){
-            for(Box box : boxes){
-                if(target.getCurrentCol() == box.getCurrentCol() && target.getCurrentRow() == box.getCurrentRow()) {
-                    count++;
+
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix.length;j++){
+                if(matrix[i][j] == 12){
+                    for (int m = 0; m < matrix.length; m++){
+                        for (int n = 0; n < matrix.length; n++){
+                            if(matrix[m][n] == 12 && !(m==i && n==j)){
+                                //同时有两个box达到target了
+                                if(boxNum==2){
+                                    URL url = getClass().getResource("/Sokoban/Victory.fxml");
+                                    Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+                                    Scene scene = new Scene(root);
+                                    primaryStage.setScene(scene);
+                                }
+                                else if(boxNum==3){
+                                    for(int p=0;p<matrix.length;p++){
+                                        for(int q=0;q<matrix.length;q++){
+                                            if(matrix[p][q] == 12  && !(p==i && q==j) && !(p==m && q==n)){
+                                                URL url = getClass().getResource("/Sokoban/Victory.fxml");
+                                                Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+                                                Scene scene = new Scene(root);
+                                                primaryStage.setScene(scene);
+                                            }
+                                        }
+                                    }
+                                }
+
+
+
+                            }
+                        }
+                    }
                 }
             }
-        }
-        if(count == targets.length) {
-            URL url = getClass().getResource("/Sokoban/Victory.fxml");
-            Parent root = FXMLLoader.load(Objects.requireNonNull(url));
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
         }
     }
 
     public void failedJudge() throws IOException {
-        int count =0;
-        for(Box box : boxes){
+        for(Box box:boxes){
             judgeBoxMovable(box);
-            if(!box.isMovable()){
-                count++;
+        }
+
+        if(boxNum==2){
+            if(!boxes[0].isMovable() && !boxes[1].isMovable()){
+                URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+                Scene scene = new Scene(root);
+                primaryStage.setScene(scene);
             }
         }
-        if(count == boxes.length){
-            URL url = getClass().getResource("/Sokoban/Failed.fxml");
-            Parent root = FXMLLoader.load(Objects.requireNonNull(url));
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
+        else if(boxNum==3){
+            if(!boxes[0].isMovable() && !boxes[1].isMovable() && !boxes[2].isMovable()){
+                URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+                Scene scene = new Scene(root);
+                primaryStage.setScene(scene);
+            }
         }
     }
 
@@ -176,7 +217,7 @@ public class GameSystem implements Serializable {
             box.setMovable(false);
         }
         //左右，上下一面board一面box时(1--10,12)4
-        if(matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 10
+        else if(matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 10
         || matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 10
         || matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 10
         || matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 10
@@ -195,7 +236,7 @@ public class GameSystem implements Serializable {
             box.setMovable(false);
         }
         //左右，上下各一面box时(10,12--10,12)4
-       if(matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 10
+        else if(matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 10
                || matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 10
                || matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 10
                || matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 10
@@ -229,6 +270,9 @@ public class GameSystem implements Serializable {
                 || matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 12 && matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 12){
            box.setMovable(false);
        }
+       else{
+           box.setMovable(true);
+        }
     }
 
 
@@ -238,26 +282,29 @@ public class GameSystem implements Serializable {
     }
     //实现victory的nextLevel按钮多态
     public static String getNextLevel() {
-        switch (CurrentLevel) {
-            case "Level1" -> {
+        switch (currentLevel) {
+            case 1 -> {
                 L1win = true;
                 return "/Sokoban/Level2.fxml";
             }
 
-            case "Level2" -> {
+            case 2 -> {
                 L2win = true;
                 return "/Sokoban/Level3.fxml";
             }
-            case "Level3" -> {
+            case 3 -> {
                 L3win = true;
                 return "/Sokoban/Level4.fxml";
             }
-            case "Level4" -> {
+            case 4 -> {
                 L4win = true;
                 return "/Sokoban/Level5.fxml";
             }
+            default -> {
+                return "/Sokoban/LevelScene.fxml";
+            }
         }
-        return null;
+
     }
 
     public static void setCurrentLevel(String level) {
@@ -428,7 +475,12 @@ public class GameSystem implements Serializable {
     public void moveinBox(int i,int col,int row){
         boxes[i-1].setCurrentRow(row);
         boxes[i-1].setCurrentCol(col);
-        matrix[row][col] = 10;
+        if (matrix[row][col] == 0){
+            matrix[row][col] = 10;
+        }
+        else if(matrix[row][col] == 2){
+            matrix[row][col] = 12;
+        }
     }
 
     public void reset(int InitRow1, int InitCol1,int InitRow2,int InitCol2) {
@@ -437,5 +489,6 @@ public class GameSystem implements Serializable {
         moveinNiker(1, 1);
         setBox(1, InitRow1 , InitCol1);
         setBox(2, InitRow2, InitCol2);
+
     }
 }
