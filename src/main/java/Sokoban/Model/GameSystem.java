@@ -40,15 +40,14 @@ public class GameSystem implements Serializable {
     private static boolean L5win;
     private int targNum;
     private int boxNum;
-    private static boolean isGameOver;
+    private  boolean isGameOver;
 
-    public static boolean isGameOver() {
+    public boolean isGameOver() {
         return isGameOver;
     }
 
-
-    public static void setGameOver(boolean b) {
-        isGameOver = b;
+    public  void setGameOver(boolean b) {
+        this.isGameOver = b;
     }
 
     public void setTargNum(int targNum) {

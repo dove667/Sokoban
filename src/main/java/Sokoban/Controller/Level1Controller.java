@@ -52,6 +52,7 @@ public class Level1Controller {
     @FXML
     private GridPane Movement,GridBoard;
 
+    private Timeline timeline;
 
 
     GameSystem gameSystem = new GameSystem(2,2,18,6,5,30);
@@ -99,7 +100,7 @@ public class Level1Controller {
         //计时模式
 
         if (GameSystem.isTimeMode()) {
-            Timeline timeline = new Timeline(
+            timeline = new Timeline(
                     new KeyFrame(Duration.seconds(1), event -> {
                         gameSystem.setTimeRemaining(gameSystem.getTimeRemaining()-1); // 每秒减少 1
                         myTime.setText(String.valueOf(gameSystem.getTimeRemaining())); // 更新标签文字
@@ -120,7 +121,7 @@ public class Level1Controller {
                         }
                     })
             );
-            timeline.setCycleCount(gameSystem.getTimeRemaining()); // 设置循环次数
+            timeline.setCycleCount(Timeline.INDEFINITE); // 设置循环次数
             timeline.play(); // 开始计时
         }
         else {
@@ -134,6 +135,14 @@ public class Level1Controller {
 
     }
 
+    public void stopTimeline() {
+        if (timeline != null) {
+            timeline.stop();  // 停止Timeline
+            timeline.getKeyFrames().clear();  // 清除所有关键帧
+            timeline = null;  // 解除对Timeline的引用
+        }
+    }
+
     @FXML
     void HomeBtnPressed(MouseEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -143,7 +152,7 @@ public class Level1Controller {
         // 显示对话框并等待用户操作
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                GameSystem.setGameOver(true);
+                gameSystem.setGameOver(true);stopTimeline();
                 gameSystem.saveGameProgress(gameSystem);
                 //切换场景
                 URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
@@ -169,6 +178,7 @@ public class Level1Controller {
     }
     @FXML
     void BackBtnPressed() throws IOException {
+        stopTimeline();
         URL url = getClass().getResource("/Sokoban/Level1.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
@@ -182,6 +192,7 @@ public class Level1Controller {
     }
     @FXML
     void LoadBtnPressed() throws IOException {
+        stopTimeline();
         gameSystem = gameSystem.loadGameProgress(); Pane.requestFocus();
         Platform.runLater(() -> {
             // 更新界面，如更新玩家、盒子、步数等
@@ -194,6 +205,35 @@ public class Level1Controller {
             GridPane.setColumnIndex(box2, gameSystem.getBoxCol(2));
             currentColumnIndex = gameSystem.getPlayerCol();
             currentRowIndex = gameSystem.getPlayerRow();
+            if (GameSystem.isTimeMode()) {
+                timeline = new Timeline(
+                        new KeyFrame(Duration.seconds(1), event -> {
+                            gameSystem.setTimeRemaining(gameSystem.getTimeRemaining()-1); // 每秒减少 1
+                            myTime.setText(String.valueOf(gameSystem.getTimeRemaining())); // 更新标签文字
+
+                            // 检查倒计时是否结束
+                            if (gameSystem.getTimeRemaining() <= 0) {
+                                myTime.setText("time's up");
+                                URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                                Parent root = null;
+                                try {
+                                    root = FXMLLoader.load(Objects.requireNonNull(url));
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Scene scene = new Scene(root);
+                                primaryStage.setScene(scene);
+                                // 切换场景
+                            }
+                        })
+                );
+                timeline.setCycleCount(Timeline.INDEFINITE); // 设置循环次数
+                timeline.play(); // 开始计时
+            }
+            else {
+                myTime.setVisible(false);
+                Label_timer.setVisible(false);
+            }
         });
     }
 
@@ -215,9 +255,6 @@ public class Level1Controller {
         }
         event.consume();  // 确保事件不会被其他地方消费
     }
-
-
-
 
 
     //以下是移动事件
@@ -264,6 +301,9 @@ public class Level1Controller {
         }
         gameSystem.victoryJudge();
         gameSystem.failedJudge();
+        if (gameSystem.isGameOver()) {
+            stopTimeline();
+        }
     }
 
     @FXML
@@ -304,6 +344,9 @@ public class Level1Controller {
         }
         gameSystem.victoryJudge();
         gameSystem.failedJudge();
+        if (gameSystem.isGameOver()) {
+            stopTimeline();
+        }
     }
 
 
@@ -345,6 +388,9 @@ public class Level1Controller {
         }
         gameSystem.victoryJudge();
         gameSystem.failedJudge();
+        if (gameSystem.isGameOver()) {
+            stopTimeline();
+        }
 
     }
 
@@ -386,6 +432,8 @@ public class Level1Controller {
         }
         gameSystem.victoryJudge();
         gameSystem.failedJudge();
-
+        if (gameSystem.isGameOver()) {
+            stopTimeline();
+        }
     }
 }

@@ -97,7 +97,7 @@ public class Level3Controller {
 
 
         if (GameSystem.isTimeMode()) {
-            Timeline timeline = new Timeline(
+            timeline = new Timeline(
                     new KeyFrame(Duration.seconds(1), event -> {
                         gameSystem3.setTimeRemaining(gameSystem3.getTimeRemaining()-1); // 每秒减少 1
                         myTime.setText(String.valueOf(gameSystem3.getTimeRemaining())); // 更新标签文字
@@ -131,7 +131,13 @@ public class Level3Controller {
         Image SUST =new Image("file:src/main/resources/Sokoban/Sokoban/pictures/SUST.jpeg");
         Niker.setFill(new ImagePattern(SUST));
     }
-
+    public void stopTimeline() {
+        if (timeline != null) {
+            timeline.stop();  // 停止Timeline
+            timeline.getKeyFrames().clear();  // 清除所有关键帧
+            timeline = null;  // 解除对Timeline的引用
+        }
+    }
 
     @FXML
     void HomeBtnPressed(MouseEvent event) throws IOException {
@@ -142,7 +148,8 @@ public class Level3Controller {
         // 显示对话框并等待用户操作
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                GameSystem.setGameOver(true);
+                gameSystem3.setGameOver(true);stopTimeline();
+                gameSystem3.setGameOver(true);
                 gameSystem3.saveGameProgress(gameSystem3);
                 //切换场景
                 URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
@@ -168,6 +175,7 @@ public class Level3Controller {
     }
     @FXML
     void BackBtnPressed() throws IOException {
+        stopTimeline();
         URL url = getClass().getResource("/Sokoban/Level3.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
@@ -181,6 +189,7 @@ public class Level3Controller {
     }
     @FXML
     void LoadBtnPressed() throws IOException {
+        stopTimeline();
         gameSystem3 = gameSystem3.loadGameProgress(); Pane.requestFocus();
         Platform.runLater(() -> {
             // 更新界面，如更新玩家、盒子、步数等
@@ -193,6 +202,35 @@ public class Level3Controller {
             GridPane.setColumnIndex(box2, gameSystem3.getBoxCol(2));
             currentColumnIndex = gameSystem3.getPlayerCol();
             currentRowIndex = gameSystem3.getPlayerRow();
+            if (GameSystem.isTimeMode()) {
+                timeline = new Timeline(
+                        new KeyFrame(Duration.seconds(1), event -> {
+                            gameSystem3.setTimeRemaining(gameSystem3.getTimeRemaining()-1); // 每秒减少 1
+                            myTime.setText(String.valueOf(gameSystem3.getTimeRemaining())); // 更新标签文字
+
+                            // 检查倒计时是否结束
+                            if (gameSystem3.getTimeRemaining() <= 0) {
+                                myTime.setText("time's up");
+                                URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                                Parent root = null;
+                                try {
+                                    root = FXMLLoader.load(Objects.requireNonNull(url));
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Scene scene = new Scene(root);
+                                primaryStage.setScene(scene);
+                                // 切换场景
+                            }
+                        })
+                );
+                timeline.setCycleCount(Timeline.INDEFINITE); // 设置循环次数
+                timeline.play(); // 开始计时
+            }
+            else {
+                myTime.setVisible(false);
+                Label_timer.setVisible(false);
+            }
         });
     }
 
@@ -259,6 +297,9 @@ public class Level3Controller {
         }
         gameSystem3.victoryJudge();
         gameSystem3.failedJudge();
+        if (gameSystem3.isGameOver()) {
+            stopTimeline();
+        }
     }
 
     @FXML
@@ -299,6 +340,9 @@ public class Level3Controller {
         }
         gameSystem3.victoryJudge();
         gameSystem3.failedJudge();
+        if (gameSystem3.isGameOver()) {
+            stopTimeline();
+        }
     }
 
     @FXML
@@ -339,6 +383,9 @@ public class Level3Controller {
         }
         gameSystem3.victoryJudge();
         gameSystem3.failedJudge();
+        if (gameSystem3.isGameOver()) {
+            stopTimeline();
+        }
     }
 
     @FXML
@@ -379,5 +426,8 @@ public class Level3Controller {
         }
         gameSystem3.victoryJudge();
         gameSystem3.failedJudge();
+        if (gameSystem3.isGameOver()) {
+            stopTimeline();
+        }
     }
 }

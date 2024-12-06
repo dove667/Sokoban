@@ -57,6 +57,7 @@ public class Level4Controller {
     @FXML
     private Polygon target1,target2,target3;
 
+    private Timeline timeline;
 
 
     GameSystem gameSystem4 = new GameSystem(3,3,25,7,7,30);
@@ -101,7 +102,7 @@ public class Level4Controller {
         Pane.requestFocus(); // 确保焦点设置
 
         if (GameSystem.isTimeMode()) {
-            Timeline timeline = new Timeline(
+            timeline = new Timeline(
                     new KeyFrame(Duration.seconds(1), event -> {
                         gameSystem4.setTimeRemaining(gameSystem4.getTimeRemaining()-1); // 每秒减少 1
                         myTime.setText(String.valueOf(gameSystem4.getTimeRemaining())); // 更新标签文字
@@ -135,7 +136,13 @@ public class Level4Controller {
         Niker.setFill(new ImagePattern(SUST));
 
     }
-
+    public void stopTimeline() {
+        if (timeline != null) {
+            timeline.stop();  // 停止Timeline
+            timeline.getKeyFrames().clear();  // 清除所有关键帧
+            timeline = null;  // 解除对Timeline的引用
+        }
+    }
 
     @FXML
     void HomeBtnPressed(MouseEvent event) throws IOException {
@@ -146,7 +153,7 @@ public class Level4Controller {
         // 显示对话框并等待用户操作
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                GameSystem.setGameOver(true);
+                gameSystem4.setGameOver(true);stopTimeline();
                 gameSystem4.saveGameProgress(gameSystem4);
                 //切换场景
                 URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
@@ -172,6 +179,7 @@ public class Level4Controller {
     }
     @FXML
     void BackBtnPressed() throws IOException {
+        stopTimeline();
         URL url = getClass().getResource("/Sokoban/Level4.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
@@ -184,6 +192,7 @@ public class Level4Controller {
     }
     @FXML
     void LoadBtnPressed() throws IOException {
+        stopTimeline();
         gameSystem4 = gameSystem4.loadGameProgress(); Pane.requestFocus();
         Platform.runLater(() -> {
             // 更新界面，如更新玩家、盒子、步数等
@@ -196,6 +205,35 @@ public class Level4Controller {
             GridPane.setColumnIndex(box2, gameSystem4.getBoxCol(2));
             currentColumnIndex = gameSystem4.getPlayerCol();
             currentRowIndex = gameSystem4.getPlayerRow();
+            if (GameSystem.isTimeMode()) {
+                timeline = new Timeline(
+                        new KeyFrame(Duration.seconds(1), event -> {
+                            gameSystem4.setTimeRemaining(gameSystem4.getTimeRemaining()-1); // 每秒减少 1
+                            myTime.setText(String.valueOf(gameSystem4.getTimeRemaining())); // 更新标签文字
+
+                            // 检查倒计时是否结束
+                            if (gameSystem4.getTimeRemaining() <= 0) {
+                                myTime.setText("time's up");
+                                URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                                Parent root = null;
+                                try {
+                                    root = FXMLLoader.load(Objects.requireNonNull(url));
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Scene scene = new Scene(root);
+                                primaryStage.setScene(scene);
+                                // 切换场景
+                            }
+                        })
+                );
+                timeline.setCycleCount(Timeline.INDEFINITE); // 设置循环次数
+                timeline.play(); // 开始计时
+            }
+            else {
+                myTime.setVisible(false);
+                Label_timer.setVisible(false);
+            }
         });
     }
 
@@ -262,7 +300,9 @@ public class Level4Controller {
         }
         gameSystem4.victoryJudge();
         gameSystem4.failedJudge();
-
+        if (gameSystem4.isGameOver()) {
+            stopTimeline();
+        }
     }
 
     @FXML
@@ -303,7 +343,9 @@ public class Level4Controller {
         }
         gameSystem4.victoryJudge();
         gameSystem4.failedJudge();
-
+        if (gameSystem4.isGameOver()) {
+            stopTimeline();
+        }
     }
 
     @FXML
@@ -343,7 +385,9 @@ public class Level4Controller {
         }
         gameSystem4.victoryJudge();
         gameSystem4.failedJudge();
-
+        if (gameSystem4.isGameOver()) {
+            stopTimeline();
+        }
     }
 
     @FXML
@@ -384,6 +428,9 @@ public class Level4Controller {
         }
         gameSystem4.victoryJudge();
         gameSystem4.failedJudge();
-
-    }}
+        if (gameSystem4.isGameOver()) {
+            stopTimeline();
+        }
+    }
+}
 
