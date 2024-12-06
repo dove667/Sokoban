@@ -334,14 +334,14 @@ public class GameSystem implements Serializable {
     public int getSteps() {
         return steps;
     }
-    public static int getTimeRemaining() {
+    public  int getTimeRemaining() {
         return timeRemaining;
     }
     public void setSteps(int steps) {
         this.steps = steps;
     }
-    public static void setTimeRemaining(int timeRemaining) {
-        timeRemaining = timeRemaining;
+    public  void setTimeRemaining(int timeRemaining) {
+        this.timeRemaining = timeRemaining;
     }
 
     public void saveGameProgress(GameSystem progress) {

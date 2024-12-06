@@ -36,8 +36,9 @@ public class VictoryController {
             Btn_NextLevel.setVisible(false);
             Btn_Home.setVisible(false);
         }
-
+        getNextLevel();
     }
+
     @FXML
     void HomeBtnReleased(MouseEvent event) throws IOException {
         Stage primaryStage = (Stage) Btn_Home.getScene().getWindow();
@@ -45,6 +46,7 @@ public class VictoryController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+
     }
 
     @FXML

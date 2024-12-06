@@ -304,8 +304,8 @@ public class Level1Controller {
         }
         gameSystem.victoryJudge();
         gameSystem.failedJudge();
-
     }
+
 
     @FXML
     void RightBtnPressed() throws IOException {
