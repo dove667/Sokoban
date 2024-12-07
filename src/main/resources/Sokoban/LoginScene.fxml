@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" stylesheets="@Style/LoginSceneStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.LoginSceneController">
+<AnchorPane fx:id="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" stylesheets="@Style/LoginSceneStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.LoginSceneController">
     <Label fx:id="Label_username" layoutX="246.0" layoutY="212.0" text="User">
         <font>
             <Font name="Arial" size="24.0" />
