@@ -62,7 +62,7 @@
             <Rectangle fx:id="board25" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="6" />
             <Rectangle fx:id="box1" arcHeight="25.0" arcWidth="25.0" fill="#f27209" height="70.0" stroke="#151515" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
             <Rectangle fx:id="box2" arcHeight="25.0" arcWidth="25.0" fill="#f27209" height="70.0" stroke="#151515" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <Circle fx:id="Niker" fill="DODGERBLUE" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Circle fx:id="Niker" fill="DODGERBLUE" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <Polygon fx:id="target1" fill="#1fff33" points="68.69886016845703, -26.198131561279297, 93.4000244140625, 12.300029754638672, 45.19888687133789, 12.300043106079102" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <Polygon fx:id="target2" fill="#1fff33" points="68.69886016845703, -26.198131561279297, 93.4000244140625, 12.300029754638672, 45.19888687133789, 12.300043106079102" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" />

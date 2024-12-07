@@ -35,13 +35,13 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Circle fx:id="Niker" fill="DODGERBLUE" radius="30.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Circle fx:id="Niker" fill="DODGERBLUE" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
             <Polygon fx:id="target1" fill="#1fff33" points="68.69886016845703, -26.198131561279297, 93.4000244140625, 12.300029754638672, 45.19888687133789, 12.300043106079102" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
             <Polygon fx:id="target2" fill="#1fff33" points="68.69886016845703, -26.198131561279297, 93.4000244140625, 12.300029754638672, 45.19888687133789, 12.300043106079102" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <Polygon fx:id="target3" fill="#1fff33" points="68.69886016845703, -26.198131561279297, 93.4000244140625, 12.300029754638672, 45.19888687133789, 12.300043106079102" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Rectangle fx:id="box1" arcHeight="25.0" arcWidth="25.0" fill="#f7a438" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Rectangle fx:id="box2" arcHeight="25.0" arcWidth="25.0" fill="#f7a438" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Rectangle fx:id="box3" arcHeight="25.0" arcWidth="25.0" fill="#f7a438" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <Rectangle fx:id="box1" arcHeight="25.0" arcWidth="25.0" fill="#f27209" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Rectangle fx:id="box2" arcHeight="25.0" arcWidth="25.0" fill="#f27209" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Rectangle fx:id="box3" arcHeight="25.0" arcWidth="25.0" fill="#f27209" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
             <Rectangle fx:id="board1" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
             <Rectangle fx:id="board2" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
             <Rectangle fx:id="board3" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="0" GridPane.rowIndex="2" />
