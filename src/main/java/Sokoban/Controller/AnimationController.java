@@ -6,7 +6,6 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -25,7 +24,10 @@ public class AnimationController {
     static int L1 = 100;
     static int L2 = 80;
     static int L345 = 70;
-
+    public static void resetNodePosition(Node node) {
+        node.setTranslateX(0); // 重置水平偏移
+        node.setTranslateY(0); // 重置垂直偏移
+    }
 
     public static void MoveRight(Node node, int col, int row) {
         TranslateTransition MoveRight = new TranslateTransition();
