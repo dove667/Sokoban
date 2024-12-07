@@ -25,6 +25,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.net.URL;
@@ -218,6 +219,7 @@ public class Level1Controller {
         Btn_load.setDisable(true);
 
         Task<Void> loadTask = new Task<>() {
+            @Nullable
             @Override
             protected Void call() throws Exception {
                 stopTimeline();
@@ -394,7 +396,6 @@ public class Level1Controller {
         }
         if (gameSystem.isBox2(targetColumn, currentRowIndex)) {
             if (gameSystem.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem.isBox1(targetColumn-1, currentRowIndex)) {
-
                 currentColumnIndex = targetColumn;
                 AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem.moveoutNiker(currentColumnIndex+1, currentRowIndex);
@@ -429,8 +430,7 @@ public class Level1Controller {
         //推箱子
         if (gameSystem.isBox1(targetColumn, currentRowIndex)) {
             if (gameSystem.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem.isBox2(targetColumn+1, currentRowIndex)) {
-
-                    currentColumnIndex = targetColumn;
+                currentColumnIndex = targetColumn;
                     AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
                     gameSystem.moveoutNiker(currentColumnIndex - 1, currentRowIndex);
                     gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
