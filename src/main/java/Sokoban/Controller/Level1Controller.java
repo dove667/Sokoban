@@ -29,7 +29,10 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.net.URL;
 import static Sokoban.Login_Application.primaryStage;
+
+import java.util.LinkedList;
 import java.util.Objects;
+import java.util.Queue;
 
 
 public class Level1Controller {
@@ -316,29 +319,22 @@ public class Level1Controller {
 
 
 
-
     @FXML
     void DownBtnPressed() throws IOException, InterruptedException {
         int targetRow = currentRowIndex + 1;
         //纯移动
         if (gameSystem.notWall(currentColumnIndex, targetRow) &&!gameSystem.isBox1(currentColumnIndex, targetRow)&&!gameSystem.isBox2(currentColumnIndex, targetRow)) {
-            try {
             Btn_down.setDisable(true);
             currentRowIndex = targetRow;
             AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex-1);
             gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
-            stepsUpdate();}
-            finally {
-                Btn_down.setDisable(false);
-            }
-
+            stepsUpdate();
         }
         //推箱子
         if (gameSystem.isBox1(currentColumnIndex, targetRow)) {
             if (gameSystem.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem.isBox2(currentColumnIndex, targetRow+1)) {
                 //可推
-                try {Btn_down.setDisable(true);
                 currentRowIndex = targetRow;
                 AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex-1);
@@ -347,15 +343,11 @@ public class Level1Controller {
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem.moveinBox(1,currentColumnIndex, currentRowIndex+1);
                 stepsUpdate();
-                }
-                finally {
-                Btn_down.setDisable(false);}
             }
         }
         if (gameSystem.isBox2(currentColumnIndex, targetRow)) {
             if (gameSystem.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem.isBox1(currentColumnIndex, targetRow+1)) {
                 //可推
-                try {Btn_down.setDisable(true);
                 currentRowIndex = targetRow;
                 AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex-1);
@@ -364,8 +356,6 @@ public class Level1Controller {
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem.moveinBox(2,currentColumnIndex, currentRowIndex+1);
                 stepsUpdate();
-                }
-                finally {Btn_down.setDisable(false);}
 
             }
         }
@@ -381,20 +371,16 @@ public class Level1Controller {
         int targetColumn = currentColumnIndex - 1;
         //纯移动
         if (gameSystem.notWall(targetColumn, currentRowIndex) &&!gameSystem.isBox1(targetColumn, currentRowIndex)&&!gameSystem.isBox2(targetColumn, currentRowIndex)) {
-            try{Btn_left.setDisable(true);
             currentColumnIndex = targetColumn;
             AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem.moveoutNiker(currentColumnIndex+1, currentRowIndex);
             gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
-            }
-            finally {Btn_left.setDisable(false);}
 
         }
         //推箱子
         if (gameSystem.isBox1(targetColumn, currentRowIndex)) {
             if (gameSystem.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem.isBox2(targetColumn-1, currentRowIndex)) {
-                try{Btn_left.setDisable(true);
                 currentColumnIndex = targetColumn;
                 AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem.moveoutNiker(currentColumnIndex+1, currentRowIndex);
@@ -403,14 +389,12 @@ public class Level1Controller {
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem.moveinBox(1,currentColumnIndex-1, currentRowIndex);
                 stepsUpdate();
-                }
-                finally {Btn_left.setDisable(false);}
 
             }
         }
         if (gameSystem.isBox2(targetColumn, currentRowIndex)) {
             if (gameSystem.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem.isBox1(targetColumn-1, currentRowIndex)) {
-                try{Btn_left.setDisable(true);
+
                 currentColumnIndex = targetColumn;
                 AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem.moveoutNiker(currentColumnIndex+1, currentRowIndex);
@@ -419,8 +403,6 @@ public class Level1Controller {
                 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem.moveinBox(2,currentColumnIndex-1, currentRowIndex);
                 stepsUpdate();
-                }
-                finally {Btn_left.setDisable(false);}
 
             }
         }
@@ -436,22 +418,18 @@ public class Level1Controller {
     void RightBtnPressed() throws IOException, InterruptedException {
         int targetColumn = currentColumnIndex + 1;
         if (gameSystem.notWall(targetColumn, currentRowIndex) &&!gameSystem.isBox1(targetColumn, currentRowIndex)&&!gameSystem.isBox2(targetColumn, currentRowIndex)) {
-            try {
-                Btn_right.setDisable(true);
                 currentColumnIndex = targetColumn;
                 AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem.moveoutNiker(currentColumnIndex - 1, currentRowIndex);
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
                 stepsUpdate();
-            }
-            finally {Btn_right.setDisable(false);}
+
 
         }
         //推箱子
         if (gameSystem.isBox1(targetColumn, currentRowIndex)) {
             if (gameSystem.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem.isBox2(targetColumn+1, currentRowIndex)) {
-                try {
-                    Btn_right.setDisable(true);
+
                     currentColumnIndex = targetColumn;
                     AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
                     gameSystem.moveoutNiker(currentColumnIndex - 1, currentRowIndex);
@@ -460,14 +438,10 @@ public class Level1Controller {
                     gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
                     gameSystem.moveinBox(1, currentColumnIndex + 1, currentRowIndex);
                     stepsUpdate();
-                }
-                finally {Btn_right.setDisable(false);}
             }
         }
         if (gameSystem.isBox2(targetColumn, currentRowIndex)) {
             if (gameSystem.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem.isBox1(targetColumn+1, currentRowIndex)) {
-                try {
-                    Btn_right.setDisable(true);
                     currentColumnIndex = targetColumn;
                     AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);
                     gameSystem.moveoutNiker(currentColumnIndex - 1, currentRowIndex);
@@ -476,9 +450,6 @@ public class Level1Controller {
                     gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
                     gameSystem.moveinBox(2, currentColumnIndex + 1, currentRowIndex);
                     stepsUpdate();
-                }
-                finally {Btn_right.setDisable(false);}
-
             }
         }
         gameSystem.victoryJudge();
@@ -494,21 +465,15 @@ public class Level1Controller {
         int targetRow = currentRowIndex - 1;
         //纯移动
         if (gameSystem.notWall(currentColumnIndex, targetRow) &&!gameSystem.isBox1(currentColumnIndex, targetRow)&&!gameSystem.isBox2(currentColumnIndex, targetRow)) {
-            try {
-                Btn_up.setDisable(true);
                 currentRowIndex = targetRow;
                 AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex + 1);
                 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
                 stepsUpdate();
-            }
-            finally {Btn_up.setDisable(false);}
         }
         //推箱子
         if (gameSystem.isBox1(currentColumnIndex, targetRow)) {
             if (gameSystem.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem.isBox2(currentColumnIndex, targetRow-1)) {
-                try {
-                    Btn_up.setDisable(true);
                     currentRowIndex = targetRow;
                     AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
                     gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex + 1);
@@ -517,16 +482,10 @@ public class Level1Controller {
                     gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
                     gameSystem.moveinBox(1, currentColumnIndex, currentRowIndex - 1);
                     stepsUpdate();
-
-                }
-                finally {Btn_up.setDisable(false);}
-
             }
         }
         if (gameSystem.isBox2(currentColumnIndex, targetRow)) {
             if (gameSystem.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem.isBox1(currentColumnIndex, targetRow-1)) {
-                try {
-                    Btn_up.setDisable(true);
                     currentRowIndex = targetRow;
                     AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
                     gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex + 1);
@@ -535,9 +494,6 @@ public class Level1Controller {
                     gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
                     gameSystem.moveinBox(2, currentColumnIndex, currentRowIndex - 1);
                     stepsUpdate();
-                }
-                finally {Btn_up.setDisable(false);}
-
             }
         }
         gameSystem.victoryJudge();
