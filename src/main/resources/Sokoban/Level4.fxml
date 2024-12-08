@@ -14,7 +14,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.Level4Controller">
    <children>
       <ImageView fitHeight="643.0" fitWidth="919.0" pickOnBounds="true" preserveRatio="true">
@@ -130,15 +129,15 @@
                   <Button fx:id="Btn_right" mnemonicParsing="false" onMousePressed="#RightBtnPressed" opacity="0.0" prefHeight="62.0" prefWidth="51.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Button fx:id="Btn_home" layoutX="68.0" layoutY="79.0" mnemonicParsing="false" onMousePressed="#HomeBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
+            <Button fx:id="Btn_home" layoutX="43.0" layoutY="61.0" mnemonicParsing="false" onMousePressed="#HomeBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
             <ImageView fx:id="Img_home" disable="true" fitHeight="60.0" fitWidth="50.0" layoutX="38.0" layoutY="53.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Sokoban/pictures/home.jpg" />
                </image>
             </ImageView>
-            <Button fx:id="Btn_back" layoutX="128.0" layoutY="80.0" mnemonicParsing="false" onMousePressed="#BackBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
-            <Button fx:id="Btn_load" layoutX="186.0" layoutY="79.0" mnemonicParsing="false" onMousePressed="#LoadBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
-            <Button fx:id="Btn_save" layoutX="252.0" layoutY="80.0" mnemonicParsing="false" onMousePressed="#SaveBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
+            <Button fx:id="Btn_back" layoutX="97.0" layoutY="59.0" mnemonicParsing="false" onMousePressed="#BackBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
+            <Button fx:id="Btn_load" layoutX="148.0" layoutY="60.0" mnemonicParsing="false" onMousePressed="#LoadBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
+            <Button fx:id="Btn_save" layoutX="206.0" layoutY="59.0" mnemonicParsing="false" onMousePressed="#SaveBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
             <ImageView fx:id="Img_load" disable="true" fitHeight="50.0" fitWidth="40.0" layoutX="148.0" layoutY="60.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Sokoban/pictures/load.jpeg" />
