@@ -1,16 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
-
 <?import javafx.scene.control.Label?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.LevelSceneController">
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-        <Button fx:id="Btn_Level1" layoutX="61.0" layoutY="67.0" mnemonicParsing="false" onMouseReleased="#Level1BtnReleased" text="Level1" />
-        <Button fx:id="Btn_Level2" layoutX="195.0" layoutY="67.0" mnemonicParsing="false" onMouseReleased="#Level2BtnReleased" text="Level2" />
-        <Button fx:id="Btn_Level3" layoutX="333.0" layoutY="67.0" mnemonicParsing="false" onMouseReleased="#Level3BtnReleased" text="Level3" />
-        <Button fx:id="Btn_Level4" layoutX="61.0" layoutY="188.0" mnemonicParsing="false" onMouseReleased="#Level4BtnReleased" text="Level4" />
-        <Button fx:id="Btn_Level5" layoutX="195.0" layoutY="188.0" mnemonicParsing="false" onMouseReleased="#Level5BtnReleased" text="Level5" />
-        <Button fx:id="Btn_TimeMode" layoutX="451.0" layoutY="289.0" mnemonicParsing="false" onMouseReleased="#TimeModeBtnReleased" text="TimeMode" />
-        <Label fx:id="Label_Mode" layoutX="541.0" layoutY="293.0" text="closed" />
+<AnchorPane fx:id="Bottom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" stylesheets="@Style/LevelScene.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.LevelSceneController">
+   <children>
+      <ImageView fx:id="Img_SUST2" fitHeight="643.0" fitWidth="911.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Sokoban/pictures/SUST2.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="Pane" layoutX="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0">
+         <children>
+            <Button fx:id="Btn_Level1" layoutX="179.0" layoutY="413.0" mnemonicParsing="false" onMouseReleased="#Level1BtnReleased" prefHeight="50.0" prefWidth="50.0" styleClass="LevelButton" text="L1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="Btn_Level2" layoutX="204.0" layoutY="82.0" mnemonicParsing="false" onMouseReleased="#Level2BtnReleased" prefHeight="50.0" prefWidth="50.0" styleClass="LevelButton" text="L2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="Btn_Level3" layoutX="468.0" layoutY="43.0" mnemonicParsing="false" onMouseReleased="#Level3BtnReleased" prefHeight="50.0" prefWidth="50.0" styleClass="LevelButton" text="L3">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="Btn_Level4" layoutX="123.0" layoutY="252.0" mnemonicParsing="false" onMouseReleased="#Level4BtnReleased" prefHeight="50.0" prefWidth="50.0" styleClass="LevelButton" text="L4">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="Btn_Level5" layoutX="331.0" layoutY="142.0" mnemonicParsing="false" onMouseReleased="#Level5BtnReleased" prefHeight="50.0" prefWidth="50.0" styleClass="LevelButton" text="L5">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button id="Btn_TimeMode" fx:id="Btn_TimeMode" layoutX="673.0" layoutY="476.0" mnemonicParsing="false" onMouseReleased="#TimeModeBtnReleased" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0.0, 0, 1);" text="TimeMode">
+               <font>
+                  <Font name="Century" size="18.0" />
+               </font>
+            </Button>
+            <Label fx:id="Label_Mode" layoutX="808.0" layoutY="478.0" text="closed">
+               <font>
+                  <Font name="Century" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>
