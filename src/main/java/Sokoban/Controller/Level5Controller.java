@@ -3,6 +3,7 @@ package Sokoban.Controller;
 import Sokoban.Model.*;
 import javafx.animation.*;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
@@ -23,6 +24,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.IOException;
 import java.net.URL;
 import static Sokoban.Login_Application.primaryStage;
@@ -61,15 +64,16 @@ public class Level5Controller {
         Platform.runLater(() -> {
             gameSystem5.setBox(1, GridPane.getColumnIndex(box1),GridPane.getRowIndex(box1));
             gameSystem5.setBox(2,GridPane.getColumnIndex(box2),GridPane.getRowIndex(box2));
-            //设置好system中Box的坐标
+            gameSystem5.setBox(3,GridPane.getColumnIndex(box3),GridPane.getRowIndex(box3));//设置好system中Box的坐标
             gameSystem5.addBoxPositons();gameSystem5.setBoxNum(3);
             //将Box量化到system的矩阵中
             gameSystem5.setTarget(0,GridPane.getColumnIndex(target1),GridPane.getRowIndex(target1));
             gameSystem5.setTarget(1,GridPane.getColumnIndex(target2),GridPane.getRowIndex(target2));
+            gameSystem5.setTarget(2,GridPane.getColumnIndex(target3),GridPane.getRowIndex(target3));
             gameSystem5.addTargetPositons();gameSystem5.setTargNum(3);
             //同样操作target
             // 遍历操作Board。注意！Gridpane中0时默认位置，不会在fxml中显示标出，会导致Index.valueOf空指针异常。要手动标出坐标
-            Rectangle[] boards = {board1,board2,board3,board4,board5,board6,board7,board8,board9,board10,board11,board12,board13,board14,board15,board16,board17,board18,board19,board20,board21,board22,board23};
+            Rectangle[] boards = {board1,board2,board3,board4,board5,board6,board7,board8,board9,board10,board11,board12,board13,board14,board15,board16,board17,board18,board19,board20,board21,board22,board23,board24,board25};
             for (int i = 0; i < boards.length; i++) {
                 gameSystem5.setBoard(i, GridPane.getColumnIndex(boards[i]), GridPane.getRowIndex(boards[i]));
             }
@@ -77,6 +81,8 @@ public class Level5Controller {
             //操作player
             gameSystem5.setPlayer(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
             gameSystem5.addPlayerPositons(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
+            gameSystem5.setPlayeriniCol(GridPane.getColumnIndex(Niker));
+            gameSystem5.setPlayeriniRow(GridPane.getRowIndex(Niker));
         });
 
         //判断是否为游客模式
@@ -172,11 +178,18 @@ public class Level5Controller {
     @FXML
     void BackBtnPressed() throws IOException {
         stopTimeline();
-        URL url = getClass().getResource("/Sokoban/Level5.fxml");
-        Parent root = FXMLLoader.load(Objects.requireNonNull(url));
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        gameSystem5.reset(GridPane.getRowIndex(box1),GridPane.getColumnIndex(box1),GridPane.getRowIndex(box2),GridPane.getColumnIndex(box2));
+        Platform.runLater(() -> {
+            URL url = getClass().getResource("/Sokoban/Level5.fxml");
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(Objects.requireNonNull(url));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            gameSystem5.reset(GridPane.getRowIndex(box1),GridPane.getColumnIndex(box1),GridPane.getRowIndex(box2),GridPane.getColumnIndex(box2),GridPane.getRowIndex(box3),GridPane.getColumnIndex(box3));
+        });
     }
 
     @FXML
@@ -185,49 +198,83 @@ public class Level5Controller {
     }
     @FXML
     void LoadBtnPressed() throws IOException {
-        stopTimeline();
-        gameSystem5 = gameSystem5.loadGameProgress(); Pane.requestFocus();
-        Platform.runLater(() -> {
-            // 更新界面，如更新玩家、盒子、步数等
-            steps.setText(String.valueOf(gameSystem5.getSteps()));
-            GridPane.setRowIndex(Niker, gameSystem5.getPlayerRow());
-            GridPane.setColumnIndex(Niker, gameSystem5.getPlayerCol());
-            GridPane.setRowIndex(box1, gameSystem5.getBoxRow(1));
-            GridPane.setColumnIndex(box1, gameSystem5.getBoxCol(1));
-            GridPane.setRowIndex(box2, gameSystem5.getBoxRow(2));
-            GridPane.setColumnIndex(box2, gameSystem5.getBoxCol(2));
-            currentColumnIndex = gameSystem5.getPlayerCol();
-            currentRowIndex = gameSystem5.getPlayerRow();
-            if (GameSystem.isTimeMode()) {
-                timeline = new Timeline(
-                        new KeyFrame(Duration.seconds(1), event -> {
-                            gameSystem5.setTimeRemaining(gameSystem5.getTimeRemaining()-1); // 每秒减少 1
-                            myTime.setText(String.valueOf(gameSystem5.getTimeRemaining())); // 更新标签文字
+        Btn_load.setDisable(true);
 
-                            // 检查倒计时是否结束
-                            if (gameSystem5.getTimeRemaining() <= 0) {
-                                myTime.setText("time's up");
-                                URL url = getClass().getResource("/Sokoban/Failed.fxml");
-                                Parent root = null;
-                                try {
-                                    root = FXMLLoader.load(Objects.requireNonNull(url));
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                Scene scene = new Scene(root);
-                                primaryStage.setScene(scene);
-                                // 切换场景
-                            }
-                        })
-                );
-                timeline.setCycleCount(Timeline.INDEFINITE); // 设置循环次数
-                timeline.play(); // 开始计时
+        Task<Void> loadTask = new Task<>() {
+            @Nullable
+            @Override
+            protected Void call() throws Exception {
+                stopTimeline();
+                gameSystem5 = gameSystem5.loadGameProgress();
+                return null;
             }
-            else {
-                myTime.setVisible(false);
-                Label_timer.setVisible(false);
+
+            @Override
+            protected void succeeded() {
+                Platform.runLater(() -> {
+                    try {
+                        // 更新界面
+                        // javafx位置变化和css动态变化是叠加的,先设偏移量为0
+                        AnimationController.resetNodePosition(Niker);
+                        AnimationController.resetNodePosition(box1);
+                        AnimationController.resetNodePosition(box2);
+                        steps.setText(String.valueOf(gameSystem5.getSteps()));
+                        GridPane.setRowIndex(Niker, gameSystem5.getPlayerRow());
+                        GridPane.setColumnIndex(Niker, gameSystem5.getPlayerCol());
+                        GridPane.setRowIndex(box1, gameSystem5.getBoxRow(1));
+                        GridPane.setColumnIndex(box1, gameSystem5.getBoxCol(1));
+                        GridPane.setRowIndex(box2, gameSystem5.getBoxRow(2));
+                        GridPane.setColumnIndex(box2, gameSystem5.getBoxCol(2));
+                        currentColumnIndex = gameSystem5.getPlayerCol();
+                        currentRowIndex = gameSystem5.getPlayerRow();
+                        if (GameSystem.isTimeMode()) {
+                            timeline = new Timeline(
+                                    new KeyFrame(Duration.seconds(1), event -> {
+                                        gameSystem5.setTimeRemaining(gameSystem5.getTimeRemaining()-1); // 每秒减少 1
+                                        myTime.setText(String.valueOf(gameSystem5.getTimeRemaining())); // 更新标签文字
+
+                                        // 检查倒计时是否结束
+                                        if (gameSystem5.getTimeRemaining() <= 0) {
+                                            myTime.setText("time's up");
+                                            URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                                            Parent root = null;
+                                            try {
+                                                root = FXMLLoader.load(Objects.requireNonNull(url));
+                                            } catch (IOException e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                            Scene scene = new Scene(root);
+                                            primaryStage.setScene(scene);
+                                            // 切换场景
+                                        }
+                                    })
+                            );
+                            timeline.setCycleCount(Timeline.INDEFINITE); // 设置循环次数
+                            timeline.play(); // 开始计时
+                        }
+                        else {
+                            myTime.setVisible(false);
+                            Label_timer.setVisible(false);
+                        }
+                    } finally {
+                        Btn_load.setDisable(false);
+                    }
+                });
             }
-        });
+
+            @Override
+            protected void failed() {
+                Platform.runLater(() -> {
+                    Btn_load.setDisable(false);
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Failed to load game progress.");
+                    alert.showAndWait();
+                });
+            }
+        };
+        new Thread(loadTask).start();
     }
 
 
@@ -252,7 +299,6 @@ public class Level5Controller {
 
     Integer currentColumnIndex = 5;
     Integer currentRowIndex = 3;
-
     @FXML
     void DownBtnPressed() throws IOException {
         int targetRow = currentRowIndex + 1;

@@ -89,6 +89,8 @@ public class Level1Controller {
            //操作player
            gameSystem.setPlayer(1,1);
            gameSystem.addPlayerPositons(1,1);
+            gameSystem.setPlayeriniCol(GridPane.getColumnIndex(Niker));
+            gameSystem.setPlayeriniRow(GridPane.getRowIndex(Niker));
 
            //判断是否为游客模式
             if (GameSystem.verifyVisitor()){
@@ -318,6 +320,7 @@ public class Level1Controller {
     //以下是移动事件
     Integer currentColumnIndex = 1;
     Integer currentRowIndex = 1;
+    int initialcol=1,initialrow=1;
 
 
 

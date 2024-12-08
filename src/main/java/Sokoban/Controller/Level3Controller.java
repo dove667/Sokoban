@@ -84,6 +84,8 @@ public class Level3Controller {
             //操作player
             gameSystem3.setPlayer(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
             gameSystem3.addPlayerPositons(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
+            gameSystem3.setPlayeriniCol(GridPane.getColumnIndex(Niker));
+            gameSystem3.setPlayeriniRow(GridPane.getRowIndex(Niker));
         });
 
         //判断是否为游客模式

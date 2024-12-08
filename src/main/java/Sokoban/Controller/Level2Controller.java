@@ -79,8 +79,11 @@ public class Level2Controller {
             }
             gameSystem2.addBoardPositons();
             //操作player
+
             gameSystem2.setPlayer(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
             gameSystem2.addPlayerPositons(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
+            gameSystem2.setPlayeriniCol(GridPane.getColumnIndex(Niker));
+            gameSystem2.setPlayeriniRow(GridPane.getRowIndex(Niker));
         });
 
         //判断是否为游客模式
@@ -296,6 +299,8 @@ public class Level2Controller {
 
     Integer currentColumnIndex = 1;
     Integer currentRowIndex = 1;
+
+
 
     @FXML
     void DownBtnPressed() throws IOException {
