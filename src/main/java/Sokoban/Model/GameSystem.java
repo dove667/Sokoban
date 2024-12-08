@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Objects;
 
+import Sokoban.Controller.AnimationController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -39,6 +40,16 @@ public class GameSystem implements Serializable {
     private static boolean L5win;
     private int targNum;
     private int boxNum;
+    private  boolean isGameOver;
+
+    public boolean isGameOver() {
+        return isGameOver;
+    }
+
+    public  void setGameOver(boolean b) {
+        this.isGameOver = b;
+    }
+
     public void setTargNum(int targNum) {
         this.targNum = targNum;
     }
@@ -156,6 +167,7 @@ public class GameSystem implements Serializable {
                                     Parent root = FXMLLoader.load(Objects.requireNonNull(url));
                                     Scene scene = new Scene(root);
                                     primaryStage.setScene(scene);
+                                    isGameOver = true;
                                 }
                                 else if(boxNum==3){
                                     for(int p=0;p<matrix.length;p++){
@@ -165,6 +177,7 @@ public class GameSystem implements Serializable {
                                                 Parent root = FXMLLoader.load(Objects.requireNonNull(url));
                                                 Scene scene = new Scene(root);
                                                 primaryStage.setScene(scene);
+                                                isGameOver = true;
                                             }
                                         }
                                     }
@@ -191,6 +204,7 @@ public class GameSystem implements Serializable {
                 Parent root = FXMLLoader.load(Objects.requireNonNull(url));
                 Scene scene = new Scene(root);
                 primaryStage.setScene(scene);
+                isGameOver = true;
             }
         }
         else if(boxNum==3){
@@ -199,6 +213,7 @@ public class GameSystem implements Serializable {
                 Parent root = FXMLLoader.load(Objects.requireNonNull(url));
                 Scene scene = new Scene(root);
                 primaryStage.setScene(scene);
+                isGameOver = true;
             }
         }
     }
@@ -324,7 +339,7 @@ public class GameSystem implements Serializable {
     public void setSteps(int steps) {
         this.steps = steps;
     }
-    public void setTimeRemaining(int timeRemaining) {
+    public  void setTimeRemaining(int timeRemaining) {
         this.timeRemaining = timeRemaining;
     }
 
@@ -420,6 +435,18 @@ public class GameSystem implements Serializable {
     public int getPlayerCol(){
         return niker.getCurrentCol();
     }
+    public int getPlayeriniCol(){
+        return niker.getInitialcol();
+    }
+    public int getPlayeriniRow(){
+        return niker.getInitialrow();
+    }
+    public void setPlayeriniCol(int col){
+        niker.setInitialcol(col);
+    }
+    public void setPlayeriniRow(int row ){
+        niker.setInitialrow(row);
+    }
     public int getBoxRow(int i){
         return boxes[i-1].getCurrentRow();
     }
@@ -486,9 +513,19 @@ public class GameSystem implements Serializable {
     public void reset(int InitRow1, int InitCol1,int InitRow2,int InitCol2) {
         steps = 0;
         moveoutNiker(niker.getCurrentCol(), niker.getCurrentRow());
-        moveinNiker(1, 1);
+        moveinNiker(niker.getInitialcol(), niker.getInitialrow());
         setBox(1, InitRow1 , InitCol1);
         setBox(2, InitRow2, InitCol2);
 
+    }
+
+    public void reset(int InitRow1, int InitCol1,int InitRow2,int InitCol2,int InitRow3,int InitCol3){
+        steps = 0;
+        moveoutNiker(niker.getCurrentCol(), niker.getCurrentRow());
+        moveinNiker(niker.getInitialcol(), niker.getInitialrow());
+        setBox(1, InitRow1 , InitCol1);
+        setBox(2, InitRow2, InitCol2);
+        setBox(3, InitRow3, InitCol3);
+//希望为player加上初始坐标属性以便重设时正常
     }
 }

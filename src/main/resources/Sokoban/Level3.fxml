@@ -13,132 +13,142 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#MovePlayer" prefHeight="633.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.Level3Controller">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.Level3Controller">
    <children>
-      <GridPane fx:id="GridBoard" layoutX="138.0" layoutY="125.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="490.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
+      <ImageView fitHeight="645.0" fitWidth="917.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Sokoban/pictures/PE%20Test.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="Pane" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#MovePlayer" prefHeight="633.0" prefWidth="911.0">
          <children>
-            <Rectangle fx:id="board1" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Rectangle fx:id="board2" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-            <Rectangle fx:id="board3" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-            <Rectangle fx:id="board4" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-            <Rectangle fx:id="board5" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-            <Rectangle fx:id="board6" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-            <Rectangle fx:id="board7" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Rectangle fx:id="board8" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <Rectangle fx:id="board9" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <Rectangle fx:id="board10" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="6" />
-            <Rectangle fx:id="board11" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-            <Rectangle fx:id="board12" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-            <Rectangle fx:id="board13" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="0" />
-            <Rectangle fx:id="board14" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="0" />
-            <Rectangle fx:id="board15" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-            <Rectangle fx:id="board16" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-            <Rectangle fx:id="board17" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Rectangle fx:id="board18" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-            <Rectangle fx:id="board19" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-            <Rectangle fx:id="board20" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-            <Rectangle fx:id="board21" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="4" />
-            <Rectangle fx:id="board22" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Rectangle fx:id="board23" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <Rectangle fx:id="board24" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="6" />
-            <Rectangle fx:id="board25" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="6" />
-            <Rectangle fx:id="box1" arcHeight="25.0" arcWidth="25.0" fill="#f27209" height="70.0" stroke="#151515" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <Rectangle fx:id="box2" arcHeight="25.0" arcWidth="25.0" fill="#f27209" height="70.0" stroke="#151515" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <Circle fx:id="Niker" fill="DODGERBLUE" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Polygon fx:id="target1" fill="#1fff33" points="68.69886016845703, -26.198131561279297, 93.4000244140625, 12.300029754638672, 45.19888687133789, 12.300043106079102" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Polygon fx:id="target2" fill="#1fff33" points="68.69886016845703, -26.198131561279297, 93.4000244140625, 12.300029754638672, 45.19888687133789, 12.300043106079102" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+            <GridPane fx:id="GridBoard" layoutX="138.0" layoutY="125.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="490.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Rectangle fx:id="board1" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Rectangle fx:id="board2" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                  <Rectangle fx:id="board3" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                  <Rectangle fx:id="board4" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                  <Rectangle fx:id="board5" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                  <Rectangle fx:id="board6" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                  <Rectangle fx:id="board7" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Rectangle fx:id="board8" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                  <Rectangle fx:id="board9" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                  <Rectangle fx:id="board10" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                  <Rectangle fx:id="board11" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                  <Rectangle fx:id="board12" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                  <Rectangle fx:id="board13" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+                  <Rectangle fx:id="board14" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                  <Rectangle fx:id="board15" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                  <Rectangle fx:id="board16" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                  <Rectangle fx:id="board17" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Rectangle fx:id="board18" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                  <Rectangle fx:id="board19" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                  <Rectangle fx:id="board20" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                  <Rectangle fx:id="board21" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+                  <Rectangle fx:id="board22" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <Rectangle fx:id="board23" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                  <Rectangle fx:id="board24" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+                  <Rectangle fx:id="board25" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+                  <Rectangle fx:id="box1" arcHeight="25.0" arcWidth="25.0" fill="#f27209" height="70.0" stroke="#151515" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                  <Rectangle fx:id="box2" arcHeight="25.0" arcWidth="25.0" fill="#f27209" height="70.0" stroke="#151515" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <Circle fx:id="Niker" fill="DODGERBLUE" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <Polygon fx:id="target1" fill="#1fff33" points="68.69886016845703, -26.198131561279297, 93.4000244140625, 12.300029754638672, 45.19888687133789, 12.300043106079102" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <Polygon fx:id="target2" fill="#1fff33" points="68.69886016845703, -26.198131561279297, 93.4000244140625, 12.300029754638672, 45.19888687133789, 12.300043106079102" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+               </children>
+            </GridPane>
+            <Label fx:id="Label_Level3" layoutX="325.0" layoutY="33.0" prefHeight="62.0" prefWidth="333.0" text="Level3 PE Test" textAlignment="CENTER">
+               <font>
+                  <Font name="Book Antiqua Bold" size="49.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="Img_Move" disable="true" fitHeight="171.0" fitWidth="391.0" layoutX="677.0" layoutY="370.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Sokoban/pictures/move.jpeg" />
+               </image>
+            </ImageView>
+            <Label fx:id="Label_steps" layoutX="686.0" layoutY="106.0" prefHeight="38.0" prefWidth="70.0" text="steps:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="steps" layoutX="772.0" layoutY="109.0" text="0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="Label_timer" layoutX="688.0" layoutY="160.0" text="timer:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="myTime" layoutX="772.0" layoutY="160.0" prefHeight="24.0" prefWidth="0.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <GridPane fx:id="Movement" layoutX="677.0" layoutY="353.0" prefHeight="188.0" prefWidth="190.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button fx:id="Btn_up" mnemonicParsing="false" onMousePressed="#UpBtnPressed" opacity="0.0" prefHeight="54.0" prefWidth="58.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
+                  <Button fx:id="Btn_left" mnemonicParsing="false" onMousePressed="#LeftBtnPressed" opacity="0.0" prefHeight="58.0" prefWidth="47.0" text="Button" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Button fx:id="Btn_down" mnemonicParsing="false" onMousePressed="#DownBtnPressed" opacity="0.0" prefHeight="66.0" prefWidth="53.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                  <Button fx:id="Btn_right" mnemonicParsing="false" onMousePressed="#RightBtnPressed" opacity="0.0" prefHeight="62.0" prefWidth="51.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <Button fx:id="Btn_home" layoutX="58.0" layoutY="69.0" mnemonicParsing="false" onMousePressed="#HomeBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
+            <ImageView fx:id="Img_home" disable="true" fitHeight="60.0" fitWidth="50.0" layoutX="53.0" layoutY="64.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Sokoban/pictures/home.jpg" />
+               </image>
+            </ImageView>
+            <Button fx:id="Btn_back" layoutX="118.0" layoutY="70.0" mnemonicParsing="false" onMousePressed="#BackBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
+            <Button fx:id="Btn_load" layoutX="176.0" layoutY="69.0" mnemonicParsing="false" onMousePressed="#LoadBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
+            <Button fx:id="Btn_save" layoutX="242.0" layoutY="70.0" mnemonicParsing="false" onMousePressed="#SaveBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
+            <ImageView fx:id="Img_load" disable="true" fitHeight="50.0" fitWidth="40.0" layoutX="176.0" layoutY="68.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Sokoban/pictures/load.jpeg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="Img_save" disable="true" fitHeight="50.0" fitWidth="40.0" layoutX="242.0" layoutY="68.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Sokoban/pictures/download.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="Img_Back" disable="true" fitHeight="50.0" fitWidth="40.0" layoutX="118.0" layoutY="69.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Sokoban/pictures/back.jpg" />
+               </image>
+            </ImageView>
          </children>
-      </GridPane>
-      <Label fx:id="Label_Level3" layoutX="334.0" layoutY="57.0" prefHeight="60.0" prefWidth="159.0" text="Level3" textAlignment="CENTER">
-         <font>
-            <Font name="Book Antiqua Bold" size="49.0" />
-         </font>
-      </Label>
-      <ImageView fx:id="Img_Move" disable="true" fitHeight="171.0" fitWidth="391.0" layoutX="677.0" layoutY="370.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Sokoban/pictures/move.jpeg" />
-         </image>
-      </ImageView>
-      <Label fx:id="Label_steps" layoutX="608.0" layoutY="70.0" prefHeight="38.0" prefWidth="50.0" text="steps:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="steps" layoutX="671.0" layoutY="77.0" text="0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="Label_timer" layoutX="787.0" layoutY="77.0" text="timer:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="myTime" layoutX="847.0" layoutY="77.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <GridPane fx:id="Movement" layoutX="677.0" layoutY="353.0" prefHeight="188.0" prefWidth="190.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <Button fx:id="Btn_up" mnemonicParsing="false" onMousePressed="#UpBtnPressed" opacity="0.0" prefHeight="54.0" prefWidth="58.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-            <Button fx:id="Btn_left" mnemonicParsing="false" onMousePressed="#LeftBtnPressed" opacity="0.0" prefHeight="58.0" prefWidth="47.0" text="Button" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Button fx:id="Btn_down" mnemonicParsing="false" onMousePressed="#DownBtnPressed" opacity="0.0" prefHeight="66.0" prefWidth="53.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-            <Button fx:id="Btn_right" mnemonicParsing="false" onMousePressed="#RightBtnPressed" opacity="0.0" prefHeight="62.0" prefWidth="51.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-         </children>
-      </GridPane>
-      <Button fx:id="Btn_home" layoutX="58.0" layoutY="69.0" mnemonicParsing="false" onMousePressed="#HomeBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
-      <ImageView fx:id="Img_home" disable="true" fitHeight="60.0" fitWidth="50.0" layoutX="53.0" layoutY="64.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Sokoban/pictures/home.jpg" />
-         </image>
-      </ImageView>
-      <Button fx:id="Btn_back" layoutX="118.0" layoutY="70.0" mnemonicParsing="false" onMousePressed="#BackBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
-      <Button fx:id="Btn_load" layoutX="176.0" layoutY="69.0" mnemonicParsing="false" onMousePressed="#LoadBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
-      <Button fx:id="Btn_save" layoutX="242.0" layoutY="70.0" mnemonicParsing="false" onMousePressed="#SaveBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
-      <ImageView fx:id="Img_load" disable="true" fitHeight="50.0" fitWidth="40.0" layoutX="176.0" layoutY="68.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Sokoban/pictures/load.jpeg" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="Img_save" disable="true" fitHeight="50.0" fitWidth="40.0" layoutX="242.0" layoutY="68.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Sokoban/pictures/download.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="Img_Back" disable="true" fitHeight="50.0" fitWidth="40.0" layoutX="118.0" layoutY="69.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Sokoban/pictures/back.jpg" />
-         </image>
-      </ImageView>
+      </AnchorPane>
    </children>
 </AnchorPane>

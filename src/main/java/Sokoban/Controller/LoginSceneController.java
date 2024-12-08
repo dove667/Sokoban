@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
@@ -19,6 +21,8 @@ public class LoginSceneController {
     @FXML
     private Button Btn_login,Btn_SignUp,Btn_visitor;
 
+    @FXML
+    private AnchorPane Pane;
     @FXML
     private PasswordField Input_passwd;
 
