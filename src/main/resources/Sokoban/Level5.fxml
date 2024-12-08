@@ -65,7 +65,7 @@
                   <Rectangle fx:id="board14" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="7" GridPane.rowIndex="3" />
                   <Rectangle fx:id="board15" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="7" GridPane.rowIndex="2" />
                   <Rectangle fx:id="board16" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="7" GridPane.rowIndex="1" />
-                  <Rectangle fx:id="board17" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                  <Rectangle fx:id="board17" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
                   <Rectangle fx:id="board18" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
                   <Rectangle fx:id="board19" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="0" />
                   <Rectangle fx:id="board20" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />

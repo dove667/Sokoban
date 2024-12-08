@@ -25,6 +25,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.net.URL;
@@ -88,6 +89,8 @@ public class Level1Controller {
            //操作player
            gameSystem.setPlayer(1,1);
            gameSystem.addPlayerPositons(1,1);
+            gameSystem.setPlayeriniCol(GridPane.getColumnIndex(Niker));
+            gameSystem.setPlayeriniRow(GridPane.getRowIndex(Niker));
 
            //判断是否为游客模式
             if (GameSystem.verifyVisitor()){
@@ -218,6 +221,7 @@ public class Level1Controller {
         Btn_load.setDisable(true);
 
         Task<Void> loadTask = new Task<>() {
+            @Nullable
             @Override
             protected Void call() throws Exception {
                 stopTimeline();
@@ -316,6 +320,7 @@ public class Level1Controller {
     //以下是移动事件
     Integer currentColumnIndex = 1;
     Integer currentRowIndex = 1;
+    int initialcol=1,initialrow=1;
 
 
 
@@ -394,7 +399,6 @@ public class Level1Controller {
         }
         if (gameSystem.isBox2(targetColumn, currentRowIndex)) {
             if (gameSystem.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem.isBox1(targetColumn-1, currentRowIndex)) {
-
                 currentColumnIndex = targetColumn;
                 AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem.moveoutNiker(currentColumnIndex+1, currentRowIndex);
@@ -429,8 +433,7 @@ public class Level1Controller {
         //推箱子
         if (gameSystem.isBox1(targetColumn, currentRowIndex)) {
             if (gameSystem.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem.isBox2(targetColumn+1, currentRowIndex)) {
-
-                    currentColumnIndex = targetColumn;
+                currentColumnIndex = targetColumn;
                     AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
                     gameSystem.moveoutNiker(currentColumnIndex - 1, currentRowIndex);
                     gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);

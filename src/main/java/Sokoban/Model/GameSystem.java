@@ -435,6 +435,18 @@ public class GameSystem implements Serializable {
     public int getPlayerCol(){
         return niker.getCurrentCol();
     }
+    public int getPlayeriniCol(){
+        return niker.getInitialcol();
+    }
+    public int getPlayeriniRow(){
+        return niker.getInitialrow();
+    }
+    public void setPlayeriniCol(int col){
+        niker.setInitialcol(col);
+    }
+    public void setPlayeriniRow(int row ){
+        niker.setInitialrow(row);
+    }
     public int getBoxRow(int i){
         return boxes[i-1].getCurrentRow();
     }
@@ -501,9 +513,18 @@ public class GameSystem implements Serializable {
     public void reset(int InitRow1, int InitCol1,int InitRow2,int InitCol2) {
         steps = 0;
         moveoutNiker(niker.getCurrentCol(), niker.getCurrentRow());
-        moveinNiker(1, 1);
+        moveinNiker(niker.getInitialcol(), niker.getInitialrow());
         setBox(1, InitRow1 , InitCol1);
         setBox(2, InitRow2, InitCol2);
+    }
 
+    public void reset(int InitRow1, int InitCol1,int InitRow2,int InitCol2,int InitRow3,int InitCol3){
+        steps = 0;
+        moveoutNiker(niker.getCurrentCol(), niker.getCurrentRow());
+        moveinNiker(niker.getInitialcol(), niker.getInitialrow());
+        setBox(1, InitRow1 , InitCol1);
+        setBox(2, InitRow2, InitCol2);
+        setBox(3, InitRow3, InitCol3);
+        //希望为player加上初始坐标属性以便重设时正常
     }
 }

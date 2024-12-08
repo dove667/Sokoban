@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.VictoryController">
-    <children>
-        <Label fx:id="Label_Victory" layoutX="197.0" layoutY="71.0" text="Victory!">
-            <font>
-                <Font name="Century" size="56.0" />
-            </font>
-        </Label>
-        <Button fx:id="Btn_NextLevel" layoutX="137.0" layoutY="237.0" mnemonicParsing="false" onMouseReleased="#NextLevelBtnReleased" text="next level">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </Button>
-        <Button fx:id="Btn_Home" layoutX="360.0" layoutY="237.0" mnemonicParsing="false" onMouseReleased="#HomeBtnReleased" text="home">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </Button>
-    </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.VictoryController">
+   <children>
+      <ImageView fitHeight="649.0" fitWidth="953.0" layoutX="-21.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Sokoban/pictures/victory.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" />
+      <Button fx:id="Btn_NextLevel" layoutX="186.0" layoutY="442.0" mnemonicParsing="false" onMouseReleased="#NextLevelBtnReleased" style="-fx-background-radius: 15;" text="next level">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="Btn_Home" layoutX="651.0" layoutY="442.0" mnemonicParsing="false" onMouseReleased="#HomeBtnReleased" style="-fx-background-radius: 15;" text="home">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+   </children>
 </AnchorPane>
