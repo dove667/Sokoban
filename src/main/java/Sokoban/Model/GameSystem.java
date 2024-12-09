@@ -516,7 +516,6 @@ public class GameSystem implements Serializable {
         moveinNiker(niker.getInitialcol(), niker.getInitialrow());
         setBox(1, InitRow1 , InitCol1);
         setBox(2, InitRow2, InitCol2);
-
     }
 
     public void reset(int InitRow1, int InitCol1,int InitRow2,int InitCol2,int InitRow3,int InitCol3){
@@ -526,6 +525,6 @@ public class GameSystem implements Serializable {
         setBox(1, InitRow1 , InitCol1);
         setBox(2, InitRow2, InitCol2);
         setBox(3, InitRow3, InitCol3);
-//希望为player加上初始坐标属性以便重设时正常
+        //希望为player加上初始坐标属性以便重设时正常
     }
 }

@@ -1,21 +1,10 @@
 package Sokoban.Controller;
 
 import Sokoban.Model.GameSystem;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.util.Duration;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Objects;
-
-import static Sokoban.Login_Application.primaryStage;
 
 
 /*将动画效果封装到 AnimationController 类中，实现动态界面控制与交互事件控制分离

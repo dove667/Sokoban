@@ -299,13 +299,14 @@ public class Level5Controller {
 
     Integer currentColumnIndex = 5;
     Integer currentRowIndex = 3;
+
     @FXML
     void DownBtnPressed() throws IOException {
         int targetRow = currentRowIndex + 1;
         //纯移动
         if (gameSystem5.notWall(currentColumnIndex, targetRow) &&!gameSystem5.isBox1(currentColumnIndex, targetRow)&&!gameSystem5.isBox2(currentColumnIndex, targetRow)&&!gameSystem5.isBox3(currentColumnIndex, targetRow)) {
             currentRowIndex = targetRow;
-            GridPane.setRowIndex(Niker, currentRowIndex);
+            AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem5.moveoutNiker(currentColumnIndex, currentRowIndex-1);
             gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
@@ -315,10 +316,10 @@ public class Level5Controller {
             if (gameSystem5.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem5.isBox2(currentColumnIndex, targetRow+1)&&!gameSystem5.isBox3(currentColumnIndex, targetRow+1)) {
                 //可推
                 currentRowIndex = targetRow;
-                GridPane.setRowIndex(Niker, currentRowIndex);
+                AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem5.moveoutNiker(currentColumnIndex, currentRowIndex-1);
                 gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setRowIndex(box1, currentRowIndex+1);
+                AnimationController.MoveDown(box1, currentColumnIndex, currentRowIndex+1);//动画
                 gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem5.moveinBox(1,currentColumnIndex, currentRowIndex+1);
                 stepsUpdate();
@@ -328,10 +329,10 @@ public class Level5Controller {
             if (gameSystem5.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem5.isBox1(currentColumnIndex, targetRow+1)&&!gameSystem5.isBox3(currentColumnIndex, targetRow+1)) {
                 //可推
                 currentRowIndex = targetRow;
-                GridPane.setRowIndex(Niker, currentRowIndex);
+                AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem5.moveoutNiker(currentColumnIndex, currentRowIndex-1);
                 gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setRowIndex(box2, currentRowIndex+1);
+                AnimationController.MoveDown(box2, currentColumnIndex, currentRowIndex+1);//动画
                 gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem5.moveinBox(2,currentColumnIndex, currentRowIndex+1);
                 stepsUpdate();
@@ -340,10 +341,10 @@ public class Level5Controller {
             if (gameSystem5.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem5.isBox1(currentColumnIndex, targetRow+1)&&!gameSystem5.isBox2(currentColumnIndex, targetRow+1)) {
                 //可推
                 currentRowIndex = targetRow;
-                GridPane.setRowIndex(Niker, currentRowIndex);
+                AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem5.moveoutNiker(currentColumnIndex, currentRowIndex-1);
                 gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setRowIndex(box3, currentRowIndex+1);
+                AnimationController.MoveDown(box3, currentColumnIndex, currentRowIndex+1);//动画
                 gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem5.moveinBox(3,currentColumnIndex, currentRowIndex+1);
                 stepsUpdate();
@@ -362,7 +363,7 @@ public class Level5Controller {
         //纯移动
         if (gameSystem5.notWall(targetColumn, currentRowIndex) &&!gameSystem5.isBox1(targetColumn, currentRowIndex)&&!gameSystem5.isBox2(targetColumn, currentRowIndex)&&!gameSystem5.isBox3(targetColumn, currentRowIndex)) {
             currentColumnIndex = targetColumn;
-            GridPane.setColumnIndex(Niker, currentColumnIndex);
+            AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem5.moveoutNiker(currentColumnIndex+1, currentRowIndex);
             gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
@@ -371,10 +372,10 @@ public class Level5Controller {
         if (gameSystem5.isBox1(targetColumn, currentRowIndex)) {
             if (gameSystem5.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem5.isBox2(targetColumn-1, currentRowIndex)&&!gameSystem5.isBox3(targetColumn-1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
-                GridPane.setColumnIndex(Niker, currentColumnIndex);
+                AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem5.moveoutNiker(currentColumnIndex+1, currentRowIndex);
                 gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setColumnIndex(box1, currentColumnIndex-1);
+                AnimationController.MoveLeft(box1,currentColumnIndex-1,currentRowIndex);
                 gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem5.moveinBox(1,currentColumnIndex-1, currentRowIndex);
                 stepsUpdate();
@@ -383,10 +384,10 @@ public class Level5Controller {
         if (gameSystem5.isBox2(targetColumn, currentRowIndex)) {
             if (gameSystem5.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem5.isBox1(targetColumn-1, currentRowIndex)&&!gameSystem5.isBox3(targetColumn-1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
-                GridPane.setColumnIndex(Niker, currentColumnIndex);
+                AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem5.moveoutNiker(currentColumnIndex+1, currentRowIndex);
                 gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setColumnIndex(box2, currentColumnIndex-1);
+                AnimationController.MoveLeft(box2,currentColumnIndex-1,currentRowIndex);
                 gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem5.moveinBox(2,currentColumnIndex-1, currentRowIndex);
                 stepsUpdate();
@@ -395,10 +396,10 @@ public class Level5Controller {
         if (gameSystem5.isBox3(targetColumn, currentRowIndex)) {
             if (gameSystem5.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem5.isBox1(targetColumn-1, currentRowIndex)&&!gameSystem5.isBox2(targetColumn-1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
-                GridPane.setColumnIndex(Niker, currentColumnIndex);
+                AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem5.moveoutNiker(currentColumnIndex+1, currentRowIndex);
                 gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setColumnIndex(box3, currentColumnIndex-1);
+                AnimationController.MoveLeft(box3,currentColumnIndex-1,currentRowIndex);
                 gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem5.moveinBox(3,currentColumnIndex-1, currentRowIndex);
                 stepsUpdate();
@@ -416,7 +417,7 @@ public class Level5Controller {
         int targetColumn = currentColumnIndex + 1;
         if (gameSystem5.notWall(targetColumn, currentRowIndex) &&!gameSystem5.isBox1(targetColumn, currentRowIndex)&&!gameSystem5.isBox2(targetColumn, currentRowIndex)&&!gameSystem5.isBox3(targetColumn, currentRowIndex)) {
             currentColumnIndex = targetColumn;
-            GridPane.setColumnIndex(Niker, currentColumnIndex);
+            AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem5.moveoutNiker(currentColumnIndex-1, currentRowIndex);
             gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
@@ -425,10 +426,10 @@ public class Level5Controller {
         if (gameSystem5.isBox1(targetColumn, currentRowIndex)) {
             if (gameSystem5.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem5.isBox2(targetColumn+1, currentRowIndex)&&!gameSystem5.isBox3(targetColumn+1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
-                GridPane.setColumnIndex(Niker, currentColumnIndex);
+                AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem5.moveoutNiker(currentColumnIndex-1, currentRowIndex);
                 gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setColumnIndex(box1, currentColumnIndex+1);
+                AnimationController.MoveRight(box1, currentColumnIndex+1, currentRowIndex);//动画
                 gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem5.moveinBox(1,currentColumnIndex+1, currentRowIndex);
                 stepsUpdate();
@@ -437,10 +438,10 @@ public class Level5Controller {
         if (gameSystem5.isBox2(targetColumn, currentRowIndex)) {
             if (gameSystem5.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem5.isBox1(targetColumn+1, currentRowIndex)&&!gameSystem5.isBox3(targetColumn+1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
-                GridPane.setColumnIndex(Niker, currentColumnIndex);
+                AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem5.moveoutNiker(currentColumnIndex-1, currentRowIndex);
                 gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setColumnIndex(box2, currentColumnIndex+1);
+                AnimationController.MoveRight(box2, currentColumnIndex+1, currentRowIndex);//动画
                 gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem5.moveinBox(2,currentColumnIndex+1, currentRowIndex);
                 stepsUpdate();
@@ -449,11 +450,10 @@ public class Level5Controller {
         if (gameSystem5.isBox3(targetColumn, currentRowIndex)) {
             if (gameSystem5.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem5.isBox1(targetColumn+1, currentRowIndex)&&!gameSystem5.isBox2(targetColumn+1, currentRowIndex)) {
                 currentColumnIndex = targetColumn;
-                GridPane.setColumnIndex(Niker, currentColumnIndex);
+                AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem5.moveoutNiker(currentColumnIndex-1, currentRowIndex);
                 gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setColumnIndex(box3, currentColumnIndex+1);
-                gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
+                AnimationController.MoveRight(box3, currentColumnIndex+1, currentRowIndex);//动画                gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem5.moveinBox(3,currentColumnIndex+1, currentRowIndex);
                 stepsUpdate();
             }
@@ -471,7 +471,7 @@ public class Level5Controller {
         //纯移动
         if (gameSystem5.notWall(currentColumnIndex, targetRow) &&!gameSystem5.isBox1(currentColumnIndex, targetRow)&&!gameSystem5.isBox2(currentColumnIndex, targetRow)&&!gameSystem5.isBox3(currentColumnIndex, targetRow)) {
             currentRowIndex = targetRow;
-            GridPane.setRowIndex(Niker, currentRowIndex);
+            AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem5.moveoutNiker(currentColumnIndex, currentRowIndex+1);
             gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
@@ -480,10 +480,10 @@ public class Level5Controller {
         if (gameSystem5.isBox1(currentColumnIndex, targetRow)) {
             if (gameSystem5.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem5.isBox2(currentColumnIndex, targetRow-1)&&!gameSystem5.isBox3(currentColumnIndex, targetRow-1)) {
                 currentRowIndex = targetRow;
-                GridPane.setRowIndex(Niker, currentRowIndex);
+                AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem5.moveoutNiker(currentColumnIndex, currentRowIndex+1);
                 gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setRowIndex(box1, currentRowIndex-1);
+                AnimationController.MoveUp(box1, currentColumnIndex, currentRowIndex-1);//动画
                 gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem5.moveinBox(1,currentColumnIndex, currentRowIndex-1);
                 stepsUpdate();
@@ -492,10 +492,10 @@ public class Level5Controller {
         if (gameSystem5.isBox2(currentColumnIndex, targetRow)) {
             if (gameSystem5.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem5.isBox1(currentColumnIndex, targetRow-1)&&!gameSystem5.isBox3(currentColumnIndex, targetRow-1)) {
                 currentRowIndex = targetRow;
-                GridPane.setRowIndex(Niker, currentRowIndex);
+                AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem5.moveoutNiker(currentColumnIndex, currentRowIndex+1);
                 gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setRowIndex(box2, currentRowIndex-1);
+                AnimationController.MoveUp(box2, currentColumnIndex, currentRowIndex-1);//动画
                 gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem5.moveinBox(2,currentColumnIndex, currentRowIndex-1);
                 stepsUpdate();
@@ -503,10 +503,10 @@ public class Level5Controller {
         }if (gameSystem5.isBox3(currentColumnIndex, targetRow)) {
             if (gameSystem5.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem5.isBox1(currentColumnIndex, targetRow-1)&&!gameSystem5.isBox2(currentColumnIndex, targetRow-1)) {
                 currentRowIndex = targetRow;
-                GridPane.setRowIndex(Niker, currentRowIndex);
+                AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem5.moveoutNiker(currentColumnIndex, currentRowIndex+1);
                 gameSystem5.moveinNiker(currentColumnIndex, currentRowIndex);
-                GridPane.setRowIndex(box3, currentRowIndex-1);
+                AnimationController.MoveUp(box3, currentColumnIndex, currentRowIndex-1);//动画
                 gameSystem5.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem5.moveinBox(3,currentColumnIndex, currentRowIndex-1);
                 stepsUpdate();
