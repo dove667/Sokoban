@@ -91,6 +91,8 @@ public class SignUpController {
             success.showAndWait();
             system.addName(Text_Name.getText());
             system.addPassword(Password_input.getText());
+            system.saveAccount(system);
+
             URL url = getClass().getResource("/Sokoban/LoginScene.fxml");
             Parent root;
             try {

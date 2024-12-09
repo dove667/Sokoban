@@ -1,6 +1,5 @@
 package Sokoban;
 
-
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,7 +14,7 @@ public class Login_Application extends Application {
     //class Login_Application 不是抽象的，并且不会覆盖 Application 中的抽象方法 start（Stage），重写 start 方法
     @Override
     public void start(Stage primaryStage) throws IOException {
-
+        Login_Application.primaryStage = primaryStage;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Sokoban/LoginScene.fxml")));
         /*  资源文件夹：如果您使用 Maven 或 Gradle 构建项目，src/main/resources 是默认的资源目录。
         在代码中，getClass().getResource() 方法的路径以资源目录为根。路径需要以 / 开头，表示从类路径的根目录查找.
@@ -28,7 +27,7 @@ public class Login_Application extends Application {
         primaryStage.setTitle("登录界面");
         primaryStage.setScene(scene); // 设置场景
         primaryStage.show(); // 显示窗口
-        Login_Application.primaryStage = primaryStage;
+
     }
 
     public static void main(String[] args) {

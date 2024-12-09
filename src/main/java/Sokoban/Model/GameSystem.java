@@ -4,15 +4,12 @@ import java.io.*;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Objects;
-
-import Sokoban.Controller.AnimationController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import static Sokoban.Login_Application.primaryStage;
 
 public class GameSystem implements Serializable {
@@ -29,18 +26,19 @@ public class GameSystem implements Serializable {
     private static boolean isVisitor;
     private static boolean isTimeMode;
     //静态字段允许在没有实例创建时使用(选择关卡时),但仍会在构造方法中被赋予默认值
-    private static String[] password = new String[10];
-    private static String[] name = new String[10];
+    private  final String[] password = new String[10];
+    private  final String[] name = new String[10];
     private int i=0;
     private int j=0;
     private static boolean L1win;
     private static boolean L2win;
     private static boolean L3win;
-    private static boolean L4win;
+    private  static boolean L4win;
     private static boolean L5win;
-    private int targNum;
+
     private int boxNum;
     private  boolean isGameOver;
+
 
     public boolean isGameOver() {
         return isGameOver;
@@ -50,9 +48,6 @@ public class GameSystem implements Serializable {
         this.isGameOver = b;
     }
 
-    public void setTargNum(int targNum) {
-        this.targNum = targNum;
-    }
 
     public void setBoxNum(int boxNum) {
         this.boxNum = boxNum;
@@ -78,26 +73,24 @@ public class GameSystem implements Serializable {
         return L5win;
     }
 
-    public String[] addName(String a) {
+    public void addName(String a) {
         for(;i<name.length;i++){
             name[i]=a;
         }
-        return name;
     }
 
-    public static String[] getName() {
+    public String[] getName() {
         return name;
     }
-    public static String[] getPassword() {
+    public String[] getPassword() {
         return password;
     }
-    public String[] addPassword(String a) {
+    public void addPassword(String a) {
         for(;j<password.length;j++){
             password[j]=a;
         }
-        return password;
     }
-    public static boolean checkMatch(String[]name,String[]password,String a,String b){
+    public boolean checkMatch(String[]name,String[]password,String a,String b){
         if (name == null || password == null) {
             return false;
         }//防止空指针异常
@@ -118,7 +111,6 @@ public class GameSystem implements Serializable {
             boxes[i] = new Box();
             boxes[i].setMovable(true);
         }
-        targNum = targetNumber;
         targets = new Target[targetNumber];
         for (int i = 0; i < targetNumber; i++) {
             targets[i] = new Target();
@@ -343,6 +335,15 @@ public class GameSystem implements Serializable {
         this.timeRemaining = timeRemaining;
     }
 
+
+    public void saveAccount(GameSystem progress){
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("accounts.ser"))) {
+            out.writeObject(progress);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void saveGameProgress(GameSystem progress) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("game_progress.ser"))) {
             out.writeObject(progress);
@@ -355,6 +356,16 @@ public class GameSystem implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public GameSystem loadAccount() {
+        GameSystem progress = null;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("accounts.ser"))) {
+            progress = (GameSystem) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return progress;
     }
     //这里的load可以自动实现计时模式转换
     public GameSystem loadGameProgress() {
@@ -372,6 +383,8 @@ public class GameSystem implements Serializable {
         }
         return progress;
     }
+
+
     public static boolean isTimeMode() {
         return isTimeMode;
     }

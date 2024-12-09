@@ -72,7 +72,7 @@ public class Level3Controller {
             //将Box量化到system的矩阵中
             gameSystem3.setTarget(0,GridPane.getColumnIndex(target1),GridPane.getRowIndex(target1));
             gameSystem3.setTarget(1,GridPane.getColumnIndex(target2),GridPane.getRowIndex(target2));
-            gameSystem3.addTargetPositons();gameSystem3.setTargNum(2);
+            gameSystem3.addTargetPositons();
             //同样操作target
             // 遍历操作Board。注意！Gridpane中0时默认位置，不会在fxml中显示标出，会导致Index.valueOf空指针异常。要手动标出坐标
             Rectangle[] boards = {board1,board2,board3,board4,board5,board6,board7,board8,board9,board10,board11,board12,board13,board14,board15,board16,board17,board18,board19,board20,board21,board22,board23,board24,board25};
