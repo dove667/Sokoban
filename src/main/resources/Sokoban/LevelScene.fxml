@@ -51,6 +51,11 @@
                   <Font name="Century" size="24.0" />
                </font>
             </Label>
+            <Button fx:id="Btn_Return" layoutX="40.0" layoutY="43.0" mnemonicParsing="false" onMouseClicked="#ReturnBtnClicked" text="Return">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </children>

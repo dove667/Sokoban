@@ -26,7 +26,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import java.io.IOException;
 import java.net.URL;
 import static Sokoban.Login_Application.primaryStage;
