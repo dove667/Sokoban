@@ -57,10 +57,6 @@ public class Level1Controller {
 
 
     GameSystem gameSystem = new GameSystem(2,2,18,6,5,30);
-    //在boxes，targets，boards，matrix数组中都规定大小并建立新引用，初始化全局变量
-    //Gridpane静态方法不能再类体中调用，只能在initialize中调用，
-    // 当 JavaFX 加载与控制器类相对应的 FXML 文件时，FXML 文件中定义的 UI 组件（如按钮、标签等）会被实例化并与控制器类中的相应字段进行绑定。
-    //在 FXML 文件中定义的 UI 组件被完全创建并加入到场景图之后，initialize 方法被调用。此时，所有通过 @FXML 注解绑定的控件都已经可以使用。
     public void initialize() {
         //JavaFX是单线程模型，所有的UI更新都必须在JavaFX线程上完成，否则会导致不一致性或错误
         //任何需要在JavaFX线程上执行的代码（例如，修改UI组件、更新标签内容等）都应该放在这个方法里面。
@@ -312,7 +308,6 @@ public class Level1Controller {
     //以下是移动事件
     Integer currentColumnIndex = 1;
     Integer currentRowIndex = 1;
-    int initialcol=1,initialrow=1;
 
 
 

@@ -18,7 +18,7 @@
    <children>
       <ImageView fitHeight="645.0" fitWidth="917.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Sokoban/pictures/PE%20Test.jpg" />
+            <Image url="@Sokoban/pictures/PE Test.jpg" />
          </image>
       </ImageView>
       <AnchorPane fx:id="Pane" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#MovePlayer" prefHeight="633.0" prefWidth="911.0">

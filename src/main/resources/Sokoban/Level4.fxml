@@ -18,7 +18,7 @@
    <children>
       <ImageView fitHeight="643.0" fitWidth="919.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Sokoban/pictures/CS%20Faculty.jpg" />
+            <Image url="@Sokoban/pictures/CS Faculty.jpg" />
          </image>
       </ImageView>
       <AnchorPane fx:id="Pane" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#MovePlayer" prefHeight="633.0" prefWidth="911.0">
