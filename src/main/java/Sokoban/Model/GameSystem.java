@@ -13,7 +13,8 @@ import org.jetbrains.annotations.Nullable;
 import static Sokoban.Login_Application.primaryStage;
 
 public class GameSystem implements Serializable {
-
+//原本levelwin采用单例模式，静态储存关卡状态，使得关卡记忆为所有实例公用。但关卡信息应该依附于不同账号，属于账号的成员变量。
+    //因此，本版本将levelwin分离成账号类，并将关卡信息储存在账号类中。gamesystem类只负责关卡内游戏逻辑。
     private int timeRemaining;
     private int steps;
     Player niker ;
@@ -26,15 +27,6 @@ public class GameSystem implements Serializable {
     private static boolean isVisitor;
     private static boolean isTimeMode;
     //静态字段允许在没有实例创建时使用(选择关卡时),但仍会在构造方法中被赋予默认值
-    private  final String[] password = new String[10];
-    private  final String[] name = new String[10];
-    private int i=0;
-    private int j=0;
-    private static boolean L1win;
-    private static boolean L2win;
-    private static boolean L3win;
-    private  static boolean L4win;
-    private static boolean L5win;
 
     private int boxNum;
     private  boolean isGameOver;
@@ -53,51 +45,7 @@ public class GameSystem implements Serializable {
         this.boxNum = boxNum;
     }
 
-    public static boolean isL1win() {
-        return L1win;
-    }
 
-    public static boolean isL2win() {
-        return L2win;
-    }
-
-    public static boolean isL3win() {
-        return L3win;
-    }
-
-    public static boolean isL4win() {
-        return L4win;
-    }
-
-    public static boolean isL5win() {
-        return L5win;
-    }
-
-    public void addName(String a) {
-        for(;i<name.length;i++){
-            name[i]=a;
-        }
-    }
-
-    public String[] getName() {
-        return name;
-    }
-    public String[] getPassword() {
-        return password;
-    }
-    public void addPassword(String a) {
-        for(;j<password.length;j++){
-            password[j]=a;
-        }
-    }
-    public boolean checkMatch(String[]name,String[]password,String a,String b){
-        if (name == null || password == null) {
-            return false;
-        }//防止空指针异常
-        int nameIndex = Arrays.asList(name).indexOf(a);
-        int passwordIndex = Arrays.asList(password).indexOf(b);
-        return nameIndex == passwordIndex;
-    }
 
 
     //constructor
@@ -336,13 +284,6 @@ public class GameSystem implements Serializable {
     }
 
 
-    public void saveAccount(GameSystem progress){
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("accounts.ser"))) {
-            out.writeObject(progress);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void saveGameProgress(GameSystem progress) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("game_progress.ser"))) {
@@ -358,15 +299,6 @@ public class GameSystem implements Serializable {
         }
     }
 
-    public GameSystem loadAccount() {
-        GameSystem progress = null;
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("accounts.ser"))) {
-            progress = (GameSystem) in.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return progress;
-    }
     //这里的load可以自动实现计时模式转换
     public GameSystem loadGameProgress() {
         GameSystem progress = null;

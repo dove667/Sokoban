@@ -1,5 +1,6 @@
 package Sokoban.Controller;
 
+import Sokoban.Model.AccountsSystem;
 import Sokoban.Model.GameSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,8 +40,7 @@ public class LoginSceneController {
     void LoginBtnReleased() throws IOException {
         String username = Input_username.getText();
         String passwd = Input_passwd.getText();
-        GameSystem system = new GameSystem();
-        system = system.loadAccount();
+        AccountsSystem system = new AccountsSystem();
 
         if (username.equals("admin") && passwd.equals("admin")|| Arrays.asList(system.getName()).contains(username) && Arrays.asList(system.getPassword()).contains(passwd)
                 && system.checkMatch(system.getName(), system.getPassword(), username, passwd)) {
