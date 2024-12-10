@@ -65,26 +65,7 @@ public class Level1Controller {
         //JavaFX是单线程模型，所有的UI更新都必须在JavaFX线程上完成，否则会导致不一致性或错误
         //任何需要在JavaFX线程上执行的代码（例如，修改UI组件、更新标签内容等）都应该放在这个方法里面。
         Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Instruction");
-            alert.setHeaderText("To be a Niker...");
-            alert.setContentText("""
-                    You are a Niker, a hero who has been trapped in CS109.
-                    You need to accomplish your project and graduate from
-                    CS109 by moving Niker and pushing boxes to the targets.""");
-            alert.showAndWait();
-            alert.setContentText("""
-                    1. Press arrow or wasd keys or click arrow buttons to move
-                    2. Push boxes to the targets.Only push one box at a time""");
 
-            alert.showAndWait();
-            alert.setContentText("""
-                    3. You can save and load your progress.
-                    4. CLick the Back button to try again.""");
-            alert.showAndWait();
-            alert.setContentText("""
-                    5. quit the game anytime by clicking the Home button.""");
-            alert.showAndWait();
            gameSystem.setBox(1,GridPane.getColumnIndex(box1),GridPane.getRowIndex(box1));
            gameSystem.setBox(2,GridPane.getColumnIndex(box2),GridPane.getRowIndex(box2));
            //设置好system中Box的坐标
@@ -113,6 +94,26 @@ public class Level1Controller {
                 Img_save.setVisible(false);
                 Btn_load.setDisable(true);
                 Btn_save.setDisable(true);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Instruction");
+                alert.setHeaderText("To be a Niker...");
+                alert.setContentText("""
+                    You are a Niker, a hero who has been trapped in CS109.
+                    You need to accomplish your project and graduate from
+                    CS109 by moving Niker and pushing boxes to the targets.""");
+                alert.showAndWait();
+                alert.setContentText("""
+                    1. Press arrow or wasd keys or click arrow buttons to move
+                    2. Push boxes to the targets.Only push one box at a time""");
+
+                alert.showAndWait();
+                alert.setContentText("""
+                    3. You can save and load your progress.
+                    4. CLick the Back button to try again.""");
+                alert.showAndWait();
+                alert.setContentText("""
+                    5. quit the game anytime by clicking the Home button.""");
+                alert.showAndWait();
             }
             GameSystem.setCurrentLevel(1);GameSystem.setCurrentLevel("Level1");
             Pane.requestFocus(); // 确保焦点设置
