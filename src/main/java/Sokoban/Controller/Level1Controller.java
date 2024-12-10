@@ -26,20 +26,16 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import java.io.IOException;
 import java.net.URL;
 import static Sokoban.Login_Application.primaryStage;
-
-import java.util.LinkedList;
 import java.util.Objects;
-import java.util.Queue;
+
 
 
 public class Level1Controller {
     @FXML
     public AnchorPane Pane;
-
     @FXML
     private Button Btn_back,Btn_down,Btn_up,Btn_left,Btn_right,Btn_home,Btn_load,Btn_save;
     @FXML
@@ -78,7 +74,6 @@ public class Level1Controller {
            gameSystem.setTarget(0,GridPane.getColumnIndex(target1),GridPane.getRowIndex(target1));
            gameSystem.setTarget(1,GridPane.getColumnIndex(target2),GridPane.getRowIndex(target2));
            gameSystem.addTargetPositons();
-           gameSystem.setTargNum(2);
           //同样操作target
            // 遍历操作Board。注意！Gridpane中0时默认位置，不会在fxml中显示标出，会导致Index.valueOf空指针异常。要手动标出坐标
            Rectangle[] boards = {board1,board2,board3,board4,board5,board6,board7,board8,board9,board10,board11,board12,board13,board14,board15,board16,board17,board18};
@@ -140,9 +135,6 @@ public class Level1Controller {
             Image SUST =new Image("file:src/main/resources/Sokoban/Sokoban/pictures/SUST.jpeg");
             Niker.setFill(new ImagePattern(SUST));
         });
-
-
-
 
     }
 

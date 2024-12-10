@@ -70,7 +70,7 @@ public class Level5Controller {
             gameSystem5.setTarget(0,GridPane.getColumnIndex(target1),GridPane.getRowIndex(target1));
             gameSystem5.setTarget(1,GridPane.getColumnIndex(target2),GridPane.getRowIndex(target2));
             gameSystem5.setTarget(2,GridPane.getColumnIndex(target3),GridPane.getRowIndex(target3));
-            gameSystem5.addTargetPositons();gameSystem5.setTargNum(3);
+            gameSystem5.addTargetPositons();
             //同样操作target
             // 遍历操作Board。注意！Gridpane中0时默认位置，不会在fxml中显示标出，会导致Index.valueOf空指针异常。要手动标出坐标
             Rectangle[] boards = {board1,board2,board3,board4,board5,board6,board7,board8,board9,board10,board11,board12,board13,board14,board15,board16,board17,board18,board19,board20,board21,board22,board23,board24,board25};

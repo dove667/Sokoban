@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -19,6 +18,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+
 
 public class LevelSceneController {
     @FXML
@@ -33,6 +33,9 @@ public class LevelSceneController {
     @FXML
     private ImageView Img_SUST2;
 
+    @FXML
+    private Button Btn_Return;
+
     public void initialize() {
         if(GameSystem.isTimeMode()) {
             Label_Mode.setText("open");
@@ -40,7 +43,7 @@ public class LevelSceneController {
         else {
             Label_Mode.setText("closed");
         }
-       /* if(!GameSystem.isL1win()){
+        if(!GameSystem.isL1win()){
             Btn_Level2.setDisable(true); Btn_Level2.setVisible(false);
             Btn_Level3.setDisable(true);Btn_Level3.setVisible(false);
             Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
@@ -57,11 +60,13 @@ public class LevelSceneController {
         }
         else if(!GameSystem.isL4win()){
             Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
-        }*/
+        }
         Btn_TimeMode.setFont(Font.font("Century", 20));
+        Btn_Return.setFont(Font.font("Century", 20));
         Label_Mode.setFont(Font.font("Century", FontWeight.BOLD, 20));
         Btn_TimeMode.setBackground(new Background(new BackgroundFill(Color.GREEN, cornerRadii, Insets.EMPTY)));
         Btn_TimeMode.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, cornerRadii, BorderWidths.DEFAULT)));
+
     }
 
     CornerRadii cornerRadii = new CornerRadii(50,50,50,50, false); // false 表示不使用默认的圆角
@@ -78,6 +83,7 @@ public class LevelSceneController {
         GameSystem.setCurrentLevel("Level1");
         GameSystem.setTimeMode(setMode());
     }
+
 
     @FXML
     void Level2BtnReleased() throws IOException {
@@ -144,13 +150,15 @@ public class LevelSceneController {
          }
     }
 
-
+    @FXML
+    void ReturnBtnClicked() throws IOException {
+        Stage primaryStage = (Stage) Btn_Return.getScene().getWindow();
+        URL url = getClass().getResource("/Sokoban/LoginScene.fxml");
+        Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+    }
     public boolean setMode(){
-        if(Label_Mode.getText().equals("open")) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return Label_Mode.getText().equals("open");
     }
 }
