@@ -23,18 +23,21 @@ public class FailedController {
     @FXML
     private Label Label_Failed;
 
-    public void initialize() {
-        if (GameSystem.verifyVisitor()){
-            Btn_Home.setDisable(true);
-            Btn_Home.setVisible(false);
-        }
-    }
+
     @FXML
     void HomeBtnReleased(MouseEvent event) throws IOException {
-        URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
-        Parent root = FXMLLoader.load(Objects.requireNonNull(url));
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
+      if(GameSystem.verifyVisitor()){
+            URL url = getClass().getResource("/Sokoban/LoginScene.fxml");
+            Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+      }
+      else {
+          URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
+          Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+          Scene scene = new Scene(root);
+          primaryStage.setScene(scene);
+      }
     }
 
     @FXML

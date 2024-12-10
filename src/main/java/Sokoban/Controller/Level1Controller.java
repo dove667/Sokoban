@@ -91,10 +91,8 @@ public class Level1Controller {
             if (GameSystem.verifyVisitor()){
                 Img_load.setVisible(false);
                 Img_save.setVisible(false);
-                Img_home.setVisible(false);
                 Btn_load.setDisable(true);
                 Btn_save.setDisable(true);
-                Btn_home.setDisable(true);
             }
             GameSystem.setCurrentLevel(1);GameSystem.setCurrentLevel("Level1");
             Pane.requestFocus(); // 确保焦点设置
@@ -148,38 +146,51 @@ public class Level1Controller {
 
     @FXML
     void HomeBtnPressed(MouseEvent event) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Comfirm");
-        alert.setHeaderText("Are you sure to quit?");
-        alert.setContentText("Choose OK to quit or Cancel to continue.");
-        // 显示对话框并等待用户操作
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                gameSystem.setGameOver(true);stopTimeline();
-                gameSystem.saveGameProgress(gameSystem);
-                //切换场景
-                Platform.runLater(() -> {
-                URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
-                Parent root;
-                try {
-                    root = FXMLLoader.load(Objects.requireNonNull(url));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+        if(GameSystem.verifyVisitor()){
+            gameSystem.setGameOver(true);
+            URL url = getClass().getResource("/Sokoban/LoginScene.fxml");
+            Parent root;
+            try {
+                root = FXMLLoader.load(Objects.requireNonNull(url));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            //设置场景
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+        }else{ Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Comfirm");
+            alert.setHeaderText("Are you sure to quit?");
+            alert.setContentText("Choose OK to quit or Cancel to continue.");
+            // 显示对话框并等待用户操作
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    gameSystem.setGameOver(true);stopTimeline();
+                    gameSystem.saveGameProgress(gameSystem);
+                    //切换场景
+                    Platform.runLater(() -> {
+                        URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
+                        Parent root;
+                        try {
+                            root = FXMLLoader.load(Objects.requireNonNull(url));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        //设置场景
+                        Scene scene = new Scene(root);
+                        primaryStage.setScene(scene);
+                    });
                 }
-                //设置场景
-                Scene scene = new Scene(root);
-                primaryStage.setScene(scene);
-                });
-            }
-            else {
-                System.out.println("Operation cancelled.");
-                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                alert1.setTitle("Cancel");
-                alert1.setHeaderText(null);
-                alert1.setContentText("Operation cancelled.");
-                alert1.showAndWait();
-            }
-        });
+                else {
+                    System.out.println("Operation cancelled.");
+                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                    alert1.setTitle("Cancel");
+                    alert1.setHeaderText(null);
+                    alert1.setContentText("Operation cancelled.");
+                    alert1.showAndWait();
+                }
+            });}
+
     }
     @FXML
     void BackBtnPressed() throws IOException {
@@ -312,7 +323,6 @@ public class Level1Controller {
     //以下是移动事件
     Integer currentColumnIndex = 1;
     Integer currentRowIndex = 1;
-    int initialcol=1,initialrow=1;
 
 
 
@@ -321,7 +331,6 @@ public class Level1Controller {
         int targetRow = currentRowIndex + 1;
         //纯移动
         if (gameSystem.notWall(currentColumnIndex, targetRow) &&!gameSystem.isBox1(currentColumnIndex, targetRow)&&!gameSystem.isBox2(currentColumnIndex, targetRow)) {
-            Btn_down.setDisable(true);
             currentRowIndex = targetRow;
             AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex-1);

@@ -13,12 +13,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.Level3Controller">
    <children>
       <ImageView fitHeight="645.0" fitWidth="917.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Sokoban/pictures/PE%20Test.jpg" />
+            <Image url="@Sokoban/pictures/PE Test.jpg" />
          </image>
       </ImageView>
       <AnchorPane fx:id="Pane" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#MovePlayer" prefHeight="633.0" prefWidth="911.0">
@@ -59,7 +58,6 @@
                   <Rectangle fx:id="board14" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="0" />
                   <Rectangle fx:id="board15" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
                   <Rectangle fx:id="board16" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-                  <Rectangle fx:id="board17" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <Rectangle fx:id="board18" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                   <Rectangle fx:id="board19" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
                   <Rectangle fx:id="board20" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="3" />
@@ -74,6 +72,7 @@
                   <Polygon fx:id="target1" fill="#1fff33" points="68.69886016845703, -26.198131561279297, 93.4000244140625, 12.300029754638672, 45.19888687133789, 12.300043106079102" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                   <Polygon fx:id="target2" fill="#1fff33" points="68.69886016845703, -26.198131561279297, 93.4000244140625, 12.300029754638672, 45.19888687133789, 12.300043106079102" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                  <Rectangle fx:id="board17" arcHeight="25.0" arcWidth="25.0" fill="#b3b8bd" height="70.0" stroke="#948d8d" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <Label fx:id="Label_Level3" layoutX="325.0" layoutY="33.0" prefHeight="62.0" prefWidth="333.0" text="Level3 PE Test" textAlignment="CENTER">

@@ -307,7 +307,6 @@ public class GameSystem implements Serializable {
                 return "/Sokoban/LevelScene.fxml";
             }
         }
-
     }
 
     public static void setCurrentLevel(String level) {
