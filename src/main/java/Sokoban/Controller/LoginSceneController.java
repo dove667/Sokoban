@@ -34,7 +34,15 @@ public class LoginSceneController {
     @FXML
     private Label Label_username,Label_Sokoban,Label_passwd;
 
+    private AccountsSystem system;
 
+    public AccountsSystem getSystem() {
+        return system;
+    }
+
+    public void setSystem(AccountsSystem system) {
+        this.system = system;
+    }
 
     @FXML
     void LoginBtnReleased() throws IOException {

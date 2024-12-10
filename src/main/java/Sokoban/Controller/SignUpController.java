@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -44,6 +43,8 @@ public class SignUpController {
     @FXML
     private TextField Text_Name;
 
+    GameSystem gameSystem=LoginSceneController.getSystem();
+
     @FXML
     void ReturnBtnClicked(MouseEvent event) {
         URL url = getClass().getResource("/Sokoban/LoginScene.fxml");
@@ -57,7 +58,7 @@ public class SignUpController {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
     }
-    GameSystem system = new GameSystem();
+
 
 
     @FXML
