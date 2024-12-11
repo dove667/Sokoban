@@ -1,0 +1,16 @@
+.LevelButton {
+    -fx-background-color: #7a7979; /* 背景颜色 */
+    -fx-text-fill: white; /* 字体颜色 */
+    -fx-font-size: 14px; /* 字体大小 */
+    -fx-padding: 0px; /* 去除内边距 */
+    -fx-border-radius: 10px; /* 边缘圆角（不一定需要，但可以让边界更平滑） */
+    -fx-border-width: 2;
+    -fx-border-color: #c98246;
+    -fx-shape: "M 50,10 L 90,33 L 90,69 L 50,92 L 10,69 L 10,33 Z"; /* 正六边形路径 */
+    -fx-alignment: center; /* 内容居中 */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0.0, 0, 1);
+}
+
+.LevelButton:hover {
+    -fx-background-color: #b6b6b6;
+}

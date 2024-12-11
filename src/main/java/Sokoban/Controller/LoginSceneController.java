@@ -7,18 +7,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Objects;
 import static Sokoban.Login_Application.primaryStage;
 
-
 public class LoginSceneController {
 
     @FXML
     private Button Btn_login,Btn_SignUp,Btn_visitor;
 
+    @FXML
+    private AnchorPane Pane;
     @FXML
     private PasswordField Input_passwd;
 
@@ -37,11 +39,15 @@ public class LoginSceneController {
     void LoginBtnReleased() throws IOException {
         String username = Input_username.getText();
         String passwd = Input_passwd.getText();
-        if (username.equals("admin") && passwd.equals("admin")|| Arrays.asList(GameSystem.getName()).contains(username) && Arrays.asList(GameSystem.getPassword()).contains(passwd)
-                && GameSystem.checkMatch(GameSystem.getName(), GameSystem.getPassword(), username, passwd)) {
+        GameSystem system = new GameSystem();
+        system = system.loadAccount();
+
+        if (username.equals("admin") && passwd.equals("admin")|| Arrays.asList(system.getName()).contains(username) && Arrays.asList(system.getPassword()).contains(passwd)
+                && system.checkMatch(system.getName(), system.getPassword(), username, passwd)) {
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Reminder");
-            alert.setHeaderText("Welcome");
+            alert.setHeaderText(String.format("Welcome, Niker %s!", username));
             alert.setContentText("Log in successfully.");
             alert.showAndWait();
             //切换场景
