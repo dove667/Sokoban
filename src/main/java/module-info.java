@@ -5,7 +5,10 @@ module Sodoban {
     requires javafx.base;
     requires java.desktop;
     requires annotations;
+    requires javafx.media;
+
     opens Sokoban to javafx.fxml, javafx.graphics, javafx.controls,java.base;
+
     exports Sokoban;
     exports Sokoban.Controller;
     opens Sokoban.Controller to java.base, javafx.controls, javafx.fxml, javafx.graphics;

@@ -1,6 +1,7 @@
 package Sokoban.Controller;
 
 import Sokoban.Model.GameSystem;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -22,49 +22,58 @@ public class FailedController {
 
     @FXML
     private Label Label_Failed;
-
+    AudioManager lose=new AudioManager();
     public void initialize() {
-        if (GameSystem.verifyVisitor()){
-            Btn_Home.setDisable(true);
-            Btn_Home.setVisible(false);
-        }
+        Platform.runLater(() -> {
+            lose.playLose();
+        });
     }
     @FXML
     void HomeBtnReleased(MouseEvent event) throws IOException {
-        URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
-        Parent root = FXMLLoader.load(Objects.requireNonNull(url));
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
+      if(GameSystem.verifyVisitor()){
+          AudioManager.playbackgroundPeace();
+            URL url = getClass().getResource("/Sokoban/Fxml/LoginScene.fxml");
+            Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+      }
+      else {
+          AudioManager.playbackgroundPeace();
+          URL url = getClass().getResource("/Sokoban/Fxml/LevelScene.fxml");
+          Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+          Scene scene = new Scene(root);
+          primaryStage.setScene(scene);
+      }
     }
 
     @FXML
     void TryAgainBtnReleased(MouseEvent event) throws IOException {
          if(GameSystem.getCurrentLevel()==1){
-             URL url = getClass().getResource("/Sokoban/Level1.fxml");
+             URL url = getClass().getResource("/Sokoban/Fxml/Level1.fxml");
              Parent root = FXMLLoader.load(Objects.requireNonNull(url));
              Scene scene = new Scene(root);
              primaryStage.setScene(scene);
          }
          else if(GameSystem.getCurrentLevel()==2){
-             URL url = getClass().getResource("/Sokoban/Level2.fxml");
+             URL url = getClass().getResource("/Sokoban/Fxml/Level2.fxml");
              Parent root = FXMLLoader.load(Objects.requireNonNull(url));
              Scene scene = new Scene(root);
              primaryStage.setScene(scene);
          }
          else if(GameSystem.getCurrentLevel()==3){
-             URL url = getClass().getResource("/Sokoban/Level3.fxml");
+             URL url = getClass().getResource("/Sokoban/Fxml/Level3.fxml");
              Parent root = FXMLLoader.load(Objects.requireNonNull(url));
              Scene scene = new Scene(root);
              primaryStage.setScene(scene);
          }
          else if(GameSystem.getCurrentLevel()==4){
-             URL url = getClass().getResource("/Sokoban/Level4.fxml");
+             URL url = getClass().getResource("/Sokoban/Fxml/Level4.fxml");
              Parent root = FXMLLoader.load(Objects.requireNonNull(url));
              Scene scene = new Scene(root);
              primaryStage.setScene(scene);
          }
          else if(GameSystem.getCurrentLevel()==5){
-             URL url = getClass().getResource("/Sokoban/Level5.fxml");
+             URL url = getClass().getResource("/Sokoban/Fxml/Level5.fxml");
              Parent root = FXMLLoader.load(Objects.requireNonNull(url));
              Scene scene = new Scene(root);
              primaryStage.setScene(scene);

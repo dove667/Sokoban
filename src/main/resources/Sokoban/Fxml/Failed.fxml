@@ -6,24 +6,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.FailedController">
    <children>
       <ImageView fitHeight="706.0" fitWidth="911.0" layoutY="-34.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Sokoban/pictures/defetat.jpeg" />
+            <Image url="@../Sokoban/pictures/defetat.jpeg" />
          </image>
       </ImageView>
       <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0">
          <children>
-            <Button fx:id="Btn_TryAgain" layoutX="204.0" layoutY="450.0" mnemonicParsing="false" onMouseReleased="#TryAgainBtnReleased" style="-fx-background-radius: 25;" text="try again">
+            <Button fx:id="Btn_TryAgain" layoutX="204.0" layoutY="450.0" mnemonicParsing="false" onMouseReleased="#TryAgainBtnReleased" style="-fx-background-radius: 25; -fx-border-color: #9c3107; -fx-border-radius: 25; -fx-border-width: 5; -fx-background-color: #df5d29;" text="try again">
                <font>
-                  <Font size="20.0" />
+                  <Font name="Century" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="Btn_Home" layoutX="604.0" layoutY="450.0" mnemonicParsing="false" onMouseReleased="#HomeBtnReleased" style="-fx-background-radius: 25;" text="home">
+            <Button fx:id="Btn_Home" layoutX="604.0" layoutY="450.0" mnemonicParsing="false" onMouseReleased="#HomeBtnReleased" style="-fx-background-radius: 25; -fx-border-color: #9c3107; -fx-background-color: #df5d29; -fx-border-radius: 25; -fx-border-width: 5;" text="home">
                <font>
-                  <Font size="20.0" />
+                  <Font name="Century" size="20.0" />
                </font>
             </Button>
          </children>

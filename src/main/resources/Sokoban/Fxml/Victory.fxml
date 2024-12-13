@@ -10,18 +10,18 @@
    <children>
       <ImageView fitHeight="649.0" fitWidth="953.0" layoutX="-21.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Sokoban/pictures/victory.jpg" />
+            <Image url="@../Sokoban/pictures/victory.jpg" />
          </image>
       </ImageView>
       <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" />
-      <Button fx:id="Btn_NextLevel" layoutX="186.0" layoutY="442.0" mnemonicParsing="false" onMouseReleased="#NextLevelBtnReleased" style="-fx-background-radius: 15;" text="next level">
+      <Button fx:id="Btn_NextLevel" layoutX="186.0" layoutY="442.0" mnemonicParsing="false" onMouseReleased="#NextLevelBtnReleased" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 5; -fx-background-color: #a9a9a9; -fx-border-color: #dc912e;" text="next level" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="Century" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="Btn_Home" layoutX="651.0" layoutY="442.0" mnemonicParsing="false" onMouseReleased="#HomeBtnReleased" style="-fx-background-radius: 15;" text="home">
+      <Button fx:id="Btn_Home" layoutX="651.0" layoutY="442.0" mnemonicParsing="false" onMouseReleased="#HomeBtnReleased" style="-fx-background-radius: 15; -fx-background-color: #a9a9a9; -fx-border-radius: 15; -fx-border-width: 5; -fx-border-color: #dc912e;" text="home" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="Century" size="20.0" />
          </font>
       </Button>
    </children>

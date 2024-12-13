@@ -37,7 +37,12 @@
             <artifactId>javafx-base</artifactId>
             <version>23.0.1</version>
         </dependency>
-
+        <!-- JavaFX 媒体模块 -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>22.0.1</version>
+        </dependency>
         <!-- JUnit 测试库 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -67,8 +72,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <source>17</source> <!-- 确保与您的 JDK 版本兼容 -->
-                    <target>17</target>
+                    <source>21</source> <!-- 确保与您的 JDK 版本兼容 -->
+                    <target>21</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -77,10 +82,9 @@
                 <version>0.0.8</version> <!-- 更新为最新版本 -->
                 <executions>
                     <execution>
-                        <id>default-cli</id>
-                        <configuration>
-                            <mainClass>org.example.demo1/org.example.demo1.HelloApplication</mainClass>
-                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

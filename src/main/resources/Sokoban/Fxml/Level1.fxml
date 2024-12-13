@@ -13,15 +13,14 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.Level1Controller">
    <children>
       <ImageView fitHeight="648.0" fitWidth="919.0" layoutY="-1.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Sokoban/pictures/Library.png" />
+            <Image url="@../Sokoban/pictures/Library.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="Pane" focusTraversable="true" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#MovePlayer" prefHeight="633.0" prefWidth="911.0" stylesheets="@Style/LevelGame.css">
+      <AnchorPane fx:id="Pane" focusTraversable="true" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#MovePlayer" prefHeight="633.0" prefWidth="911.0" stylesheets="@../Style/LevelGame.css">
          <children>
             <GridPane fx:id="GridBoard" layoutX="83.0" layoutY="111.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0">
                <columnConstraints>
@@ -73,7 +72,7 @@
             <Button fx:id="Btn_home" layoutX="38.0" layoutY="49.0" mnemonicParsing="false" onMousePressed="#HomeBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
             <ImageView fx:id="Img_home" disable="true" fitHeight="48.0" fitWidth="40.0" layoutX="38.0" layoutY="49.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Sokoban/pictures/home.jpg" />
+                  <Image url="@../Sokoban/pictures/home.jpg" />
                </image>
             </ImageView>
             <Label fx:id="Label_steps" layoutX="677.0" layoutY="50.0" prefHeight="38.0" prefWidth="70.0" text="steps:">
@@ -97,7 +96,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <GridPane fx:id="Movement" layoutX="697.0" layoutY="332.0" prefHeight="188.0" prefWidth="190.0">
+            <GridPane fx:id="Movement" layoutX="697.0" layoutY="332.0" prefHeight="180.0" prefWidth="180.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -109,32 +108,27 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button fx:id="Btn_up" mnemonicParsing="false" onMousePressed="#UpBtnPressed" opacity="0.0" prefHeight="54.0" prefWidth="58.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-                  <Button fx:id="Btn_left" mnemonicParsing="false" onMousePressed="#LeftBtnPressed" opacity="0.0" prefHeight="58.0" prefWidth="47.0" text="Button" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <Button fx:id="Btn_down" mnemonicParsing="false" onMousePressed="#DownBtnPressed" opacity="0.0" prefHeight="66.0" prefWidth="53.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                  <Button fx:id="Btn_right" mnemonicParsing="false" onMousePressed="#RightBtnPressed" opacity="0.0" prefHeight="62.0" prefWidth="51.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+                  <Button fx:id="Btn_up" mnemonicParsing="false" onMousePressed="#UpBtnPressed" opacity="0.5" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
+                  <Button fx:id="Btn_left" mnemonicParsing="false" onMousePressed="#LeftBtnPressed" opacity="0.5" prefHeight="60.0" prefWidth="60.0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Button fx:id="Btn_down" mnemonicParsing="false" onMousePressed="#DownBtnPressed" opacity="0.5" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                  <Button fx:id="Btn_right" mnemonicParsing="false" onMousePressed="#RightBtnPressed" opacity="0.5" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <ImageView fx:id="Img_Move" disable="true" fitHeight="171.0" fitWidth="391.0" layoutX="712.0" layoutY="350.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Sokoban/pictures/move.jpeg" />
-               </image>
-            </ImageView>
             <ImageView fx:id="Img_Back" disable="true" fitHeight="50.0" fitWidth="40.0" layoutX="98.0" layoutY="49.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Sokoban/pictures/back.jpg" />
+                  <Image url="@../Sokoban/pictures/back.jpg" />
                </image>
             </ImageView>
             <Button fx:id="Btn_load" layoutX="156.0" layoutY="49.0" mnemonicParsing="false" onMousePressed="#LoadBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
             <Button fx:id="Btn_save" layoutX="222.0" layoutY="50.0" mnemonicParsing="false" onMousePressed="#SaveBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
             <ImageView fx:id="Img_load" disable="true" fitHeight="50.0" fitWidth="40.0" layoutX="156.0" layoutY="48.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Sokoban/pictures/load.jpeg" />
+                  <Image url="@../Sokoban/pictures/load.jpeg" />
                </image>
             </ImageView>
             <ImageView fx:id="Img_save" disable="true" fitHeight="50.0" fitWidth="40.0" layoutX="214.0" layoutY="48.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Sokoban/pictures/download.jpg" />
+                  <Image url="@../Sokoban/pictures/download.jpg" />
                </image>
             </ImageView>
          </children>

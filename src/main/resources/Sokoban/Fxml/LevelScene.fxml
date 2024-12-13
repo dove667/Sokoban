@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Bottom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" stylesheets="@Style/LevelScene.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.LevelSceneController">
+<AnchorPane fx:id="Bottom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" stylesheets="@../Style/LevelScene.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.LevelSceneController">
    <children>
       <ImageView fx:id="Img_SUST2" fitHeight="643.0" fitWidth="911.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Sokoban/pictures/SUST2.jpg" />
+            <Image url="@../Sokoban/pictures/SUST2.jpg" />
          </image>
       </ImageView>
       <AnchorPane fx:id="Pane" layoutX="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0">
@@ -52,6 +52,11 @@
                </font>
             </Label>
             <Button fx:id="Btn_Return" layoutX="40.0" layoutY="43.0" mnemonicParsing="false" onMouseClicked="#ReturnBtnClicked" text="Return">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="Btn_Level6" layoutX="590.0" layoutY="347.0" mnemonicParsing="false" onMouseReleased="#Level6BtnReleased" prefHeight="50.0" prefWidth="50.0" styleClass="LevelButton" text="L6">
                <font>
                   <Font size="18.0" />
                </font>

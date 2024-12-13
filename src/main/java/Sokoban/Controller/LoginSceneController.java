@@ -1,6 +1,7 @@
 package Sokoban.Controller;
 
 import Sokoban.Model.GameSystem;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,9 +32,11 @@ public class LoginSceneController {
     private ImageView Img_SUST;
 
     @FXML
-    private Label Label_username,Label_Sokoban,Label_passwd;
+    private Label Label_Sokoban;
 
-
+    public void initialize() {
+        Platform.runLater(AudioManager::playbackgroundPeace);
+    }
 
     @FXML
     void LoginBtnReleased() throws IOException {
@@ -42,7 +45,22 @@ public class LoginSceneController {
         GameSystem system = new GameSystem();
         system = system.loadAccount();
 
-        if (username.equals("admin") && passwd.equals("admin")|| Arrays.asList(system.getName()).contains(username) && Arrays.asList(system.getPassword()).contains(passwd)
+        if (username.equals("admin") && passwd.equals("admin")) {
+            GameSystem.setIsAdmin(true);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Reminder");
+            alert.setHeaderText(String.format("Welcome, Niker %s!", username));
+            alert.setContentText("Log in successfully.");
+            alert.showAndWait();
+            //切换场景
+            URL url = getClass().getResource("/Sokoban/Fxml/LevelScene.fxml");
+            //加载完fxml文件后，获取其中的root
+            Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+            //设置场景
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+        }
+        else if ( Arrays.asList(system.getName()).contains(username) && Arrays.asList(system.getPassword()).contains(passwd)
                 && system.checkMatch(system.getName(), system.getPassword(), username, passwd)) {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -51,7 +69,7 @@ public class LoginSceneController {
             alert.setContentText("Log in successfully.");
             alert.showAndWait();
             //切换场景
-            URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
+            URL url = getClass().getResource("/Sokoban/Fxml/LevelScene.fxml");
             //加载完fxml文件后，获取其中的root
             Parent root = FXMLLoader.load(Objects.requireNonNull(url));
             //设置场景
@@ -69,7 +87,7 @@ public class LoginSceneController {
 
     @FXML
     void SignUpReleased() throws IOException {
-        URL url = getClass().getResource("/Sokoban/SignUp.fxml");
+        URL url = getClass().getResource("/Sokoban/Fxml/SignUp.fxml");
         //加载完fxml文件后，获取其中的root
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         //设置场景
@@ -80,6 +98,7 @@ public class LoginSceneController {
 
     @FXML
     void VisitorBtnReleased() throws IOException {
+        Platform.runLater(AudioManager::stop);
         GameSystem.setIsVisitor(true);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("caution");
@@ -87,7 +106,7 @@ public class LoginSceneController {
         alert.setContentText("Your game progress will not be saved.");
         alert.showAndWait();
         //切换场景
-        URL url = getClass().getResource("/Sokoban/Level1.fxml");
+        URL url = getClass().getResource("/Sokoban/Fxml/Level1.fxml");
         //加载完fxml文件后，获取其中的root
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         //设置场景
