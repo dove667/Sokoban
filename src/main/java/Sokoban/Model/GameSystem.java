@@ -24,6 +24,7 @@ public class GameSystem implements Serializable {
     private static int currentLevel;
     private static String CurrentLevel ;
     private static boolean isVisitor;
+    private static boolean isAdmin;
     private static boolean isTimeMode;
     //静态字段允许在没有实例创建时使用(选择关卡时),但仍会在构造方法中被赋予默认值
     private  final String[] password = new String[10];
@@ -145,6 +146,9 @@ public class GameSystem implements Serializable {
         return isVisitor;
     }
 
+    public static boolean verifyAdmin() {
+        return isAdmin;
+    }
     public void victoryJudge() throws IOException {
 
         for(int i=0;i<matrix.length;i++){
@@ -282,6 +286,9 @@ public class GameSystem implements Serializable {
     public static void setIsVisitor(boolean is) {
         isVisitor = is;
     }
+    public static void setIsAdmin(boolean is) {
+        isAdmin = is;
+    }
     //实现victory的nextLevel按钮多态
     @Nullable
     public static String getNextLevel() {
@@ -303,8 +310,12 @@ public class GameSystem implements Serializable {
                 L4win = true;
                 return "/Sokoban/Level5.fxml";
             }
+            case 5 -> {
+                L5win = true;
+                return "/Sokoban/Level6.fxml";
+            }
             default -> {
-                return "/Sokoban/LevelScene.fxml";
+                return null;
             }
         }
     }

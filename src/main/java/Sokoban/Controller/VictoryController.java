@@ -79,7 +79,7 @@ public class VictoryController {
             // 更新当前关卡信息
             setCurrentLevel(nextLevelPath);
         } else {
-            System.out.println("没有更多的关卡可加载");
+            System.out.println("No more levels");
         }
     }
 

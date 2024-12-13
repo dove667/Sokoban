@@ -65,6 +65,35 @@ public class Level1Controller {
         //JavaFX是单线程模型，所有的UI更新都必须在JavaFX线程上完成，否则会导致不一致性或错误
         //任何需要在JavaFX线程上执行的代码（例如，修改UI组件、更新标签内容等）都应该放在这个方法里面。
         Platform.runLater(() -> {
+
+            //图形初始化
+            Image SUST =new Image("file:src/main/resources/Sokoban/Sokoban/pictures/SUST.jpeg");
+            Niker.setFill(new ImagePattern(SUST));
+
+            Image imageUp = new Image(Objects.requireNonNull(getClass().getResource("/Sokoban/Sokoban/pictures/up.png")).toExternalForm());
+            ImageView imageViewUp = new ImageView(imageUp);
+            imageViewUp.setFitHeight(60);
+            imageViewUp.setFitWidth(60);
+            Btn_up.setGraphic(imageViewUp);
+
+            Image imageDown = new Image(Objects.requireNonNull(getClass().getResource("/Sokoban/Sokoban/pictures/down.png")).toExternalForm());
+            ImageView imageViewDown = new ImageView(imageDown);
+            imageViewDown.setFitHeight(60);
+            imageViewDown.setFitWidth(60);
+            Btn_down.setGraphic(imageViewDown);
+
+            Image imageLeft = new Image(Objects.requireNonNull(getClass().getResource("/Sokoban/Sokoban/pictures/left.png")).toExternalForm());
+            ImageView imageViewLeft = new ImageView(imageLeft);
+            imageViewLeft.setFitHeight(60);
+            imageViewLeft.setFitWidth(60);
+            Btn_left.setGraphic(imageViewLeft);
+
+            Image imageRight = new Image(Objects.requireNonNull(getClass().getResource("/Sokoban/Sokoban/pictures/right.png")).toExternalForm());
+            ImageView imageViewRight = new ImageView(imageRight);
+            imageViewRight.setFitHeight(60);
+            imageViewRight.setFitWidth(60);
+            Btn_right.setGraphic(imageViewRight);
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Instruction");
             alert.setHeaderText("To be a Niker...");
@@ -150,9 +179,7 @@ public class Level1Controller {
                 Label_timer.setVisible(false);
             }
 
-            //图形初始化
-            Image SUST =new Image("file:src/main/resources/Sokoban/Sokoban/pictures/SUST.jpeg");
-            Niker.setFill(new ImagePattern(SUST));
+
         });
     }
 

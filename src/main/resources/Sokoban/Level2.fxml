@@ -13,7 +13,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.Level2Controller">
    <children>
       <ImageView fitHeight="665.0" fitWidth="921.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
@@ -21,7 +20,7 @@
             <Image url="@Sokoban/pictures/Dorm.jpg" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="Pane" layoutX="20.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#MovePlayer" prefHeight="633.0" prefWidth="911.0" stylesheets="@Style/LevelGame.css">
+      <AnchorPane fx:id="Pane" layoutX="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#MovePlayer" prefHeight="633.0" prefWidth="911.0" stylesheets="@Style/LevelGame.css">
          <children>
             <GridPane fx:id="GridBoard" layoutX="80.0" layoutY="123.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="560.0">
                <columnConstraints>
@@ -77,11 +76,6 @@
                   <Font name="Book Antiqua Bold" size="49.0" />
                </font>
             </Label>
-            <ImageView fx:id="Img_Move" disable="true" fitHeight="171.0" fitWidth="391.0" layoutX="722.0" layoutY="360.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Sokoban/pictures/move.jpeg" />
-               </image>
-            </ImageView>
             <Label fx:id="Label_steps" layoutX="680.0" layoutY="85.0" prefHeight="38.0" prefWidth="73.0" text="steps:">
                <font>
                   <Font size="24.0" />
@@ -102,24 +96,6 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <GridPane fx:id="Movement" layoutX="707.0" layoutY="342.0" prefHeight="188.0" prefWidth="190.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Button fx:id="Btn_up" mnemonicParsing="false" onMousePressed="#UpBtnPressed" opacity="0.0" prefHeight="54.0" prefWidth="58.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-                  <Button fx:id="Btn_left" mnemonicParsing="false" onMousePressed="#LeftBtnPressed" opacity="0.0" prefHeight="58.0" prefWidth="47.0" text="Button" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <Button fx:id="Btn_down" mnemonicParsing="false" onMousePressed="#DownBtnPressed" opacity="0.0" prefHeight="66.0" prefWidth="53.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                  <Button fx:id="Btn_right" mnemonicParsing="false" onMousePressed="#RightBtnPressed" opacity="0.0" prefHeight="62.0" prefWidth="51.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-               </children>
-            </GridPane>
             <Button fx:id="Btn_home" layoutX="48.0" layoutY="59.0" mnemonicParsing="false" onMousePressed="#HomeBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
             <ImageView fx:id="Img_home" disable="true" fitHeight="60.0" fitWidth="50.0" layoutX="43.0" layoutY="54.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -144,6 +120,24 @@
                   <Image url="@Sokoban/pictures/back.jpg" />
                </image>
             </ImageView>
+            <GridPane fx:id="Movement" layoutX="691.0" layoutY="329.0" prefHeight="180.0" prefWidth="180.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button fx:id="Btn_up" mnemonicParsing="false" onMousePressed="#UpBtnPressed" opacity="0.5" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
+                  <Button fx:id="Btn_left" mnemonicParsing="false" onMousePressed="#LeftBtnPressed" opacity="0.5" prefHeight="60.0" prefWidth="60.0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Button fx:id="Btn_down" mnemonicParsing="false" onMousePressed="#DownBtnPressed" opacity="0.5" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                  <Button fx:id="Btn_right" mnemonicParsing="false" onMousePressed="#RightBtnPressed" opacity="0.5" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
          </children>
       </AnchorPane>
    </children>

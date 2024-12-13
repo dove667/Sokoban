@@ -56,6 +56,11 @@
                   <Font size="18.0" />
                </font>
             </Button>
+            <Button fx:id="Btn_Level6" layoutX="590.0" layoutY="347.0" mnemonicParsing="false" onMouseReleased="#Level6BtnReleased" prefHeight="50.0" prefWidth="50.0" styleClass="LevelButton" text="L6">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </children>

@@ -63,6 +63,35 @@ public class Level2Controller {
 
     public void initialize() {
         Platform.runLater(() -> {
+
+            //图形初始化
+            Image SUST =new Image("file:src/main/resources/Sokoban/Sokoban/pictures/SUST.jpeg");
+            Niker.setFill(new ImagePattern(SUST));
+
+            Image imageUp = new Image(Objects.requireNonNull(getClass().getResource("/Sokoban/Sokoban/pictures/up.png")).toExternalForm());
+            ImageView imageViewUp = new ImageView(imageUp);
+            imageViewUp.setFitHeight(60);
+            imageViewUp.setFitWidth(60);
+            Btn_up.setGraphic(imageViewUp);
+
+            Image imageDown = new Image(Objects.requireNonNull(getClass().getResource("/Sokoban/Sokoban/pictures/down.png")).toExternalForm());
+            ImageView imageViewDown = new ImageView(imageDown);
+            imageViewDown.setFitHeight(60);
+            imageViewDown.setFitWidth(60);
+            Btn_down.setGraphic(imageViewDown);
+
+            Image imageLeft = new Image(Objects.requireNonNull(getClass().getResource("/Sokoban/Sokoban/pictures/left.png")).toExternalForm());
+            ImageView imageViewLeft = new ImageView(imageLeft);
+            imageViewLeft.setFitHeight(60);
+            imageViewLeft.setFitWidth(60);
+            Btn_left.setGraphic(imageViewLeft);
+
+            Image imageRight = new Image(Objects.requireNonNull(getClass().getResource("/Sokoban/Sokoban/pictures/right.png")).toExternalForm());
+            ImageView imageViewRight = new ImageView(imageRight);
+            imageViewRight.setFitHeight(60);
+            imageViewRight.setFitWidth(60);
+            Btn_right.setGraphic(imageViewRight);
+
             gameSystem2.setBox(1, GridPane.getColumnIndex(box1),GridPane.getRowIndex(box1));
             gameSystem2.setBox(2,GridPane.getColumnIndex(box2),GridPane.getRowIndex(box2));
             //设置好system中Box的坐标
@@ -84,7 +113,7 @@ public class Level2Controller {
             gameSystem2.addPlayerPositons(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
             gameSystem2.setPlayeriniCol(GridPane.getColumnIndex(Niker));
             gameSystem2.setPlayeriniRow(GridPane.getRowIndex(Niker));
-        });
+
 
         //判断是否为游客模式
         if (GameSystem.verifyVisitor()){
@@ -130,9 +159,8 @@ public class Level2Controller {
             Label_timer.setVisible(false);
         }
 
-        //图形初始化
-        Image SUST =new Image("file:src/main/resources/Sokoban/Sokoban/pictures/SUST.jpeg");
-        Niker.setFill(new ImagePattern(SUST));
+
+        });
     }
 
     public void stopTimeline() {

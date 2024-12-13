@@ -22,7 +22,7 @@ import java.util.Objects;
 
 public class LevelSceneController {
     @FXML
-    private Button Btn_Level1, Btn_Level2, Btn_Level3,Btn_Level4, Btn_Level5, Btn_TimeMode;
+    private Button Btn_Level1, Btn_Level2, Btn_Level3,Btn_Level4, Btn_Level5,Btn_Level6, Btn_TimeMode;
 
     @FXML
     private Label Label_Mode;
@@ -43,24 +43,27 @@ public class LevelSceneController {
         else {
             Label_Mode.setText("closed");
         }
-        /*if(!GameSystem.isL1win()){
-            Btn_Level2.setDisable(true); Btn_Level2.setVisible(false);
-            Btn_Level3.setDisable(true);Btn_Level3.setVisible(false);
-            Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
-            Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
+        if(!GameSystem.verifyAdmin()){
+            if(!GameSystem.isL1win()){
+                Btn_Level2.setDisable(true); Btn_Level2.setVisible(false);
+                Btn_Level3.setDisable(true);Btn_Level3.setVisible(false);
+                Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
+                Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
+            }
+            else if(!GameSystem.isL2win()){
+                Btn_Level3.setDisable(true);Btn_Level3.setVisible(false);
+                Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
+                Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
+            }
+            else if(!GameSystem.isL3win()){
+                Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
+                Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
+            }
+            else if(!GameSystem.isL4win()){
+                Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
+            }
         }
-        else if(!GameSystem.isL2win()){
-            Btn_Level3.setDisable(true);Btn_Level3.setVisible(false);
-            Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
-            Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
-        }
-        else if(!GameSystem.isL3win()){
-            Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
-            Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
-        }
-        else if(!GameSystem.isL4win()){
-            Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
-        }*/
+
         Btn_TimeMode.setFont(Font.font("Century", 20));
         Btn_Return.setFont(Font.font("Century", 20));
         Label_Mode.setFont(Font.font("Century", FontWeight.BOLD, 20));
@@ -133,6 +136,18 @@ public class LevelSceneController {
         primaryStage.setScene(scene);
         GameSystem.setCurrentLevel(5);
         GameSystem.setCurrentLevel("Level5");
+        GameSystem.setTimeMode(setMode());
+    }
+    @FXML
+    void Level6BtnReleased() throws IOException {
+
+        Stage primaryStage = (Stage) Btn_Level5.getScene().getWindow();
+        URL url = getClass().getResource("/Sokoban/Level6.fxml");
+        Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        GameSystem.setCurrentLevel(5);
+        GameSystem.setCurrentLevel("Level6");
         GameSystem.setTimeMode(setMode());
     }
 

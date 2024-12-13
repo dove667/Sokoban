@@ -42,7 +42,22 @@ public class LoginSceneController {
         GameSystem system = new GameSystem();
         system = system.loadAccount();
 
-        if (username.equals("admin") && passwd.equals("admin")|| Arrays.asList(system.getName()).contains(username) && Arrays.asList(system.getPassword()).contains(passwd)
+        if (username.equals("admin") && passwd.equals("admin")) {
+            GameSystem.setIsAdmin(true);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Reminder");
+            alert.setHeaderText(String.format("Welcome, Niker %s!", username));
+            alert.setContentText("Log in successfully.");
+            alert.showAndWait();
+            //切换场景
+            URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
+            //加载完fxml文件后，获取其中的root
+            Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+            //设置场景
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+        }
+        else if ( Arrays.asList(system.getName()).contains(username) && Arrays.asList(system.getPassword()).contains(passwd)
                 && system.checkMatch(system.getName(), system.getPassword(), username, passwd)) {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

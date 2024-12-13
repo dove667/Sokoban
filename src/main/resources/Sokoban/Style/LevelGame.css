@@ -1,0 +1,11 @@
+.button{
+    background-image: url('/Sokoban/Sokoban/pictures/up.png');
+}
+
+
+.button-with-image {
+    -fx-background-image: url("/Sokoban/Sokoban/pictures/up.png"); /* 图片路径 */
+    -fx-background-size: cover; /* 图片填充整个按钮 */
+    -fx-background-repeat: no-repeat; /* 不重复显示图片 */
+    -fx-background-position: center; /* 居中显示 */
+}
