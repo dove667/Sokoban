@@ -35,7 +35,7 @@
       <font>
          <Font size="20.0" />
       </font></Button>
-   <Label id="Sokoban" fx:id="Label_Sokoban" layoutX="266.0" layoutY="41.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 2, 2); -fx-font-weight: bold;" text="Sokoban" textFill="#ef9607">
+   <Label id="Sokoban" fx:id="Label_Sokoban" layoutX="265.0" layoutY="39.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 2, 2); -fx-font-weight: bold;" text="Sokoban" textFill="#ef9607">
       <font>
          <Font name="Century" size="96.0" />
       </font>
