@@ -24,15 +24,6 @@ public class SignUpController {
     private Button Btn_SignUp;
 
     @FXML
-    private Label Label_Ensure;
-
-    @FXML
-    private Label Label_Password;
-
-    @FXML
-    private Label Label_UserName;
-
-    @FXML
     private AnchorPane Pane;
 
     @FXML

@@ -31,7 +31,7 @@ public class LoginSceneController {
     private ImageView Img_SUST;
 
     @FXML
-    private Label Label_username,Label_Sokoban,Label_passwd;
+    private Label Label_Sokoban;
 
 
 
