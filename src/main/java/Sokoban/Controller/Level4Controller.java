@@ -141,7 +141,7 @@ public class Level4Controller {
                         // 检查倒计时是否结束
                         if (gameSystem4.getTimeRemaining() <= 0) {
                             myTime.setText("time's up");
-                            URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                            URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                             Parent root = null;
                             try {
                                 root = FXMLLoader.load(Objects.requireNonNull(url));
@@ -181,10 +181,11 @@ public class Level4Controller {
         // 显示对话框并等待用户操作
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
+                AudioManager.playbackgroundPeace();
                 gameSystem4.setGameOver(true);stopTimeline();
                 gameSystem4.saveGameProgress(gameSystem4);
                 //切换场景
-                URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
+                URL url = getClass().getResource("/Sokoban/Fxml/LevelScene.fxml");
                 Parent root;
                 try {
                     root = FXMLLoader.load(Objects.requireNonNull(url));
@@ -209,7 +210,7 @@ public class Level4Controller {
     void BackBtnPressed() throws IOException {
         stopTimeline();
         Platform.runLater(() -> {
-            URL url = getClass().getResource("/Sokoban/Level4.fxml");
+            URL url = getClass().getResource("/Sokoban/Fxml/Level4.fxml");
             Parent root = null;
             try {
                 root = FXMLLoader.load(Objects.requireNonNull(url));
@@ -244,9 +245,9 @@ public class Level4Controller {
                     try {
                         // 更新界面
                         // javafx位置变化和css动态变化是叠加的,先设偏移量为0
-                        AnimationController.resetNodePosition(Niker);
-                        AnimationController.resetNodePosition(box1);
-                        AnimationController.resetNodePosition(box2);
+                        AnimationManager.resetNodePosition(Niker);
+                        AnimationManager.resetNodePosition(box1);
+                        AnimationManager.resetNodePosition(box2);
                         steps.setText(String.valueOf(gameSystem4.getSteps()));
                         GridPane.setRowIndex(Niker, gameSystem4.getPlayerRow());
                         GridPane.setColumnIndex(Niker, gameSystem4.getPlayerCol());
@@ -265,7 +266,7 @@ public class Level4Controller {
                                         // 检查倒计时是否结束
                                         if (gameSystem4.getTimeRemaining() <= 0) {
                                             myTime.setText("time's up");
-                                            URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                                            URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                                             Parent root = null;
                                             try {
                                                 root = FXMLLoader.load(Objects.requireNonNull(url));
@@ -328,56 +329,52 @@ public class Level4Controller {
 
     Integer currentColumnIndex = 2;
     Integer currentRowIndex = 1;
+    AudioManager moveAudio = new AudioManager();
+
 
     @FXML
     void DownBtnPressed() throws IOException {
         int targetRow = currentRowIndex + 1;
         //纯移动
-        if (gameSystem4.notWall(currentColumnIndex, targetRow) &&!gameSystem4.isBox1(currentColumnIndex, targetRow)&&!gameSystem4.isBox2(currentColumnIndex, targetRow)&&!gameSystem4.isBox3(currentColumnIndex, targetRow)) {
+        if (gameSystem4.notWall(currentColumnIndex, targetRow) &&!gameSystem4.isBox1(currentColumnIndex, targetRow)&&!gameSystem4.isBox2(currentColumnIndex, targetRow)) {
+
+            moveAudio.playmoveSound();
             currentRowIndex = targetRow;
-            AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
+            AnimationManager.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex-1);
             gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
         }
         //推箱子
         if (gameSystem4.isBox1(currentColumnIndex, targetRow)) {
-            if (gameSystem4.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem4.isBox2(currentColumnIndex, targetRow+1)&&!gameSystem4.isBox3(currentColumnIndex, targetRow+1)) {
+            if (gameSystem4.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem4.isBox2(currentColumnIndex, targetRow+1)) {
                 //可推
+                moveAudio.playpushBox();
+                moveAudio.playmoveSound();
                 currentRowIndex = targetRow;
-                AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
+                AnimationManager.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex-1);
                 gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveDown(box1, currentColumnIndex, currentRowIndex+1);//动画
+                AnimationManager.MoveDown(box1, currentColumnIndex, currentRowIndex+1);//动画
                 gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem4.moveinBox(1,currentColumnIndex, currentRowIndex+1);
                 stepsUpdate();
             }
         }
         if (gameSystem4.isBox2(currentColumnIndex, targetRow)) {
-            if (gameSystem4.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem4.isBox1(currentColumnIndex, targetRow+1)&&!gameSystem4.isBox3(currentColumnIndex, targetRow+1)) {
+            if (gameSystem4.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem4.isBox1(currentColumnIndex, targetRow+1)) {
                 //可推
+                moveAudio.playpushBox();
+                moveAudio.playmoveSound();
                 currentRowIndex = targetRow;
-                AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
+                AnimationManager.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex-1);
                 gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveDown(box2, currentColumnIndex, currentRowIndex+1);//动画
+                AnimationManager.MoveDown(box2, currentColumnIndex, currentRowIndex+1);//动画
                 gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem4.moveinBox(2,currentColumnIndex, currentRowIndex+1);
                 stepsUpdate();
-            }}
-            if (gameSystem4.isBox3(currentColumnIndex, targetRow)) {
-                if (gameSystem4.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem4.isBox1(currentColumnIndex, targetRow+1)&&!gameSystem4.isBox2(currentColumnIndex, targetRow+1)) {
-                    //可推
-                    currentRowIndex = targetRow;
-                    AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
-                    gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex-1);
-                    gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                    AnimationController.MoveDown(box3, currentColumnIndex, currentRowIndex+1);//动画
-                    gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
-                    gameSystem4.moveinBox(3,currentColumnIndex, currentRowIndex+1);
-                    stepsUpdate();
-                }
+            }
         }
         gameSystem4.victoryJudge();
         gameSystem4.failedJudge();
@@ -390,47 +387,41 @@ public class Level4Controller {
     void LeftBtnPressed() throws IOException {
         int targetColumn = currentColumnIndex - 1;
         //纯移动
-        if (gameSystem4.notWall(targetColumn, currentRowIndex) &&!gameSystem4.isBox1(targetColumn, currentRowIndex)&&!gameSystem4.isBox2(targetColumn, currentRowIndex)&&!gameSystem4.isBox3(targetColumn, currentRowIndex)) {
+        if (gameSystem4.notWall(targetColumn, currentRowIndex) &&!gameSystem4.isBox1(targetColumn, currentRowIndex)&&!gameSystem4.isBox2(targetColumn, currentRowIndex)) {
+
+            moveAudio.playmoveSound();
             currentColumnIndex = targetColumn;
-            AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
+            AnimationManager.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem4.moveoutNiker(currentColumnIndex+1, currentRowIndex);
             gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
         }
         //推箱子
         if (gameSystem4.isBox1(targetColumn, currentRowIndex)) {
-            if (gameSystem4.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem4.isBox2(targetColumn-1, currentRowIndex)&&!gameSystem4.isBox3(targetColumn-1, currentRowIndex)) {
+            if (gameSystem4.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem4.isBox2(targetColumn-1, currentRowIndex)) {
+                moveAudio.playpushBox();
+                moveAudio.playmoveSound();
                 currentColumnIndex = targetColumn;
-                AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
+                AnimationManager.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem4.moveoutNiker(currentColumnIndex+1, currentRowIndex);
                 gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveLeft(box1,currentColumnIndex-1,currentRowIndex);
+                AnimationManager.MoveLeft(box1, currentColumnIndex-1, currentRowIndex);//动画
                 gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem4.moveinBox(1,currentColumnIndex-1, currentRowIndex);
                 stepsUpdate();
             }
         }
         if (gameSystem4.isBox2(targetColumn, currentRowIndex)) {
-            if (gameSystem4.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem4.isBox1(targetColumn-1, currentRowIndex)&&!gameSystem4.isBox3(targetColumn-1, currentRowIndex)) {
+            if (gameSystem4.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem4.isBox1(targetColumn-1, currentRowIndex)) {
+                moveAudio.playpushBox();
+                moveAudio.playmoveSound();
                 currentColumnIndex = targetColumn;
-                AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
+                AnimationManager.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem4.moveoutNiker(currentColumnIndex+1, currentRowIndex);
                 gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveLeft(box2,currentColumnIndex-1,currentRowIndex);
+                AnimationManager.MoveLeft(box2, currentColumnIndex-1, currentRowIndex);//动画
                 gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem4.moveinBox(2,currentColumnIndex-1, currentRowIndex);
-                stepsUpdate();
-            }
-        }
-        if (gameSystem4.isBox3(targetColumn, currentRowIndex)) {
-            if (gameSystem4.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem4.isBox1(targetColumn-1, currentRowIndex)&&!gameSystem4.isBox2(targetColumn-1, currentRowIndex)) {
-                currentColumnIndex = targetColumn;
-                AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
-                gameSystem4.moveoutNiker(currentColumnIndex+1, currentRowIndex);
-                gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveLeft(box3,currentColumnIndex-1,currentRowIndex);
-                gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem4.moveinBox(3,currentColumnIndex-1, currentRowIndex);
                 stepsUpdate();
             }
         }
@@ -444,46 +435,41 @@ public class Level4Controller {
     @FXML
     void RightBtnPressed() throws IOException {
         int targetColumn = currentColumnIndex + 1;
-        if (gameSystem4.notWall(targetColumn, currentRowIndex) &&!gameSystem4.isBox1(targetColumn, currentRowIndex)&&!gameSystem4.isBox2(targetColumn, currentRowIndex)&&!gameSystem4.isBox3(targetColumn, currentRowIndex)) {
+        if (gameSystem4.notWall(targetColumn, currentRowIndex) &&!gameSystem4.isBox1(targetColumn, currentRowIndex)&&!gameSystem4.isBox2(targetColumn, currentRowIndex)) {
+
+            moveAudio.playmoveSound();
             currentColumnIndex = targetColumn;
-            AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
+            AnimationManager.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem4.moveoutNiker(currentColumnIndex-1, currentRowIndex);
             gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
         }
         //推箱子
         if (gameSystem4.isBox1(targetColumn, currentRowIndex)) {
-            if (gameSystem4.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem4.isBox2(targetColumn+1, currentRowIndex)&&!gameSystem4.isBox3(targetColumn+1, currentRowIndex)) {
+            if (gameSystem4.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem4.isBox2(targetColumn+1, currentRowIndex)) {
+                moveAudio.playpushBox();
+                moveAudio.playmoveSound();
                 currentColumnIndex = targetColumn;
-                AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
+                AnimationManager.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem4.moveoutNiker(currentColumnIndex-1, currentRowIndex);
                 gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveRight(box1, currentColumnIndex+1, currentRowIndex);//动画
+                AnimationManager.MoveRight(box1, currentColumnIndex+1, currentRowIndex);
                 gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem4.moveinBox(1,currentColumnIndex+1, currentRowIndex);
                 stepsUpdate();
             }
         }
         if (gameSystem4.isBox2(targetColumn, currentRowIndex)) {
-            if (gameSystem4.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem4.isBox1(targetColumn+1, currentRowIndex)&&!gameSystem4.isBox3(targetColumn+1, currentRowIndex)) {
+            if (gameSystem4.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem4.isBox1(targetColumn+1, currentRowIndex)) {
+                moveAudio.playpushBox();
+                moveAudio.playmoveSound();
                 currentColumnIndex = targetColumn;
-                AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
+                AnimationManager.MoveRight(Niker, currentColumnIndex, currentRowIndex);
                 gameSystem4.moveoutNiker(currentColumnIndex-1, currentRowIndex);
                 gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveRight(box2, currentColumnIndex+1, currentRowIndex);//动画
+                AnimationManager.MoveRight(box2, currentColumnIndex+1, currentRowIndex);
                 gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem4.moveinBox(2,currentColumnIndex+1, currentRowIndex);
-                stepsUpdate();
-            }
-        }
-        if (gameSystem4.isBox3(targetColumn, currentRowIndex)) {
-            if (gameSystem4.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem4.isBox1(targetColumn+1, currentRowIndex)&&!gameSystem4.isBox2(targetColumn+1, currentRowIndex)) {
-                currentColumnIndex = targetColumn;
-                AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
-                gameSystem4.moveoutNiker(currentColumnIndex-1, currentRowIndex);
-                gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveRight(box3, currentColumnIndex+1, currentRowIndex);//动画                gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem4.moveinBox(3,currentColumnIndex+1, currentRowIndex);
                 stepsUpdate();
             }
         }
@@ -498,50 +484,44 @@ public class Level4Controller {
     void UpBtnPressed() throws IOException {
         int targetRow = currentRowIndex - 1;
         //纯移动
-        if (gameSystem4.notWall(currentColumnIndex, targetRow) &&!gameSystem4.isBox1(currentColumnIndex, targetRow)&&!gameSystem4.isBox2(currentColumnIndex, targetRow)&&!gameSystem4.isBox3(currentColumnIndex, targetRow)) {
+        if (gameSystem4.notWall(currentColumnIndex, targetRow) &&!gameSystem4.isBox1(currentColumnIndex, targetRow)&&!gameSystem4.isBox2(currentColumnIndex, targetRow)) {
+
+            moveAudio.playmoveSound();
             currentRowIndex = targetRow;
-            AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
+            AnimationManager.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex+1);
             gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
         }
         //推箱子
         if (gameSystem4.isBox1(currentColumnIndex, targetRow)) {
-            if (gameSystem4.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem4.isBox2(currentColumnIndex, targetRow-1)&&!gameSystem4.isBox3(currentColumnIndex, targetRow-1)) {
+            if (gameSystem4.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem4.isBox2(currentColumnIndex, targetRow-1)) {
+                moveAudio.playpushBox();
+                moveAudio.playmoveSound();
                 currentRowIndex = targetRow;
-                AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
+                AnimationManager.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex+1);
                 gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveUp(box1, currentColumnIndex, currentRowIndex-1);//动画
+                AnimationManager.MoveUp(box1, currentColumnIndex, currentRowIndex-1);//动画
                 gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem4.moveinBox(1,currentColumnIndex, currentRowIndex-1);
                 stepsUpdate();
             }
         }
         if (gameSystem4.isBox2(currentColumnIndex, targetRow)) {
-            if (gameSystem4.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem4.isBox1(currentColumnIndex, targetRow-1)&&!gameSystem4.isBox3(currentColumnIndex, targetRow-1)) {
+            if (gameSystem4.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem4.isBox1(currentColumnIndex, targetRow-1)) {
+                moveAudio.playpushBox();
+                moveAudio.playmoveSound();
                 currentRowIndex = targetRow;
-                AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
+                AnimationManager.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex+1);
                 gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveUp(box2, currentColumnIndex, currentRowIndex-1);//动画
+                AnimationManager.MoveUp(box2, currentColumnIndex, currentRowIndex-1);//动画
                 gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem4.moveinBox(2,currentColumnIndex, currentRowIndex-1);
                 stepsUpdate();
             }
-        }if (gameSystem4.isBox3(currentColumnIndex, targetRow)) {
-            if (gameSystem4.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem4.isBox1(currentColumnIndex, targetRow-1)&&!gameSystem4.isBox2(currentColumnIndex, targetRow-1)) {
-                currentRowIndex = targetRow;
-                AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
-                gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex+1);
-                gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveUp(box3, currentColumnIndex, currentRowIndex-1);//动画
-                gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem4.moveinBox(3,currentColumnIndex, currentRowIndex-1);
-                stepsUpdate();
-            }
         }
-
         gameSystem4.victoryJudge();
         gameSystem4.failedJudge();
         if (gameSystem4.isGameOver()) {
@@ -549,4 +529,3 @@ public class Level4Controller {
         }
     }
 }
-

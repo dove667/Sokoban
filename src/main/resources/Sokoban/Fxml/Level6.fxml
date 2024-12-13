@@ -24,22 +24,22 @@
                <children>
                   <ImageView fx:id="Img_save" disable="true" fitHeight="50.0" fitWidth="40.0" layoutX="204.0" layoutY="20.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Sokoban/pictures/download.jpg" />
+                        <Image url="@../Sokoban/pictures/download.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="Img_load" disable="true" fitHeight="50.0" fitWidth="40.0" layoutX="155.0" layoutY="20.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Sokoban/pictures/load.jpeg" />
+                        <Image url="@../Sokoban/pictures/load.jpeg" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="Img_Back" disable="true" fitHeight="50.0" fitWidth="40.0" layoutX="106.0" layoutY="20.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Sokoban/pictures/back.jpg" />
+                        <Image url="@../Sokoban/pictures/back.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="Img_home" disable="true" fitHeight="48.0" fitWidth="40.0" layoutX="56.0" layoutY="20.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Sokoban/pictures/home.jpg" />
+                        <Image url="@../Sokoban/pictures/home.jpg" />
                      </image>
                   </ImageView>
                   <Label fx:id="Label_Level1" layoutX="272.0" layoutY="6.0" prefHeight="62.0" prefWidth="375.0" text="Level6 Hospital " textAlignment="CENTER">
@@ -86,7 +86,7 @@
                <children>
                   <ImageView fitHeight="708.0" fitWidth="931.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Sokoban/pictures/Hospital.jpg" />
+                        <Image url="@../Sokoban/pictures/Hospital.jpg" />
                      </image>
                   </ImageView>
                   <GridPane fx:id="GridBoard" layoutX="24.0" layoutY="26.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0">
@@ -269,7 +269,7 @@
                         <Polygon fx:id="target5" fill="#1fff33" points="80.79859161376953, -11.597020149230957, 93.4000244140625, 12.300029754638672, 67.79865264892578, 12.30006217956543" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
-                  <GridPane fx:id="Movement" layoutX="674.0" layoutY="276.0" prefHeight="188.0" prefWidth="190.0" stylesheets="@Style/LevelGame.css">
+                  <GridPane fx:id="Movement" layoutX="674.0" layoutY="276.0" prefHeight="188.0" prefWidth="190.0" stylesheets="@../Style/LevelGame.css">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" stylesheets="@Style/SignUpStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.SignUpController">
+<AnchorPane fx:id="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" stylesheets="@../Style/SignUpStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.SignUpController">
    <children>
       <ImageView fitHeight="633.0" fitWidth="945.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Sokoban/pictures/SOKOBAN.png" />
+            <Image url="@../Sokoban/pictures/SOKOBAN.png" />
          </image>
       </ImageView>
       <PasswordField fx:id="Password_Ensure" layoutX="298.0" layoutY="382.0" prefHeight="48.0" prefWidth="314.0" promptText="comform your password">

@@ -17,7 +17,7 @@
    <children>
       <ImageView fitHeight="645.0" fitWidth="917.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Sokoban/pictures/PE Test.jpg" />
+            <Image url="@../Sokoban/pictures/PE Test.jpg" />
          </image>
       </ImageView>
       <AnchorPane fx:id="Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#MovePlayer" prefHeight="633.0" prefWidth="911.0">
@@ -103,7 +103,7 @@
             <Button fx:id="Btn_home" layoutX="58.0" layoutY="69.0" mnemonicParsing="false" onMousePressed="#HomeBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
             <ImageView fx:id="Img_home" disable="true" fitHeight="60.0" fitWidth="50.0" layoutX="53.0" layoutY="64.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Sokoban/pictures/home.jpg" />
+                  <Image url="@../Sokoban/pictures/home.jpg" />
                </image>
             </ImageView>
             <Button fx:id="Btn_back" layoutX="118.0" layoutY="70.0" mnemonicParsing="false" onMousePressed="#BackBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
@@ -111,17 +111,17 @@
             <Button fx:id="Btn_save" layoutX="242.0" layoutY="70.0" mnemonicParsing="false" onMousePressed="#SaveBtnPressed" opacity="0.0" prefHeight="38.0" prefWidth="40.0" />
             <ImageView fx:id="Img_load" disable="true" fitHeight="50.0" fitWidth="40.0" layoutX="176.0" layoutY="68.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Sokoban/pictures/load.jpeg" />
+                  <Image url="@../Sokoban/pictures/load.jpeg" />
                </image>
             </ImageView>
             <ImageView fx:id="Img_save" disable="true" fitHeight="50.0" fitWidth="40.0" layoutX="242.0" layoutY="68.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Sokoban/pictures/download.jpg" />
+                  <Image url="@../Sokoban/pictures/download.jpg" />
                </image>
             </ImageView>
             <ImageView fx:id="Img_Back" disable="true" fitHeight="50.0" fitWidth="40.0" layoutX="118.0" layoutY="69.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Sokoban/pictures/back.jpg" />
+                  <Image url="@../Sokoban/pictures/back.jpg" />
                </image>
             </ImageView>
             <GridPane fx:id="Movement" layoutX="687.0" layoutY="341.0" prefHeight="180.0" prefWidth="180.0">

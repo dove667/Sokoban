@@ -10,7 +10,7 @@
    <children>
       <ImageView fitHeight="706.0" fitWidth="911.0" layoutY="-34.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Sokoban/pictures/defetat.jpeg" />
+            <Image url="@../Sokoban/pictures/defetat.jpeg" />
          </image>
       </ImageView>
       <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0">

@@ -37,7 +37,7 @@ public class SignUpController {
 
     @FXML
     void ReturnBtnClicked(MouseEvent event) {
-        URL url = getClass().getResource("/Sokoban/LoginScene.fxml");
+        URL url = getClass().getResource("/Sokoban/Fxml/LoginScene.fxml");
         Parent root;
         try {
             root = FXMLLoader.load(Objects.requireNonNull(url));
@@ -84,7 +84,7 @@ public class SignUpController {
             system.addPassword(Password_input.getText());
             system.saveAccount(system);
 
-            URL url = getClass().getResource("/Sokoban/LoginScene.fxml");
+            URL url = getClass().getResource("/Sokoban/Fxml/LoginScene.fxml");
             Parent root;
             try {
                 root = FXMLLoader.load(Objects.requireNonNull(url));

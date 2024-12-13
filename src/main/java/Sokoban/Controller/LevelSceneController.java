@@ -76,9 +76,9 @@ public class LevelSceneController {
 
     @FXML
     void Level1BtnReleased() throws IOException {
-
+        AudioManager.stop();
         Stage primaryStage = (Stage) Btn_Level1.getScene().getWindow();
-        URL url = getClass().getResource("/Sokoban/Level1.fxml");
+        URL url = getClass().getResource("/Sokoban/Fxml/Level1.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -90,9 +90,9 @@ public class LevelSceneController {
 
     @FXML
     void Level2BtnReleased() throws IOException {
-
+        AudioManager.stop();
         Stage primaryStage = (Stage) Btn_Level2.getScene().getWindow();
-        URL url = getClass().getResource("/Sokoban/Level2.fxml");
+        URL url = getClass().getResource("/Sokoban/Fxml/Level2.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -103,9 +103,9 @@ public class LevelSceneController {
 
     @FXML
     void Level3BtnReleased() throws IOException {
-
+        AudioManager.stop();
         Stage primaryStage = (Stage) Btn_Level3.getScene().getWindow();
-        URL url = getClass().getResource("/Sokoban/Level3.fxml");
+        URL url = getClass().getResource("/Sokoban/Fxml/Level3.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -115,9 +115,9 @@ public class LevelSceneController {
     }
     @FXML
     void Level4BtnReleased() throws IOException {
-
+        AudioManager.stop();
         Stage primaryStage = (Stage) Btn_Level4.getScene().getWindow();
-        URL url = getClass().getResource("/Sokoban/Level4.fxml");
+        URL url = getClass().getResource("/Sokoban/Fxml/Level4.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -128,9 +128,9 @@ public class LevelSceneController {
 
     @FXML
     void Level5BtnReleased() throws IOException {
-
+        AudioManager.stop();
         Stage primaryStage = (Stage) Btn_Level5.getScene().getWindow();
-        URL url = getClass().getResource("/Sokoban/Level5.fxml");
+        URL url = getClass().getResource("/Sokoban/Fxml/Level5.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -140,9 +140,9 @@ public class LevelSceneController {
     }
     @FXML
     void Level6BtnReleased() throws IOException {
-
+        AudioManager.stop();
         Stage primaryStage = (Stage) Btn_Level5.getScene().getWindow();
-        URL url = getClass().getResource("/Sokoban/Level6.fxml");
+        URL url = getClass().getResource("/Sokoban/Fxml/Level6.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -168,7 +168,7 @@ public class LevelSceneController {
     @FXML
     void ReturnBtnClicked() throws IOException {
         Stage primaryStage = (Stage) Btn_Return.getScene().getWindow();
-        URL url = getClass().getResource("/Sokoban/LoginScene.fxml");
+        URL url = getClass().getResource("/Sokoban/Fxml/LoginScene.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

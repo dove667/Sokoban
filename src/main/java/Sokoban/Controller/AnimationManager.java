@@ -9,7 +9,7 @@ import javafx.util.Duration;
 
 /*将动画效果封装到 AnimationController 类中，实现动态界面控制与交互事件控制分离
 ，fxml初始化静态界面，动画效果由该类控制*/
-public class AnimationController {
+public class AnimationManager {
     static int L1 = 100;
     static int L2 = 80;
     static int L345 = 70;

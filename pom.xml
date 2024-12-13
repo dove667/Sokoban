@@ -37,7 +37,12 @@
             <artifactId>javafx-base</artifactId>
             <version>23.0.1</version>
         </dependency>
-
+        <!-- JavaFX 媒体模块 -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>22.0.1</version>
+        </dependency>
         <!-- JUnit 测试库 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>

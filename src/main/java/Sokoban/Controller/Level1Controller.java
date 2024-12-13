@@ -158,7 +158,7 @@ public class Level1Controller {
                             // 检查倒计时是否结束
                             if (gameSystem.getTimeRemaining() <= 0) {
                                 myTime.setText("time's up");
-                                URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                                URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                                 Parent root = null;
                                 try {
                                     root = FXMLLoader.load(Objects.requireNonNull(url));
@@ -179,8 +179,8 @@ public class Level1Controller {
                 Label_timer.setVisible(false);
             }
 
-
         });
+
     }
 
 public void stopTimeline() {
@@ -195,7 +195,8 @@ timeline = null;  // 解除对Timeline的引用
 void HomeBtnPressed(MouseEvent event) throws IOException {
 if(GameSystem.verifyVisitor()){
 gameSystem.setGameOver(true);
-URL url = getClass().getResource("/Sokoban/LoginScene.fxml");
+URL url = getClass().getResource("/Sokoban/Fxml/LoginScene.fxml");
+AudioManager.playbackgroundPeace();
 Parent root;
 try {
 root = FXMLLoader.load(Objects.requireNonNull(url));
@@ -216,7 +217,8 @@ gameSystem.setGameOver(true);stopTimeline();
 gameSystem.saveGameProgress(gameSystem);
 //切换场景
 Platform.runLater(() -> {
-    URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
+    AudioManager.playbackgroundPeace();
+    URL url = getClass().getResource("/Sokoban/Fxml/LevelScene.fxml");
     Parent root;
     try {
         root = FXMLLoader.load(Objects.requireNonNull(url));
@@ -243,7 +245,7 @@ alert1.showAndWait();
 void BackBtnPressed() throws IOException {
 stopTimeline();
 Platform.runLater(() -> {
-URL url = getClass().getResource("/Sokoban/Level1.fxml");
+URL url = getClass().getResource("/Sokoban/Fxml/Level1.fxml");
 Parent root = null;
 try {
 root = FXMLLoader.load(Objects.requireNonNull(url));
@@ -285,9 +287,9 @@ Platform.runLater(() -> {
 try {
     // 更新界面
     // javafx位置变化和css动态变化是叠加的,先设偏移量为0
-    AnimationController.resetNodePosition(Niker);
-    AnimationController.resetNodePosition(box1);
-    AnimationController.resetNodePosition(box2);
+    AnimationManager.resetNodePosition(Niker);
+    AnimationManager.resetNodePosition(box1);
+    AnimationManager.resetNodePosition(box2);
     steps.setText(String.valueOf(gameSystem.getSteps()));
     GridPane.setRowIndex(Niker, gameSystem.getPlayerRow());
     GridPane.setColumnIndex(Niker, gameSystem.getPlayerCol());
@@ -306,7 +308,7 @@ try {
                     // 检查倒计时是否结束
                     if (gameSystem.getTimeRemaining() <= 0) {
                         myTime.setText("time's up");
-                        URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                        URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                         Parent root = null;
                         try {
                             root = FXMLLoader.load(Objects.requireNonNull(url));
@@ -370,6 +372,7 @@ event.consume();  // 确保事件不会被其他地方消费
 //以下是移动事件
 Integer currentColumnIndex = 1;
 Integer currentRowIndex = 1;
+AudioManager moveAudio = new AudioManager();
 
 
 
@@ -378,8 +381,9 @@ void DownBtnPressed() throws IOException, InterruptedException {
 int targetRow = currentRowIndex + 1;
 //纯移动
 if (gameSystem.notWall(currentColumnIndex, targetRow) &&!gameSystem.isBox1(currentColumnIndex, targetRow)&&!gameSystem.isBox2(currentColumnIndex, targetRow)) {
+moveAudio.playmoveSound();
 currentRowIndex = targetRow;
-AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
+AnimationManager.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
 gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex-1);
 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
 stepsUpdate();
@@ -388,11 +392,13 @@ stepsUpdate();
 if (gameSystem.isBox1(currentColumnIndex, targetRow)) {
 if (gameSystem.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem.isBox2(currentColumnIndex, targetRow+1)) {
 //可推
+    moveAudio.playpushBox();
+    moveAudio.playmoveSound();
 currentRowIndex = targetRow;
-AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
+AnimationManager.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
 gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex-1);
 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
-AnimationController.MoveDown(box1, currentColumnIndex, currentRowIndex+1);//动画
+AnimationManager.MoveDown(box1, currentColumnIndex, currentRowIndex+1);//动画
 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
 gameSystem.moveinBox(1,currentColumnIndex, currentRowIndex+1);
 stepsUpdate();
@@ -400,12 +406,13 @@ stepsUpdate();
 }
 if (gameSystem.isBox2(currentColumnIndex, targetRow)) {
 if (gameSystem.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem.isBox1(currentColumnIndex, targetRow+1)) {
-//可推
+    moveAudio.playpushBox();
+    moveAudio.playmoveSound();
 currentRowIndex = targetRow;
-AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
+AnimationManager.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
 gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex-1);
 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
-AnimationController.MoveDown(box2, currentColumnIndex, currentRowIndex+1);//动画
+AnimationManager.MoveDown(box2, currentColumnIndex, currentRowIndex+1);//动画
 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
 gameSystem.moveinBox(2,currentColumnIndex, currentRowIndex+1);
 stepsUpdate();
@@ -424,8 +431,9 @@ void LeftBtnPressed() throws IOException, InterruptedException {
 int targetColumn = currentColumnIndex - 1;
 //纯移动
 if (gameSystem.notWall(targetColumn, currentRowIndex) &&!gameSystem.isBox1(targetColumn, currentRowIndex)&&!gameSystem.isBox2(targetColumn, currentRowIndex)) {
-currentColumnIndex = targetColumn;
-AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
+   moveAudio.playmoveSound();
+    currentColumnIndex = targetColumn;
+AnimationManager.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
 gameSystem.moveoutNiker(currentColumnIndex+1, currentRowIndex);
 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
 stepsUpdate();
@@ -434,11 +442,13 @@ stepsUpdate();
 //推箱子
 if (gameSystem.isBox1(targetColumn, currentRowIndex)) {
 if (gameSystem.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem.isBox2(targetColumn-1, currentRowIndex)) {
-currentColumnIndex = targetColumn;
-AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
+    moveAudio.playpushBox();
+    moveAudio.playmoveSound();
+    currentColumnIndex = targetColumn;
+AnimationManager.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
 gameSystem.moveoutNiker(currentColumnIndex+1, currentRowIndex);
 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
-AnimationController.MoveLeft(box1, currentColumnIndex-1, currentRowIndex);//动画
+AnimationManager.MoveLeft(box1, currentColumnIndex-1, currentRowIndex);//动画
 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
 gameSystem.moveinBox(1,currentColumnIndex-1, currentRowIndex);
 stepsUpdate();
@@ -447,11 +457,13 @@ stepsUpdate();
 }
 if (gameSystem.isBox2(targetColumn, currentRowIndex)) {
 if (gameSystem.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem.isBox1(targetColumn-1, currentRowIndex)) {
-currentColumnIndex = targetColumn;
-AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
+
+    moveAudio.playpushBox();
+    moveAudio.playmoveSound();currentColumnIndex = targetColumn;
+AnimationManager.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
 gameSystem.moveoutNiker(currentColumnIndex+1, currentRowIndex);
 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
-AnimationController.MoveLeft(box2, currentColumnIndex-1, currentRowIndex);//动画
+AnimationManager.MoveLeft(box2, currentColumnIndex-1, currentRowIndex);//动画
 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
 gameSystem.moveinBox(2,currentColumnIndex-1, currentRowIndex);
 stepsUpdate();
@@ -470,8 +482,9 @@ stopTimeline();
 void RightBtnPressed() throws IOException, InterruptedException {
 int targetColumn = currentColumnIndex + 1;
 if (gameSystem.notWall(targetColumn, currentRowIndex) &&!gameSystem.isBox1(targetColumn, currentRowIndex)&&!gameSystem.isBox2(targetColumn, currentRowIndex)) {
-currentColumnIndex = targetColumn;
-AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
+    moveAudio.playmoveSound();
+    currentColumnIndex = targetColumn;
+AnimationManager.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
 gameSystem.moveoutNiker(currentColumnIndex - 1, currentRowIndex);
 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
 stepsUpdate();
@@ -481,11 +494,13 @@ stepsUpdate();
 //推箱子
 if (gameSystem.isBox1(targetColumn, currentRowIndex)) {
 if (gameSystem.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem.isBox2(targetColumn+1, currentRowIndex)) {
-currentColumnIndex = targetColumn;
-AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
+
+    moveAudio.playpushBox();
+    moveAudio.playmoveSound();currentColumnIndex = targetColumn;
+AnimationManager.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
 gameSystem.moveoutNiker(currentColumnIndex - 1, currentRowIndex);
 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
-AnimationController.MoveRight(box1, currentColumnIndex + 1, currentRowIndex);
+AnimationManager.MoveRight(box1, currentColumnIndex + 1, currentRowIndex);
 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
 gameSystem.moveinBox(1, currentColumnIndex + 1, currentRowIndex);
 stepsUpdate();
@@ -493,11 +508,12 @@ stepsUpdate();
 }
 if (gameSystem.isBox2(targetColumn, currentRowIndex)) {
 if (gameSystem.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem.isBox1(targetColumn+1, currentRowIndex)) {
-currentColumnIndex = targetColumn;
-AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);
+    moveAudio.playpushBox();
+    moveAudio.playmoveSound();currentColumnIndex = targetColumn;
+AnimationManager.MoveRight(Niker, currentColumnIndex, currentRowIndex);
 gameSystem.moveoutNiker(currentColumnIndex - 1, currentRowIndex);
 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
-AnimationController.MoveRight(box2, currentColumnIndex + 1, currentRowIndex);
+AnimationManager.MoveRight(box2, currentColumnIndex + 1, currentRowIndex);
 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
 gameSystem.moveinBox(2, currentColumnIndex + 1, currentRowIndex);
 stepsUpdate();
@@ -516,8 +532,8 @@ void UpBtnPressed() throws IOException, InterruptedException {
 int targetRow = currentRowIndex - 1;
 //纯移动
 if (gameSystem.notWall(currentColumnIndex, targetRow) &&!gameSystem.isBox1(currentColumnIndex, targetRow)&&!gameSystem.isBox2(currentColumnIndex, targetRow)) {
-currentRowIndex = targetRow;
-AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
+    moveAudio.playmoveSound();currentRowIndex = targetRow;
+AnimationManager.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
 gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex + 1);
 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
 stepsUpdate();
@@ -525,11 +541,12 @@ stepsUpdate();
 //推箱子
 if (gameSystem.isBox1(currentColumnIndex, targetRow)) {
 if (gameSystem.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem.isBox2(currentColumnIndex, targetRow-1)) {
-currentRowIndex = targetRow;
-AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
+    moveAudio.playpushBox();
+    moveAudio.playmoveSound();currentRowIndex = targetRow;
+AnimationManager.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
 gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex + 1);
 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
-AnimationController.MoveUp(box1, currentColumnIndex, currentRowIndex - 1);//动画
+AnimationManager.MoveUp(box1, currentColumnIndex, currentRowIndex - 1);//动画
 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
 gameSystem.moveinBox(1, currentColumnIndex, currentRowIndex - 1);
 stepsUpdate();
@@ -537,11 +554,12 @@ stepsUpdate();
 }
 if (gameSystem.isBox2(currentColumnIndex, targetRow)) {
 if (gameSystem.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem.isBox1(currentColumnIndex, targetRow-1)) {
-currentRowIndex = targetRow;
-AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
+    moveAudio.playpushBox();
+    moveAudio.playmoveSound();currentRowIndex = targetRow;
+AnimationManager.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
 gameSystem.moveoutNiker(currentColumnIndex, currentRowIndex + 1);
 gameSystem.moveinNiker(currentColumnIndex, currentRowIndex);
-AnimationController.MoveUp(box2, currentColumnIndex, currentRowIndex - 1);//动画
+AnimationManager.MoveUp(box2, currentColumnIndex, currentRowIndex - 1);//动画
 gameSystem.moveoutBox(currentColumnIndex, currentRowIndex);
 gameSystem.moveinBox(2, currentColumnIndex, currentRowIndex - 1);
 stepsUpdate();

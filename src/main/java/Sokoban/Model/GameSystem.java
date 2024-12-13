@@ -159,7 +159,7 @@ public class GameSystem implements Serializable {
                             if(matrix[m][n] == 12 && !(m==i && n==j)){
                                 //同时有两个box达到target了
                                 if(boxNum==2){
-                                    URL url = getClass().getResource("/Sokoban/Victory.fxml");
+                                    URL url = getClass().getResource("/Sokoban/Fxml/Victory.fxml");
                                     Parent root = FXMLLoader.load(Objects.requireNonNull(url));
                                     Scene scene = new Scene(root);
                                     primaryStage.setScene(scene);
@@ -169,7 +169,7 @@ public class GameSystem implements Serializable {
                                     for(int p=0;p<matrix.length;p++){
                                         for(int q=0;q<matrix.length;q++){
                                             if(matrix[p][q] == 12  && !(p==i && q==j) && !(p==m && q==n)){
-                                                URL url = getClass().getResource("/Sokoban/Victory.fxml");
+                                                URL url = getClass().getResource("/Sokoban/Fxml/Victory.fxml");
                                                 Parent root = FXMLLoader.load(Objects.requireNonNull(url));
                                                 Scene scene = new Scene(root);
                                                 primaryStage.setScene(scene);
@@ -196,7 +196,7 @@ public class GameSystem implements Serializable {
 
         if(boxNum==2){
             if(!boxes[0].isMovable() && !boxes[1].isMovable()){
-                URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                 Parent root = FXMLLoader.load(Objects.requireNonNull(url));
                 Scene scene = new Scene(root);
                 primaryStage.setScene(scene);
@@ -205,7 +205,7 @@ public class GameSystem implements Serializable {
         }
         else if(boxNum==3){
             if(!boxes[0].isMovable() && !boxes[1].isMovable() && !boxes[2].isMovable()){
-                URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                 Parent root = FXMLLoader.load(Objects.requireNonNull(url));
                 Scene scene = new Scene(root);
                 primaryStage.setScene(scene);
@@ -295,24 +295,24 @@ public class GameSystem implements Serializable {
         switch (currentLevel) {
             case 1 -> {
                 L1win = true;
-                return "/Sokoban/Level2.fxml";
+                return "/Sokoban/Fxml/Level2.fxml";
             }
 
             case 2 -> {
                 L2win = true;
-                return "/Sokoban/Level3.fxml";
+                return "/Sokoban/Fxml/Level3.fxml";
             }
             case 3 -> {
                 L3win = true;
-                return "/Sokoban/Level4.fxml";
+                return "/Sokoban/Fxml/Level4.fxml";
             }
             case 4 -> {
                 L4win = true;
-                return "/Sokoban/Level5.fxml";
+                return "/Sokoban/Fxml/Level5.fxml";
             }
             case 5 -> {
                 L5win = true;
-                return "/Sokoban/Level6.fxml";
+                return "/Sokoban/Fxml/Level6.fxml";
             }
             default -> {
                 return null;

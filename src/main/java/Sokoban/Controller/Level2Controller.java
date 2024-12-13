@@ -138,7 +138,7 @@ public class Level2Controller {
                         // 检查倒计时是否结束
                         if (gameSystem2.getTimeRemaining() <= 0) {
                             myTime.setText("time's up");
-                            URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                            URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                             Parent root = null;
                             try {
                                 root = FXMLLoader.load(Objects.requireNonNull(url));
@@ -182,8 +182,9 @@ public class Level2Controller {
             if (response == ButtonType.OK) {
                 gameSystem2.setGameOver(true);stopTimeline();
                 gameSystem2.saveGameProgress(gameSystem2);
+                AudioManager.playbackgroundPeace();
                 //切换场景
-                URL url = getClass().getResource("/Sokoban/LevelScene.fxml");
+                URL url = getClass().getResource("/Sokoban/Fxml/LevelScene.fxml");
                 Parent root;
                 try {
                     root = FXMLLoader.load(Objects.requireNonNull(url));
@@ -208,7 +209,7 @@ public class Level2Controller {
     void BackBtnPressed() throws IOException {
         stopTimeline();
         Platform.runLater(() -> {
-            URL url = getClass().getResource("/Sokoban/Level2.fxml");
+            URL url = getClass().getResource("/Sokoban/Fxml/Level2.fxml");
             Parent root = null;
             try {
                 root = FXMLLoader.load(Objects.requireNonNull(url));
@@ -244,9 +245,9 @@ public class Level2Controller {
                     try {
                         // 更新界面
                         // javafx位置变化和css动态变化是叠加的,先设偏移量为0
-                        AnimationController.resetNodePosition(Niker);
-                        AnimationController.resetNodePosition(box1);
-                        AnimationController.resetNodePosition(box2);
+                        AnimationManager.resetNodePosition(Niker);
+                        AnimationManager.resetNodePosition(box1);
+                        AnimationManager.resetNodePosition(box2);
                         steps.setText(String.valueOf(gameSystem2.getSteps()));
                         GridPane.setRowIndex(Niker, gameSystem2.getPlayerRow());
                         GridPane.setColumnIndex(Niker, gameSystem2.getPlayerCol());
@@ -265,7 +266,7 @@ public class Level2Controller {
                                         // 检查倒计时是否结束
                                         if (gameSystem2.getTimeRemaining() <= 0) {
                                             myTime.setText("time's up");
-                                            URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                                            URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                                             Parent root = null;
                                             try {
                                                 root = FXMLLoader.load(Objects.requireNonNull(url));
@@ -326,8 +327,7 @@ public class Level2Controller {
     }
 
     Integer currentColumnIndex = 1;
-    Integer currentRowIndex = 1;
-
+    Integer currentRowIndex = 1;    AudioManager moveAudio = new AudioManager();
 
 
     @FXML
@@ -335,9 +335,10 @@ public class Level2Controller {
         int targetRow = currentRowIndex + 1;
         //纯移动
         if (gameSystem2.notWall(currentColumnIndex, targetRow) &&!gameSystem2.isBox1(currentColumnIndex, targetRow)&&!gameSystem2.isBox2(currentColumnIndex, targetRow)) {
-            Btn_down.setDisable(true);
+
+            moveAudio.playmoveSound();
             currentRowIndex = targetRow;
-            AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
+            AnimationManager.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem2.moveoutNiker(currentColumnIndex, currentRowIndex-1);
             gameSystem2.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
@@ -346,11 +347,13 @@ public class Level2Controller {
         if (gameSystem2.isBox1(currentColumnIndex, targetRow)) {
             if (gameSystem2.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem2.isBox2(currentColumnIndex, targetRow+1)) {
                 //可推
+                moveAudio.playpushBox();
+                moveAudio.playmoveSound();
                 currentRowIndex = targetRow;
-                AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
+                AnimationManager.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem2.moveoutNiker(currentColumnIndex, currentRowIndex-1);
                 gameSystem2.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveDown(box1, currentColumnIndex, currentRowIndex+1);//动画
+                AnimationManager.MoveDown(box1, currentColumnIndex, currentRowIndex+1);//动画
                 gameSystem2.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem2.moveinBox(1,currentColumnIndex, currentRowIndex+1);
                 stepsUpdate();
@@ -359,11 +362,13 @@ public class Level2Controller {
         if (gameSystem2.isBox2(currentColumnIndex, targetRow)) {
             if (gameSystem2.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem2.isBox1(currentColumnIndex, targetRow+1)) {
                 //可推
+                moveAudio.playpushBox();
+                moveAudio.playmoveSound();
                 currentRowIndex = targetRow;
-                AnimationController.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
+                AnimationManager.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem2.moveoutNiker(currentColumnIndex, currentRowIndex-1);
                 gameSystem2.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveDown(box2, currentColumnIndex, currentRowIndex+1);//动画
+                AnimationManager.MoveDown(box2, currentColumnIndex, currentRowIndex+1);//动画
                 gameSystem2.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem2.moveinBox(2,currentColumnIndex, currentRowIndex+1);
                 stepsUpdate();
@@ -381,8 +386,10 @@ public class Level2Controller {
         int targetColumn = currentColumnIndex - 1;
         //纯移动
         if (gameSystem2.notWall(targetColumn, currentRowIndex) &&!gameSystem2.isBox1(targetColumn, currentRowIndex)&&!gameSystem2.isBox2(targetColumn, currentRowIndex)) {
+
+            moveAudio.playmoveSound();
             currentColumnIndex = targetColumn;
-            AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
+            AnimationManager.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem2.moveoutNiker(currentColumnIndex+1, currentRowIndex);
             gameSystem2.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
@@ -390,11 +397,13 @@ public class Level2Controller {
         //推箱子
         if (gameSystem2.isBox1(targetColumn, currentRowIndex)) {
             if (gameSystem2.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem2.isBox2(targetColumn-1, currentRowIndex)) {
+                moveAudio.playpushBox();
+                moveAudio.playmoveSound();
                 currentColumnIndex = targetColumn;
-                AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
+                AnimationManager.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem2.moveoutNiker(currentColumnIndex+1, currentRowIndex);
                 gameSystem2.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveLeft(box1, currentColumnIndex-1, currentRowIndex);//动画
+                AnimationManager.MoveLeft(box1, currentColumnIndex-1, currentRowIndex);//动画
                 gameSystem2.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem2.moveinBox(1,currentColumnIndex-1, currentRowIndex);
                 stepsUpdate();
@@ -402,11 +411,13 @@ public class Level2Controller {
         }
         if (gameSystem2.isBox2(targetColumn, currentRowIndex)) {
             if (gameSystem2.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem2.isBox1(targetColumn-1, currentRowIndex)) {
+                moveAudio.playpushBox();
+                moveAudio.playmoveSound();
                 currentColumnIndex = targetColumn;
-                AnimationController.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
+                AnimationManager.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem2.moveoutNiker(currentColumnIndex+1, currentRowIndex);
                 gameSystem2.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveLeft(box2, currentColumnIndex-1, currentRowIndex);//动画
+                AnimationManager.MoveLeft(box2, currentColumnIndex-1, currentRowIndex);//动画
                 gameSystem2.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem2.moveinBox(2,currentColumnIndex-1, currentRowIndex);
                 stepsUpdate();
@@ -423,8 +434,10 @@ public class Level2Controller {
     void RightBtnPressed() throws IOException {
         int targetColumn = currentColumnIndex + 1;
         if (gameSystem2.notWall(targetColumn, currentRowIndex) &&!gameSystem2.isBox1(targetColumn, currentRowIndex)&&!gameSystem2.isBox2(targetColumn, currentRowIndex)) {
+
+            moveAudio.playmoveSound();
             currentColumnIndex = targetColumn;
-            AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
+            AnimationManager.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem2.moveoutNiker(currentColumnIndex-1, currentRowIndex);
             gameSystem2.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
@@ -432,11 +445,13 @@ public class Level2Controller {
         //推箱子
         if (gameSystem2.isBox1(targetColumn, currentRowIndex)) {
             if (gameSystem2.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem2.isBox2(targetColumn+1, currentRowIndex)) {
+                moveAudio.playpushBox();
+                moveAudio.playmoveSound();
                 currentColumnIndex = targetColumn;
-                AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
+                AnimationManager.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem2.moveoutNiker(currentColumnIndex-1, currentRowIndex);
                 gameSystem2.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveRight(box1, currentColumnIndex+1, currentRowIndex);
+                AnimationManager.MoveRight(box1, currentColumnIndex+1, currentRowIndex);
                 gameSystem2.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem2.moveinBox(1,currentColumnIndex+1, currentRowIndex);
                 stepsUpdate();
@@ -444,11 +459,13 @@ public class Level2Controller {
         }
         if (gameSystem2.isBox2(targetColumn, currentRowIndex)) {
             if (gameSystem2.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem2.isBox1(targetColumn+1, currentRowIndex)) {
+                moveAudio.playpushBox();
+                moveAudio.playmoveSound();
                 currentColumnIndex = targetColumn;
-                AnimationController.MoveRight(Niker, currentColumnIndex, currentRowIndex);
+                AnimationManager.MoveRight(Niker, currentColumnIndex, currentRowIndex);
                 gameSystem2.moveoutNiker(currentColumnIndex-1, currentRowIndex);
                 gameSystem2.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveRight(box2, currentColumnIndex+1, currentRowIndex);
+                AnimationManager.MoveRight(box2, currentColumnIndex+1, currentRowIndex);
                 gameSystem2.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem2.moveinBox(2,currentColumnIndex+1, currentRowIndex);
                 stepsUpdate();
@@ -466,8 +483,10 @@ public class Level2Controller {
         int targetRow = currentRowIndex - 1;
         //纯移动
         if (gameSystem2.notWall(currentColumnIndex, targetRow) &&!gameSystem2.isBox1(currentColumnIndex, targetRow)&&!gameSystem2.isBox2(currentColumnIndex, targetRow)) {
+
+            moveAudio.playmoveSound();
             currentRowIndex = targetRow;
-            AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
+            AnimationManager.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
             gameSystem2.moveoutNiker(currentColumnIndex, currentRowIndex+1);
             gameSystem2.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
@@ -475,11 +494,13 @@ public class Level2Controller {
         //推箱子
         if (gameSystem2.isBox1(currentColumnIndex, targetRow)) {
             if (gameSystem2.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem2.isBox2(currentColumnIndex, targetRow-1)) {
+                moveAudio.playpushBox();
+                moveAudio.playmoveSound();
                 currentRowIndex = targetRow;
-                AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
+                AnimationManager.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem2.moveoutNiker(currentColumnIndex, currentRowIndex+1);
                 gameSystem2.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveUp(box1, currentColumnIndex, currentRowIndex-1);//动画
+                AnimationManager.MoveUp(box1, currentColumnIndex, currentRowIndex-1);//动画
                 gameSystem2.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem2.moveinBox(1,currentColumnIndex, currentRowIndex-1);
                 stepsUpdate();
@@ -487,11 +508,13 @@ public class Level2Controller {
         }
         if (gameSystem2.isBox2(currentColumnIndex, targetRow)) {
             if (gameSystem2.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem2.isBox1(currentColumnIndex, targetRow-1)) {
+                moveAudio.playpushBox();
+                moveAudio.playmoveSound();
                 currentRowIndex = targetRow;
-                AnimationController.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
+                AnimationManager.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
                 gameSystem2.moveoutNiker(currentColumnIndex, currentRowIndex+1);
                 gameSystem2.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationController.MoveUp(box2, currentColumnIndex, currentRowIndex-1);//动画
+                AnimationManager.MoveUp(box2, currentColumnIndex, currentRowIndex-1);//动画
                 gameSystem2.moveoutBox(currentColumnIndex, currentRowIndex);
                 gameSystem2.moveinBox(2,currentColumnIndex, currentRowIndex-1);
                 stepsUpdate();
@@ -504,3 +527,4 @@ public class Level2Controller {
         }
     }
 }
+
