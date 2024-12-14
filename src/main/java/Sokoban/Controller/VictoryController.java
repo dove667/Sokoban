@@ -31,14 +31,15 @@ public class VictoryController {
     @FXML
     private Label Label_Victory;
 
-    AudioManager win =new AudioManager();
+    AudioManager win = new AudioManager();
+
     public void initialize() {
-        if (GameSystem.verifyVisitor()){
+        if (GameSystem.verifyVisitor()) {
             Btn_NextLevel.setDisable(true);
             Btn_NextLevel.setVisible(false);
         }
         getNextLevel();//更新Lnwin状态
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             win.playWin();
         });
     }
@@ -46,7 +47,7 @@ public class VictoryController {
     @FXML
     void HomeBtnReleased(MouseEvent event) throws IOException {
         Stage primaryStage = (Stage) Btn_Home.getScene().getWindow();
-        if (GameSystem.verifyVisitor()){
+        if (GameSystem.verifyVisitor()) {
             AudioManager.playbackgroundPeace();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Congratulations");
@@ -63,8 +64,7 @@ public class VictoryController {
             //设置场景
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
-        }
-        else{
+        } else {
             AudioManager.playbackgroundPeace();
             URL url = getClass().getResource("/Sokoban/Fxml/LevelScene.fxml");
             Parent root = FXMLLoader.load(Objects.requireNonNull(url));

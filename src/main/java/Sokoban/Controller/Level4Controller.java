@@ -30,22 +30,24 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.net.URL;
+
 import static Sokoban.Login_Application.primaryStage;
+
 import java.util.Objects;
 
 public class Level4Controller {
 
     @FXML
-    private Button Btn_back,Btn_down,Btn_home,Btn_left,Btn_right,Btn_up,Btn_load,Btn_save;
+    private Button Btn_back, Btn_down, Btn_home, Btn_left, Btn_right, Btn_up, Btn_load, Btn_save;
 
     @FXML
-    private GridPane GridBoard,Movement;
+    private GridPane GridBoard, Movement;
 
     @FXML
-    private ImageView Img_Back,Img_Move,Img_home,Img_load,Img_save;
+    private ImageView Img_Back, Img_Move, Img_home, Img_load, Img_save;
 
     @FXML
-    private Label Label_Level2,Label_steps,Label_timer,myTime,steps;
+    private Label Label_Level2, Label_steps, Label_timer, myTime, steps;
 
     @FXML
     private Circle Niker;
@@ -54,20 +56,20 @@ public class Level4Controller {
     private AnchorPane Pane;
 
     @FXML
-    private Rectangle box1,box2,box3,board1,board2,board3,board4,board5,board6,board7,board8,board9,board10,board11,board12,board13,board14,board15,board16,board17,board18,board19,board20,board21,board22,board23,board24,board25;
+    private Rectangle box1, box2, box3, board1, board2, board3, board4, board5, board6, board7, board8, board9, board10, board11, board12, board13, board14, board15, board16, board17, board18, board19, board20, board21, board22, board23, board24, board25;
 
     @FXML
-    private Polygon target1,target2,target3;
+    private Polygon target1, target2, target3;
 
     private Timeline timeline;
 
 
-    GameSystem gameSystem4 = new GameSystem(3,3,25,7,7,30);
+    GameSystem gameSystem4 = new GameSystem(3, 3, 25, 7, 7, 30);
 
     public void initialize() {
         Platform.runLater(() -> {
             //图形初始化
-            Image SUST =new Image("file:src/main/resources/Sokoban/Sokoban/pictures/SUST.jpeg");
+            Image SUST = new Image("file:src/main/resources/Sokoban/Sokoban/pictures/SUST.jpeg");
             Niker.setFill(new ImagePattern(SUST));
 
             Image imageUp = new Image(Objects.requireNonNull(getClass().getResource("/Sokoban/Sokoban/pictures/up.png")).toExternalForm());
@@ -94,74 +96,74 @@ public class Level4Controller {
             imageViewRight.setFitWidth(60);
             Btn_right.setGraphic(imageViewRight);
 
-            gameSystem4.setBox(1,GridPane.getColumnIndex(box1),GridPane.getRowIndex(box1));
-            gameSystem4.setBox(2,GridPane.getColumnIndex(box2),GridPane.getRowIndex(box2));
-            gameSystem4.setBox(3,GridPane.getColumnIndex(box3),GridPane.getRowIndex(box3));
+            gameSystem4.setBox(1, GridPane.getColumnIndex(box1), GridPane.getRowIndex(box1));
+            gameSystem4.setBox(2, GridPane.getColumnIndex(box2), GridPane.getRowIndex(box2));
+            gameSystem4.setBox(3, GridPane.getColumnIndex(box3), GridPane.getRowIndex(box3));
             //设置好system中Box的坐标
             gameSystem4.addBoxPositons();
             gameSystem4.setBoxNum(3);
             //将Box量化到system的矩阵中
-            gameSystem4.setTarget(0,GridPane.getColumnIndex(target1),GridPane.getRowIndex(target1));
-            gameSystem4.setTarget(1,GridPane.getColumnIndex(target2),GridPane.getRowIndex(target2));
-            gameSystem4.setTarget(2,GridPane.getColumnIndex(target3),GridPane.getRowIndex(target3));
+            gameSystem4.setTarget(0, GridPane.getColumnIndex(target1), GridPane.getRowIndex(target1));
+            gameSystem4.setTarget(1, GridPane.getColumnIndex(target2), GridPane.getRowIndex(target2));
+            gameSystem4.setTarget(2, GridPane.getColumnIndex(target3), GridPane.getRowIndex(target3));
             gameSystem4.addTargetPositons();
             //同样操作target
             // 遍历操作Board。注意！Gridpane中0时默认位置，不会在fxml中显示标出，会导致Index.valueOf空指针异常。要手动标出坐标
-            Rectangle[] boards = {board1,board2,board3,board4,board5,board6,board7,board8,board9,board10,board11,board12,board13,board14,board15,board16,board17,board18,board19,board20,board21,board22,board23,board24,board25};
+            Rectangle[] boards = {board1, board2, board3, board4, board5, board6, board7, board8, board9, board10, board11, board12, board13, board14, board15, board16, board17, board18, board19, board20, board21, board22, board23, board24, board25};
             for (int i = 0; i < boards.length; i++) {
                 gameSystem4.setBoard(i, GridPane.getColumnIndex(boards[i]), GridPane.getRowIndex(boards[i]));
             }
             gameSystem4.addBoardPositons();
             //操作player
-            gameSystem4.setPlayer(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
-            gameSystem4.addPlayerPositons(GridPane.getColumnIndex(Niker),GridPane.getRowIndex(Niker));
+            gameSystem4.setPlayer(GridPane.getColumnIndex(Niker), GridPane.getRowIndex(Niker));
+            gameSystem4.addPlayerPositons(GridPane.getColumnIndex(Niker), GridPane.getRowIndex(Niker));
             gameSystem4.setPlayeriniCol(GridPane.getColumnIndex(Niker));
             gameSystem4.setPlayeriniRow(GridPane.getRowIndex(Niker));
 
 
-        //判断是否为游客模式
-        if (GameSystem.verifyVisitor()){
-            Img_load.setVisible(false);
-            Img_save.setVisible(false);
-            Img_home.setVisible(false);
-            Btn_load.setDisable(true);
-            Btn_save.setDisable(true);
-            Btn_home.setDisable(true);
-        }
+            //判断是否为游客模式
+            if (GameSystem.verifyVisitor()) {
+                Img_load.setVisible(false);
+                Img_save.setVisible(false);
+                Img_home.setVisible(false);
+                Btn_load.setDisable(true);
+                Btn_save.setDisable(true);
+                Btn_home.setDisable(true);
+            }
 
-        GameSystem.setCurrentLevel(4);GameSystem.setCurrentLevel("Level4");
-        Pane.requestFocus(); // 确保焦点设置
+            GameSystem.setCurrentLevel(4);
+            GameSystem.setCurrentLevel("Level4");
+            Pane.requestFocus(); // 确保焦点设置
 
-        if (GameSystem.isTimeMode()) {
-            timeline = new Timeline(
-                    new KeyFrame(Duration.seconds(1), event -> {
-                        gameSystem4.setTimeRemaining(gameSystem4.getTimeRemaining()-1); // 每秒减少 1
-                        myTime.setText(String.valueOf(gameSystem4.getTimeRemaining())); // 更新标签文字
+            if (GameSystem.isTimeMode()) {
+                timeline = new Timeline(
+                        new KeyFrame(Duration.seconds(1), event -> {
+                            gameSystem4.setTimeRemaining(gameSystem4.getTimeRemaining() - 1); // 每秒减少 1
+                            myTime.setText(String.valueOf(gameSystem4.getTimeRemaining())); // 更新标签文字
 
-                        // 检查倒计时是否结束
-                        if (gameSystem4.getTimeRemaining() <= 0) {
-                            myTime.setText("time's up");
-                            URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
-                            Parent root = null;
-                            try {
-                                root = FXMLLoader.load(Objects.requireNonNull(url));
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
+                            // 检查倒计时是否结束
+                            if (gameSystem4.getTimeRemaining() <= 0) {
+                                myTime.setText("time's up");
+                                URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
+                                Parent root = null;
+                                try {
+                                    root = FXMLLoader.load(Objects.requireNonNull(url));
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Scene scene = new Scene(root);
+                                primaryStage.setScene(scene);
+                                // 切换场景
                             }
-                            Scene scene = new Scene(root);
-                            primaryStage.setScene(scene);
-                            // 切换场景
-                        }
-                    })
-            );
-            timeline.setCycleCount(gameSystem4.getTimeRemaining()); // 设置循环次数
-            timeline.play(); // 开始计时
-        }
-        else {
-            myTime.setVisible(false);
-            Label_timer.setVisible(false);
-        }
-    });
+                        })
+                );
+                timeline.setCycleCount(gameSystem4.getTimeRemaining()); // 设置循环次数
+                timeline.play(); // 开始计时
+            } else {
+                myTime.setVisible(false);
+                Label_timer.setVisible(false);
+            }
+        });
     }
 
     public void stopTimeline() {
@@ -182,7 +184,8 @@ public class Level4Controller {
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 AudioManager.playbackgroundPeace();
-                gameSystem4.setGameOver(true);stopTimeline();
+                gameSystem4.setGameOver(true);
+                stopTimeline();
                 gameSystem4.saveGameProgress(gameSystem4);
                 //切换场景
                 URL url = getClass().getResource("/Sokoban/Fxml/LevelScene.fxml");
@@ -195,8 +198,7 @@ public class Level4Controller {
                 //设置场景
                 Scene scene = new Scene(root);
                 primaryStage.setScene(scene);
-            }
-            else {
+            } else {
                 System.out.println("Operation cancelled.");
                 Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                 alert1.setTitle("Cancel");
@@ -206,6 +208,7 @@ public class Level4Controller {
             }
         });
     }
+
     @FXML
     void BackBtnPressed() throws IOException {
         stopTimeline();
@@ -219,13 +222,15 @@ public class Level4Controller {
             }
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
-            gameSystem4.reset(GridPane.getRowIndex(box1),GridPane.getColumnIndex(box1),GridPane.getRowIndex(box2),GridPane.getColumnIndex(box2),GridPane.getRowIndex(box3),GridPane.getColumnIndex(box3));
+            gameSystem4.reset(GridPane.getRowIndex(box1), GridPane.getColumnIndex(box1), GridPane.getRowIndex(box2), GridPane.getColumnIndex(box2), GridPane.getRowIndex(box3), GridPane.getColumnIndex(box3));
         });
     }
+
     @FXML
     void SaveBtnPressed() throws IOException {
         gameSystem4.saveGameProgress(gameSystem4);
     }
+
     @FXML
     void LoadBtnPressed() throws IOException {
         Btn_load.setDisable(true);
@@ -260,7 +265,7 @@ public class Level4Controller {
                         if (GameSystem.isTimeMode()) {
                             timeline = new Timeline(
                                     new KeyFrame(Duration.seconds(1), event -> {
-                                        gameSystem4.setTimeRemaining(gameSystem4.getTimeRemaining()-1); // 每秒减少 1
+                                        gameSystem4.setTimeRemaining(gameSystem4.getTimeRemaining() - 1); // 每秒减少 1
                                         myTime.setText(String.valueOf(gameSystem4.getTimeRemaining())); // 更新标签文字
 
                                         // 检查倒计时是否结束
@@ -281,8 +286,7 @@ public class Level4Controller {
                             );
                             timeline.setCycleCount(Timeline.INDEFINITE); // 设置循环次数
                             timeline.play(); // 开始计时
-                        }
-                        else {
+                        } else {
                             myTime.setVisible(false);
                             Label_timer.setVisible(false);
                         }
@@ -336,43 +340,43 @@ public class Level4Controller {
     void DownBtnPressed() throws IOException {
         int targetRow = currentRowIndex + 1;
         //纯移动
-        if (gameSystem4.notWall(currentColumnIndex, targetRow) &&!gameSystem4.isBox1(currentColumnIndex, targetRow)&&!gameSystem4.isBox2(currentColumnIndex, targetRow)) {
+        if (gameSystem4.notWall(currentColumnIndex, targetRow) && !gameSystem4.isBox1(currentColumnIndex, targetRow) && !gameSystem4.isBox2(currentColumnIndex, targetRow)) {
 
             moveAudio.playmoveSound();
             currentRowIndex = targetRow;
             AnimationManager.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
-            gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex-1);
+            gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex - 1);
             gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
         }
         //推箱子
         if (gameSystem4.isBox1(currentColumnIndex, targetRow)) {
-            if (gameSystem4.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem4.isBox2(currentColumnIndex, targetRow+1)) {
+            if (gameSystem4.notWall(currentColumnIndex, targetRow + 1) && !gameSystem4.isBox2(currentColumnIndex, targetRow + 1)) {
                 //可推
                 moveAudio.playpushBox();
                 moveAudio.playmoveSound();
                 currentRowIndex = targetRow;
                 AnimationManager.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
-                gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex-1);
+                gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex - 1);
                 gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationManager.MoveDown(box1, currentColumnIndex, currentRowIndex+1);//动画
+                AnimationManager.MoveDown(box1, currentColumnIndex, currentRowIndex + 1);//动画
                 gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem4.moveinBox(1,currentColumnIndex, currentRowIndex+1);
+                gameSystem4.moveinBox(1, currentColumnIndex, currentRowIndex + 1);
                 stepsUpdate();
             }
         }
         if (gameSystem4.isBox2(currentColumnIndex, targetRow)) {
-            if (gameSystem4.notWall(currentColumnIndex, targetRow + 1) &&!gameSystem4.isBox1(currentColumnIndex, targetRow+1)) {
+            if (gameSystem4.notWall(currentColumnIndex, targetRow + 1) && !gameSystem4.isBox1(currentColumnIndex, targetRow + 1)) {
                 //可推
                 moveAudio.playpushBox();
                 moveAudio.playmoveSound();
                 currentRowIndex = targetRow;
                 AnimationManager.MoveDown(Niker, currentColumnIndex, currentRowIndex);//动画
-                gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex-1);
+                gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex - 1);
                 gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationManager.MoveDown(box2, currentColumnIndex, currentRowIndex+1);//动画
+                AnimationManager.MoveDown(box2, currentColumnIndex, currentRowIndex + 1);//动画
                 gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem4.moveinBox(2,currentColumnIndex, currentRowIndex+1);
+                gameSystem4.moveinBox(2, currentColumnIndex, currentRowIndex + 1);
                 stepsUpdate();
             }
         }
@@ -387,41 +391,41 @@ public class Level4Controller {
     void LeftBtnPressed() throws IOException {
         int targetColumn = currentColumnIndex - 1;
         //纯移动
-        if (gameSystem4.notWall(targetColumn, currentRowIndex) &&!gameSystem4.isBox1(targetColumn, currentRowIndex)&&!gameSystem4.isBox2(targetColumn, currentRowIndex)) {
+        if (gameSystem4.notWall(targetColumn, currentRowIndex) && !gameSystem4.isBox1(targetColumn, currentRowIndex) && !gameSystem4.isBox2(targetColumn, currentRowIndex)) {
 
             moveAudio.playmoveSound();
             currentColumnIndex = targetColumn;
             AnimationManager.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
-            gameSystem4.moveoutNiker(currentColumnIndex+1, currentRowIndex);
+            gameSystem4.moveoutNiker(currentColumnIndex + 1, currentRowIndex);
             gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
         }
         //推箱子
         if (gameSystem4.isBox1(targetColumn, currentRowIndex)) {
-            if (gameSystem4.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem4.isBox2(targetColumn-1, currentRowIndex)) {
+            if (gameSystem4.notWall(targetColumn - 1, currentRowIndex) && !gameSystem4.isBox2(targetColumn - 1, currentRowIndex)) {
                 moveAudio.playpushBox();
                 moveAudio.playmoveSound();
                 currentColumnIndex = targetColumn;
                 AnimationManager.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
-                gameSystem4.moveoutNiker(currentColumnIndex+1, currentRowIndex);
+                gameSystem4.moveoutNiker(currentColumnIndex + 1, currentRowIndex);
                 gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationManager.MoveLeft(box1, currentColumnIndex-1, currentRowIndex);//动画
+                AnimationManager.MoveLeft(box1, currentColumnIndex - 1, currentRowIndex);//动画
                 gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem4.moveinBox(1,currentColumnIndex-1, currentRowIndex);
+                gameSystem4.moveinBox(1, currentColumnIndex - 1, currentRowIndex);
                 stepsUpdate();
             }
         }
         if (gameSystem4.isBox2(targetColumn, currentRowIndex)) {
-            if (gameSystem4.notWall(targetColumn - 1, currentRowIndex) &&!gameSystem4.isBox1(targetColumn-1, currentRowIndex)) {
+            if (gameSystem4.notWall(targetColumn - 1, currentRowIndex) && !gameSystem4.isBox1(targetColumn - 1, currentRowIndex)) {
                 moveAudio.playpushBox();
                 moveAudio.playmoveSound();
                 currentColumnIndex = targetColumn;
                 AnimationManager.MoveLeft(Niker, currentColumnIndex, currentRowIndex);//动画
-                gameSystem4.moveoutNiker(currentColumnIndex+1, currentRowIndex);
+                gameSystem4.moveoutNiker(currentColumnIndex + 1, currentRowIndex);
                 gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationManager.MoveLeft(box2, currentColumnIndex-1, currentRowIndex);//动画
+                AnimationManager.MoveLeft(box2, currentColumnIndex - 1, currentRowIndex);//动画
                 gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem4.moveinBox(2,currentColumnIndex-1, currentRowIndex);
+                gameSystem4.moveinBox(2, currentColumnIndex - 1, currentRowIndex);
                 stepsUpdate();
             }
         }
@@ -435,41 +439,41 @@ public class Level4Controller {
     @FXML
     void RightBtnPressed() throws IOException {
         int targetColumn = currentColumnIndex + 1;
-        if (gameSystem4.notWall(targetColumn, currentRowIndex) &&!gameSystem4.isBox1(targetColumn, currentRowIndex)&&!gameSystem4.isBox2(targetColumn, currentRowIndex)) {
+        if (gameSystem4.notWall(targetColumn, currentRowIndex) && !gameSystem4.isBox1(targetColumn, currentRowIndex) && !gameSystem4.isBox2(targetColumn, currentRowIndex)) {
 
             moveAudio.playmoveSound();
             currentColumnIndex = targetColumn;
             AnimationManager.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
-            gameSystem4.moveoutNiker(currentColumnIndex-1, currentRowIndex);
+            gameSystem4.moveoutNiker(currentColumnIndex - 1, currentRowIndex);
             gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
         }
         //推箱子
         if (gameSystem4.isBox1(targetColumn, currentRowIndex)) {
-            if (gameSystem4.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem4.isBox2(targetColumn+1, currentRowIndex)) {
+            if (gameSystem4.notWall(targetColumn + 1, currentRowIndex) && !gameSystem4.isBox2(targetColumn + 1, currentRowIndex)) {
                 moveAudio.playpushBox();
                 moveAudio.playmoveSound();
                 currentColumnIndex = targetColumn;
                 AnimationManager.MoveRight(Niker, currentColumnIndex, currentRowIndex);//动画
-                gameSystem4.moveoutNiker(currentColumnIndex-1, currentRowIndex);
+                gameSystem4.moveoutNiker(currentColumnIndex - 1, currentRowIndex);
                 gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationManager.MoveRight(box1, currentColumnIndex+1, currentRowIndex);
+                AnimationManager.MoveRight(box1, currentColumnIndex + 1, currentRowIndex);
                 gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem4.moveinBox(1,currentColumnIndex+1, currentRowIndex);
+                gameSystem4.moveinBox(1, currentColumnIndex + 1, currentRowIndex);
                 stepsUpdate();
             }
         }
         if (gameSystem4.isBox2(targetColumn, currentRowIndex)) {
-            if (gameSystem4.notWall(targetColumn + 1, currentRowIndex) &&!gameSystem4.isBox1(targetColumn+1, currentRowIndex)) {
+            if (gameSystem4.notWall(targetColumn + 1, currentRowIndex) && !gameSystem4.isBox1(targetColumn + 1, currentRowIndex)) {
                 moveAudio.playpushBox();
                 moveAudio.playmoveSound();
                 currentColumnIndex = targetColumn;
                 AnimationManager.MoveRight(Niker, currentColumnIndex, currentRowIndex);
-                gameSystem4.moveoutNiker(currentColumnIndex-1, currentRowIndex);
+                gameSystem4.moveoutNiker(currentColumnIndex - 1, currentRowIndex);
                 gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationManager.MoveRight(box2, currentColumnIndex+1, currentRowIndex);
+                AnimationManager.MoveRight(box2, currentColumnIndex + 1, currentRowIndex);
                 gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem4.moveinBox(2,currentColumnIndex+1, currentRowIndex);
+                gameSystem4.moveinBox(2, currentColumnIndex + 1, currentRowIndex);
                 stepsUpdate();
             }
         }
@@ -484,41 +488,41 @@ public class Level4Controller {
     void UpBtnPressed() throws IOException {
         int targetRow = currentRowIndex - 1;
         //纯移动
-        if (gameSystem4.notWall(currentColumnIndex, targetRow) &&!gameSystem4.isBox1(currentColumnIndex, targetRow)&&!gameSystem4.isBox2(currentColumnIndex, targetRow)) {
+        if (gameSystem4.notWall(currentColumnIndex, targetRow) && !gameSystem4.isBox1(currentColumnIndex, targetRow) && !gameSystem4.isBox2(currentColumnIndex, targetRow)) {
 
             moveAudio.playmoveSound();
             currentRowIndex = targetRow;
             AnimationManager.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
-            gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex+1);
+            gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex + 1);
             gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
             stepsUpdate();
         }
         //推箱子
         if (gameSystem4.isBox1(currentColumnIndex, targetRow)) {
-            if (gameSystem4.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem4.isBox2(currentColumnIndex, targetRow-1)) {
+            if (gameSystem4.notWall(currentColumnIndex, targetRow - 1) && !gameSystem4.isBox2(currentColumnIndex, targetRow - 1)) {
                 moveAudio.playpushBox();
                 moveAudio.playmoveSound();
                 currentRowIndex = targetRow;
                 AnimationManager.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
-                gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex+1);
+                gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex + 1);
                 gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationManager.MoveUp(box1, currentColumnIndex, currentRowIndex-1);//动画
+                AnimationManager.MoveUp(box1, currentColumnIndex, currentRowIndex - 1);//动画
                 gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem4.moveinBox(1,currentColumnIndex, currentRowIndex-1);
+                gameSystem4.moveinBox(1, currentColumnIndex, currentRowIndex - 1);
                 stepsUpdate();
             }
         }
         if (gameSystem4.isBox2(currentColumnIndex, targetRow)) {
-            if (gameSystem4.notWall(currentColumnIndex, targetRow - 1) &&!gameSystem4.isBox1(currentColumnIndex, targetRow-1)) {
+            if (gameSystem4.notWall(currentColumnIndex, targetRow - 1) && !gameSystem4.isBox1(currentColumnIndex, targetRow - 1)) {
                 moveAudio.playpushBox();
                 moveAudio.playmoveSound();
                 currentRowIndex = targetRow;
                 AnimationManager.MoveUp(Niker, currentColumnIndex, currentRowIndex);//动画
-                gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex+1);
+                gameSystem4.moveoutNiker(currentColumnIndex, currentRowIndex + 1);
                 gameSystem4.moveinNiker(currentColumnIndex, currentRowIndex);
-                AnimationManager.MoveUp(box2, currentColumnIndex, currentRowIndex-1);//动画
+                AnimationManager.MoveUp(box2, currentColumnIndex, currentRowIndex - 1);//动画
                 gameSystem4.moveoutBox(currentColumnIndex, currentRowIndex);
-                gameSystem4.moveinBox(2,currentColumnIndex, currentRowIndex-1);
+                gameSystem4.moveinBox(2, currentColumnIndex, currentRowIndex - 1);
                 stepsUpdate();
             }
         }

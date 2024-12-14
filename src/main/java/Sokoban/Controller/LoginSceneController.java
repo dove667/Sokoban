@@ -9,16 +9,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Objects;
+
 import static Sokoban.Login_Application.primaryStage;
 
 public class LoginSceneController {
 
     @FXML
-    private Button Btn_login,Btn_SignUp,Btn_visitor;
+    private Button Btn_login, Btn_SignUp, Btn_visitor;
 
     @FXML
     private AnchorPane Pane;
@@ -59,8 +61,7 @@ public class LoginSceneController {
             //设置场景
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
-        }
-        else if ( Arrays.asList(system.getName()).contains(username) && Arrays.asList(system.getPassword()).contains(passwd)
+        } else if (Arrays.asList(system.getName()).contains(username) && Arrays.asList(system.getPassword()).contains(passwd)
                 && system.checkMatch(system.getName(), system.getPassword(), username, passwd)) {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -75,8 +76,7 @@ public class LoginSceneController {
             //设置场景
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
-        }
-        else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Failed to log in");

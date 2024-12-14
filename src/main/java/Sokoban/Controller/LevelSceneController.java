@@ -22,13 +22,13 @@ import java.util.Objects;
 
 public class LevelSceneController {
     @FXML
-    private Button Btn_Level1, Btn_Level2, Btn_Level3,Btn_Level4, Btn_Level5,Btn_Level6, Btn_TimeMode;
+    private Button Btn_Level1, Btn_Level2, Btn_Level3, Btn_Level4, Btn_Level5, Btn_Level6, Btn_TimeMode;
 
     @FXML
     private Label Label_Mode;
 
     @FXML
-    private AnchorPane Pane,Bottom;
+    private AnchorPane Pane, Bottom;
 
     @FXML
     private ImageView Img_SUST2;
@@ -37,37 +37,47 @@ public class LevelSceneController {
     private Button Btn_Return;
 
     public void initialize() {
-        if(GameSystem.isTimeMode()) {
+        if (GameSystem.isTimeMode()) {
             Label_Mode.setText("open");
-        }
-        else {
+        } else {
             Label_Mode.setText("closed");
         }
-        if(!GameSystem.verifyAdmin()){
-            if(!GameSystem.isL1win()){
-                Btn_Level2.setDisable(true); Btn_Level2.setVisible(false);
-                Btn_Level3.setDisable(true);Btn_Level3.setVisible(false);
-                Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
-                Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
-                Btn_Level6.setDisable(true);Btn_Level6.setVisible(false);
-            }
-            else if(!GameSystem.isL2win()){
-                Btn_Level3.setDisable(true);Btn_Level3.setVisible(false);
-                Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
-                Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
-                Btn_Level6.setDisable(true);Btn_Level6.setVisible(false);
-            }
-            else if(!GameSystem.isL3win()){
-                Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
-                Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
-                Btn_Level6.setDisable(true);Btn_Level6.setVisible(false);
-            }
-            else if(!GameSystem.isL4win()){
-                Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
-                Btn_Level6.setDisable(true);Btn_Level6.setVisible(false);
-            }
-            else if(!GameSystem.isL5win()){
-                Btn_Level6.setDisable(true);Btn_Level6.setVisible(false);
+        if (!GameSystem.verifyAdmin()) {
+            if (!GameSystem.isL1win()) {
+                Btn_Level2.setDisable(true);
+                Btn_Level2.setVisible(false);
+                Btn_Level3.setDisable(true);
+                Btn_Level3.setVisible(false);
+                Btn_Level4.setDisable(true);
+                Btn_Level4.setVisible(false);
+                Btn_Level5.setDisable(true);
+                Btn_Level5.setVisible(false);
+                Btn_Level6.setDisable(true);
+                Btn_Level6.setVisible(false);
+            } else if (!GameSystem.isL2win()) {
+                Btn_Level3.setDisable(true);
+                Btn_Level3.setVisible(false);
+                Btn_Level4.setDisable(true);
+                Btn_Level4.setVisible(false);
+                Btn_Level5.setDisable(true);
+                Btn_Level5.setVisible(false);
+                Btn_Level6.setDisable(true);
+                Btn_Level6.setVisible(false);
+            } else if (!GameSystem.isL3win()) {
+                Btn_Level4.setDisable(true);
+                Btn_Level4.setVisible(false);
+                Btn_Level5.setDisable(true);
+                Btn_Level5.setVisible(false);
+                Btn_Level6.setDisable(true);
+                Btn_Level6.setVisible(false);
+            } else if (!GameSystem.isL4win()) {
+                Btn_Level5.setDisable(true);
+                Btn_Level5.setVisible(false);
+                Btn_Level6.setDisable(true);
+                Btn_Level6.setVisible(false);
+            } else if (!GameSystem.isL5win()) {
+                Btn_Level6.setDisable(true);
+                Btn_Level6.setVisible(false);
             }
         }
 
@@ -79,7 +89,7 @@ public class LevelSceneController {
 
     }
 
-    CornerRadii cornerRadii = new CornerRadii(50,50,50,50, false); // false 表示不使用默认的圆角
+    CornerRadii cornerRadii = new CornerRadii(50, 50, 50, 50, false); // false 表示不使用默认的圆角
 
     @FXML
     void Level1BtnReleased() throws IOException {
@@ -120,6 +130,7 @@ public class LevelSceneController {
         GameSystem.setCurrentLevel("Level3");
         GameSystem.setTimeMode(setMode());
     }
+
     @FXML
     void Level4BtnReleased() throws IOException {
         AudioManager.stop();
@@ -145,6 +156,7 @@ public class LevelSceneController {
         GameSystem.setCurrentLevel("Level5");
         GameSystem.setTimeMode(setMode());
     }
+
     @FXML
     void Level6BtnReleased() throws IOException {
         AudioManager.stop();
@@ -160,16 +172,15 @@ public class LevelSceneController {
 
     @FXML
     void TimeModeBtnReleased() {
-         if(Label_Mode.getText().equals("closed")) {
-             Label_Mode.setText("open");
-             GameSystem.setTimeMode(true);
-             Btn_TimeMode.setBackground(new Background(new BackgroundFill(Color.RED, cornerRadii, Insets.EMPTY)));
-         }
-         else {
-             Label_Mode.setText("closed");
-             GameSystem.setTimeMode(false);
-             Btn_TimeMode.setBackground(new Background(new BackgroundFill(Color.GREEN, cornerRadii, Insets.EMPTY)));
-         }
+        if (Label_Mode.getText().equals("closed")) {
+            Label_Mode.setText("open");
+            GameSystem.setTimeMode(true);
+            Btn_TimeMode.setBackground(new Background(new BackgroundFill(Color.RED, cornerRadii, Insets.EMPTY)));
+        } else {
+            Label_Mode.setText("closed");
+            GameSystem.setTimeMode(false);
+            Btn_TimeMode.setBackground(new Background(new BackgroundFill(Color.GREEN, cornerRadii, Insets.EMPTY)));
+        }
     }
 
     @FXML
@@ -180,7 +191,8 @@ public class LevelSceneController {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
     }
-    public boolean setMode(){
+
+    public boolean setMode() {
         return Label_Mode.getText().equals("open");
     }
 }

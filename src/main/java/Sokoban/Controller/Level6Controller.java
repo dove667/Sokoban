@@ -564,6 +564,7 @@ public class Level6Controller {
             Btn_right.setGraphic(imageViewRight);
         });
     }
+
     @FXML
     void BackBtnPressed(MouseEvent event) {
 
