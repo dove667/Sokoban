@@ -1,107 +1,129 @@
 package Sokoban.Model;
 
 import java.io.*;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccountsSystem {
-    private  final String[] passwords = new String[10];
-    private  final String[] names = new String[10];
-    private int i=0;
-    private int j=0;
 
-    public void addName(String a) {
-        for(;i<names.length;i++){
-            names[i]=a;
-        }
+
+    //账号密码
+    private static final List<String> passwords = new ArrayList<>();
+    private static final List<String> names = new ArrayList<>();
+    private static final List<Account> accounts = new ArrayList<>();
+    private static int i=0;
+    private static int j=0;
+
+    public static List<Account> getAccounts() {
+        return accounts;
     }
-    public String[] getName() {
+
+    public static List<String> getNames() {
         return names;
     }
-    public String[] getPassword() {
+
+    public static List<String> getPasswords() {
         return passwords;
     }
-    public void addPassword(String a) {
-        for(;j<passwords.length;j++){
-            passwords[j]=a;
+    public static boolean checkSameName(String name){
+        return names.contains(name);
+    }
+    public static void addAccount(Account a) {
+        accounts.add(a);
+    }
+    public static Account getAccount(String user) {
+        int index = accounts.indexOf(user);
+        return accounts.get(index);
+    }
+    public static void addName(String a) {
+        names.add(a);
+    }
+    public static void addPassword(String a) {
+       passwords.add(a);
+
+    }
+    public static String getName(int index) {
+        return names.get(index);
+    }
+    public static String getPassword(int index) {
+        return passwords.get(index);
+    }
+
+    public static boolean checkMatch(List<String> names,List<String> passwords,String a,String b){
+        if (names == null || passwords == null) {
+            return false;
+        }
+        int nameIndex =names.indexOf(a);
+        int passwordIndex =passwords.indexOf(b);
+        return nameIndex == passwordIndex;
+        //防止同名账号匹配
+    }
+
+    public static boolean checkAccount(List<String> names, String nameToCheck,List<String> passwords, String passwordToCheck) {
+        boolean accountValid = false;
+        for (String name : names) {
+            if (name.equals(nameToCheck)) {
+                for (String password : passwords) {
+                    if (password.equals(passwordToCheck) && checkMatch(names,passwords,nameToCheck,passwordToCheck)) {
+                        accountValid = true;
+                        break;
+                    }
+                }
+
+            }
+        }
+        return accountValid;
+    }
+
+    //无法对静态成员或类进行序列化，所以需要使用内部类AccountData来保存静态成员状态
+
+    // 用于保存静态成员状态的非静态内部类
+    private static class AccountData implements Serializable {
+        private final List<String> names;
+        private final List<String> passwords;
+        private final List<Account> accounts;
+
+        public AccountData(List<String> names, List<String> passwords, List<Account> accounts) {
+            this.names = new ArrayList<>(names);
+            this.passwords = new ArrayList<>(passwords);
+            this.accounts = new ArrayList<>(accounts);
+        }
+
+        public List<String> getNames() {
+            return names;
+        }
+
+        public List<String> getPasswords() {
+            return passwords;
+        }
+
+        public List<Account> getAccounts() {
+            return accounts;
         }
     }
-    public boolean checkMatch(String[]name,String[]password,String a,String b){
-        if (name == null || password == null) {
-            return false;
-        }//防止空指针异常
-        int nameIndex = Arrays.asList(name).indexOf(a);
-        int passwordIndex = Arrays.asList(password).indexOf(b);
-        return nameIndex == passwordIndex;
-    }
-
-
-
-
-    private  boolean L1win;
-    private  boolean L2win;
-    private  boolean L3win;
-    private  boolean L4win;
-    private  boolean L5win;
-
-    public boolean isL1win() {
-        return L1win;
-    }
-
-    public  boolean isL2win() {
-        return L2win;
-    }
-
-    public boolean isL3win() {
-        return L3win;
-    }
-
-    public boolean isL4win() {
-        return L4win;
-    }
-
-    public  boolean isL5win() {
-        return L5win;
-    }
-
-    public void setL1win(boolean l1win) {
-        L1win = l1win;
-    }
-
-    public void setL2win(boolean l2win) {
-        L2win = l2win;
-    }
-
-    public void setL3win(boolean l3win) {
-        L3win = l3win;
-    }
-
-    public void setL4win(boolean l4win) {
-        L4win = l4win;
-    }
-
-    public void setL5win(boolean l5win) {
-        L5win = l5win;
-    }
-
-
-
-
-
-    public void saveAccount(GameSystem progress){
+    //不是保存其他类中的对象，而是保存本类的内部类
+    public static void saveAccounts() {
+        AccountData data = new AccountData(names, passwords, accounts);
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("accounts.ser"))) {
-            out.writeObject(progress);
+            out.writeObject(data);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public GameSystem loadAccount() {
-        GameSystem progress = null;
+    public static void loadAccounts() {
+
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("accounts.ser"))) {
-            progress = (GameSystem) in.readObject();
+            AccountData data = (AccountData) in.readObject();
+            // 将加载的数据恢复到静态成员中
+            names.clear();
+            names.addAll(data.getNames());
+            passwords.clear();
+            passwords.addAll(data.getPasswords());
+            accounts.clear();
+            accounts.addAll(data.getAccounts());
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return progress;
     }
 }

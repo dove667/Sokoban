@@ -1,5 +1,7 @@
 package Sokoban.Controller;
 
+import Sokoban.Model.Account;
+import Sokoban.Model.AccountsSystem;
 import Sokoban.Model.GameSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,7 +45,6 @@ public class SignUpController {
     @FXML
     private TextField Text_Name;
 
-    GameSystem gameSystem=LoginSceneController.getSystem();
 
     @FXML
     void ReturnBtnClicked(MouseEvent event) {
@@ -84,16 +85,25 @@ public class SignUpController {
             password.setContentText("Passwords do not match.");
             password.showAndWait();
         }
+        else if(AccountsSystem.checkSameName(Text_Name.getText())){
+            Alert name = new Alert(Alert.AlertType.ERROR);
+            name.setTitle("Invalid Name");
+            name.setHeaderText(null);
+            name.setContentText("Name already exists.");
+            name.showAndWait();
+        }
         else{
             Alert success = new Alert(Alert.AlertType.INFORMATION);
             success.setTitle("Success");
             success.setHeaderText("Sign up successful");
             success.setContentText("You can now log in with your new account.");
             success.showAndWait();
-            system.addName(Text_Name.getText());
-            system.addPassword(Password_input.getText());
-            system.saveAccount(system);
 
+            AccountsSystem.addName(Text_Name.getText());
+            AccountsSystem.addPassword(Password_Ensure.getText());
+            Account account = new Account(false);
+            AccountsSystem.addAccount(account);
+            AccountsSystem.saveAccounts();
             URL url = getClass().getResource("/Sokoban/LoginScene.fxml");
             Parent root;
             try {

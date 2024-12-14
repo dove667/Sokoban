@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.net.URL;
 import static Sokoban.Login_Application.primaryStage;
-import static Sokoban.Model.GameSystem.verifyVisitor;
+
 
 import java.util.Objects;
 
@@ -87,8 +87,9 @@ public class Level3Controller {
             gameSystem3.setPlayeriniRow(GridPane.getRowIndex(Niker));
         });
 
+        Account account = Account.loadAccount();
         //判断是否为游客模式
-        if (verifyVisitor()){
+        if (account.verifyVisitor()){
             Img_load.setVisible(false);
             Img_save.setVisible(false);
             Img_home.setVisible(false);
@@ -96,7 +97,7 @@ public class Level3Controller {
             Btn_save.setDisable(true);
             Btn_home.setDisable(true);
         }
-        GameSystem.setCurrentLevel(3);GameSystem.setCurrentLevel("Level3");
+        account.setCurrentLevel(3);
         Pane.requestFocus(); // 确保焦点设置
 
 

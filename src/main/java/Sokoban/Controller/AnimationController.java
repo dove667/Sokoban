@@ -1,5 +1,6 @@
 package Sokoban.Controller;
 
+import Sokoban.Model.Account;
 import Sokoban.Model.GameSystem;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
@@ -18,12 +19,14 @@ public class AnimationController {
         node.setTranslateY(0); // 重置垂直偏移
     }
 
+
     public static void MoveRight(Node node, int col, int row) {
+        Account account= Account.loadAccount();
         TranslateTransition MoveRight = new TranslateTransition();
         MoveRight.setDuration(Duration.seconds(0.25));
         MoveRight.setNode(node);// 应用到的控件
-        if (GameSystem.getCurrentLevel() == 1) MoveRight.setByX(L1);
-        else if (GameSystem.getCurrentLevel() == 2) MoveRight.setByX(L2);
+        if (account.getCurrentLevel() == 1) MoveRight.setByX(L1);
+        else if (account.getCurrentLevel() == 2) MoveRight.setByX(L2);
         else MoveRight.setByX(L345);
         MoveRight.setCycleCount(1);  // 动画循环次数
         MoveRight.setAutoReverse(false);  // 不反转
@@ -31,11 +34,12 @@ public class AnimationController {
     }
 
     public static void MoveLeft(Node node, int col, int row) {
+        Account account= Account.loadAccount();
         TranslateTransition MoveRight = new TranslateTransition();
         MoveRight.setDuration(Duration.seconds(0.25));
         MoveRight.setNode(node);  // 应用到的控件
-        if (GameSystem.getCurrentLevel() == 1) MoveRight.setByX(-L1);
-        else if (GameSystem.getCurrentLevel() == 2) MoveRight.setByX(-L2);
+        if (account.getCurrentLevel() == 1) MoveRight.setByX(-L1);
+        else if (account.getCurrentLevel() == 2) MoveRight.setByX(-L2);
         else MoveRight.setByX(-L345);
         MoveRight.setCycleCount(1);  // 动画循环次数
         MoveRight.setAutoReverse(false);  // 不反转
@@ -43,11 +47,12 @@ public class AnimationController {
     }
 
     public static void MoveUp(Node node, int col, int row) {
+        Account account= Account.loadAccount();
         TranslateTransition MoveRight = new TranslateTransition();
         MoveRight.setDuration(Duration.seconds(0.25));
         MoveRight.setNode(node);  // 应用到的控件
-        if (GameSystem.getCurrentLevel() == 1) MoveRight.setByY(-L1);
-        else if (GameSystem.getCurrentLevel() == 2) MoveRight.setByY(-L2);
+        if (account.getCurrentLevel() == 1) MoveRight.setByY(-L1);
+        else if (account.getCurrentLevel() == 2) MoveRight.setByY(-L2);
         else MoveRight.setByY(-L345);
         MoveRight.setCycleCount(1);  // 动画循环次数
         MoveRight.setAutoReverse(false);  // 不反转
@@ -55,11 +60,12 @@ public class AnimationController {
     }
 
     public static void MoveDown(Node node, int col, int row) {
+        Account account= Account.loadAccount();
         TranslateTransition MoveRight = new TranslateTransition();
         MoveRight.setDuration(Duration.seconds(0.25));
         MoveRight.setNode(node);  // 应用到的控件
-        if (GameSystem.getCurrentLevel() == 1) MoveRight.setByY(L1);
-        else if (GameSystem.getCurrentLevel() == 2) MoveRight.setByY(L2);
+        if (account.getCurrentLevel() == 1) MoveRight.setByY(L1);
+        else if (account.getCurrentLevel() == 2) MoveRight.setByY(L2);
         else MoveRight.setByY(L345);
         MoveRight.setCycleCount(1);  // 动画循环次数
         MoveRight.setAutoReverse(false);  // 不反转

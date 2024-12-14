@@ -22,9 +22,6 @@ public class GameSystem implements Serializable {
     private Board[] boards;
     private Target[]targets;
     private int[][] matrix;
-    private static int currentLevel;
-    private static String CurrentLevel ;
-    private static boolean isVisitor;
     private static boolean isTimeMode;
     //静态字段允许在没有实例创建时使用(选择关卡时),但仍会在构造方法中被赋予默认值
 
@@ -89,9 +86,7 @@ public class GameSystem implements Serializable {
         niker.setCurrentCol(col);
         niker.setCurrentRow(row);
     }
-    public static boolean verifyVisitor() {
-        return isVisitor;
-    }
+
 
     public void victoryJudge() throws IOException {
 
@@ -227,49 +222,6 @@ public class GameSystem implements Serializable {
 
 
 
-    public static void setIsVisitor(boolean is) {
-        isVisitor = is;
-    }
-    //实现victory的nextLevel按钮多态
-    @Nullable
-    public static String getNextLevel() {
-        switch (currentLevel) {
-            case 1 -> {
-                L1win = true;
-                return "/Sokoban/Level2.fxml";
-            }
-
-            case 2 -> {
-                L2win = true;
-                return "/Sokoban/Level3.fxml";
-            }
-            case 3 -> {
-                L3win = true;
-                return "/Sokoban/Level4.fxml";
-            }
-            case 4 -> {
-                L4win = true;
-                return "/Sokoban/Level5.fxml";
-            }
-            default -> {
-                return "/Sokoban/LevelScene.fxml";
-            }
-        }
-
-    }
-
-    public static void setCurrentLevel(String level) {
-        CurrentLevel = level;
-    }
-
-    public static int getCurrentLevel() {
-        return currentLevel;
-    }
-    public static void setCurrentLevel(int currentLevel) {
-        GameSystem.currentLevel = currentLevel;
-    }
-
-
     public int getSteps() {
         return steps;
     }
@@ -379,12 +331,6 @@ public class GameSystem implements Serializable {
     }
     public int getPlayerCol(){
         return niker.getCurrentCol();
-    }
-    public int getPlayeriniCol(){
-        return niker.getInitialcol();
-    }
-    public int getPlayeriniRow(){
-        return niker.getInitialrow();
     }
     public void setPlayeriniCol(int col){
         niker.setInitialcol(col);

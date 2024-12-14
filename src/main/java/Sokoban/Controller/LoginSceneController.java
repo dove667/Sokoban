@@ -1,5 +1,6 @@
 package Sokoban.Controller;
 
+import Sokoban.Model.Account;
 import Sokoban.Model.AccountsSystem;
 import Sokoban.Model.GameSystem;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import static Sokoban.Login_Application.primaryStage;
 
@@ -34,24 +36,20 @@ public class LoginSceneController {
     @FXML
     private Label Label_username,Label_Sokoban,Label_passwd;
 
-    private AccountsSystem system;
 
-    public AccountsSystem getSystem() {
-        return system;
+    public void initialize() {
+        AccountsSystem.loadAccounts();
     }
 
-    public void setSystem(AccountsSystem system) {
-        this.system = system;
-    }
 
     @FXML
     void LoginBtnReleased() throws IOException {
         String username = Input_username.getText();
         String passwd = Input_passwd.getText();
-        AccountsSystem system = new AccountsSystem();
 
-        if (username.equals("admin") && passwd.equals("admin")|| Arrays.asList(system.getName()).contains(username) && Arrays.asList(system.getPassword()).contains(passwd)
-                && system.checkMatch(system.getName(), system.getPassword(), username, passwd)) {
+         if (AccountsSystem.checkAccount(AccountsSystem.getNames(),username, AccountsSystem.getPasswords(),passwd)) {
+            Account account = AccountsSystem.getAccount(username);
+            Account.saveAccount(account);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Reminder");
@@ -88,7 +86,9 @@ public class LoginSceneController {
 
     @FXML
     void VisitorBtnReleased() throws IOException {
-        GameSystem.setIsVisitor(true);
+        Account visitor = new Account(true);
+        AccountsSystem.addAccount(visitor);
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("caution");
         alert.setHeaderText("visitor mode");

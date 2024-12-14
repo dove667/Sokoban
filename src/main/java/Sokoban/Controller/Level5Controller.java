@@ -85,8 +85,9 @@ public class Level5Controller {
             gameSystem5.setPlayeriniRow(GridPane.getRowIndex(Niker));
         });
 
+        Account account = Account.loadAccount();
         //判断是否为游客模式
-        if (GameSystem.verifyVisitor()){
+        if (account.verifyVisitor()){
             Img_load.setVisible(false);
             Img_save.setVisible(false);
             Img_home.setVisible(false);
@@ -94,8 +95,7 @@ public class Level5Controller {
             Btn_save.setDisable(true);
             Btn_home.setDisable(true);
         }
-
-        GameSystem.setCurrentLevel(5);GameSystem.setCurrentLevel("Level5");
+        account.setCurrentLevel(5);
         Pane.requestFocus(); // 确保焦点设置
 
 

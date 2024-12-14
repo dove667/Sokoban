@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
 
 public class Login_Application extends Application {
@@ -15,7 +16,8 @@ public class Login_Application extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Login_Application.primaryStage = primaryStage;
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Sokoban/LoginScene.fxml")));
+        URL url = getClass().getResource("/Sokoban/LoginScene.fxml");
+        Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         /*  资源文件夹：如果您使用 Maven 或 Gradle 构建项目，src/main/resources 是默认的资源目录。
         在代码中，getClass().getResource() 方法的路径以资源目录为根。路径需要以 / 开头，表示从类路径的根目录查找.
         如果不用/开头，会被解析为相对路径  */
