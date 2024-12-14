@@ -142,8 +142,7 @@ public class LevelSceneController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        GameSystem.setCurrentLevel(5);
-        GameSystem.setCurrentLevel("Level6");
+        account.setCurrentLevel(5);
         GameSystem.setTimeMode(setMode());
     }
 

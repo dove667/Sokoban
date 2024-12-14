@@ -41,7 +41,7 @@ public class VictoryController {
             Btn_NextLevel.setVisible(false);
             Btn_Home.setVisible(false);
         }
-        getNextLevel();//更新Lnwin状态
+        account.getNextLevel();//更新Lnwin状态
         Platform.runLater(() -> {
             win.playWin();
         });
@@ -51,7 +51,8 @@ public class VictoryController {
     @FXML
     void HomeBtnReleased(MouseEvent event) throws IOException {
         Stage primaryStage = (Stage) Btn_Home.getScene().getWindow();
-        if (GameSystem.verifyVisitor()) {
+        Account account = Account.loadAccount();
+        if (account.verifyVisitor()) {
             AudioManager.playbackgroundPeace();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Congratulations");

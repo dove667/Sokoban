@@ -87,7 +87,7 @@ public class LoginSceneController {
     void VisitorBtnReleased() throws IOException {
         Account visitor = new Account(true);
         AccountsSystem.addAccount(visitor);
-
+        Account.saveAccount(visitor);
         Platform.runLater(AudioManager::stop);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

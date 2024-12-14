@@ -80,18 +80,18 @@ public class Account implements Serializable {
     public String getNextLevel() {
         if (currentLevel == 1) {
             L1win = true;
-            return "/Sokoban/Level2.fxml";
+            return "/Sokoban/Fxml/Level2.fxml";
         } else if (currentLevel == 2) {
             L2win = true;
-            return "/Sokoban/Level3.fxml";
+            return "/Sokoban/Fxml/Level3.fxml";
         } else if (currentLevel == 3) {
             L3win = true;
-            return "/Sokoban/Level4.fxml";
+            return "/Sokoban/Fxml/Level4.fxml";
         } else if (currentLevel == 4) {
             L4win = true;
-            return "/Sokoban/Level5.fxml";
+            return "/Sokoban/Fxml/Level5.fxml";
         } else {
-            return "/Sokoban/LevelScene.fxml";
+            return "/Sokoban/Fxml/LevelScene.fxml";
         }
     }
 
@@ -104,7 +104,7 @@ public class Account implements Serializable {
 
 
 
-    private boolean isVisitor;
+    private final boolean isVisitor;
 
     public boolean verifyVisitor() {
         return isVisitor;

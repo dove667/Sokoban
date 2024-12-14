@@ -16,7 +16,7 @@ public class Login_Application extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Login_Application.primaryStage = primaryStage;
-        URL url = getClass().getResource("/Sokoban/LoginScene.fxml");
+        URL url = getClass().getResource("/Sokoban/Fxml/LoginScene.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         /*  资源文件夹：如果您使用 Maven 或 Gradle 构建项目，src/main/resources 是默认的资源目录。
         在代码中，getClass().getResource() 方法的路径以资源目录为根。路径需要以 / 开头，表示从类路径的根目录查找.

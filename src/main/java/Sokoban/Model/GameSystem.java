@@ -101,7 +101,7 @@ private static final long serialVersionUID = 1L; // 修改为相同的版本ID
                             if(matrix[m][n] == 12 && !(m==i && n==j)){
                                 //同时有两个box达到target了
                                 if(boxNum==2){
-                                    URL url = getClass().getResource("/Sokoban/Victory.fxml");
+                                    URL url = getClass().getResource("/Sokoban/Fxml/Victory.fxml");
                                     Parent root = FXMLLoader.load(Objects.requireNonNull(url));
                                     Scene scene = new Scene(root);
                                     primaryStage.setScene(scene);
@@ -111,7 +111,7 @@ private static final long serialVersionUID = 1L; // 修改为相同的版本ID
                                     for(int p=0;p<matrix.length;p++){
                                         for(int q=0;q<matrix.length;q++){
                                             if(matrix[p][q] == 12  && !(p==i && q==j) && !(p==m && q==n)){
-                                                URL url = getClass().getResource("/Sokoban/Victory.fxml");
+                                                URL url = getClass().getResource("/Sokoban/Fxml/Victory.fxml");
                                                 Parent root = FXMLLoader.load(Objects.requireNonNull(url));
                                                 Scene scene = new Scene(root);
                                                 primaryStage.setScene(scene);
@@ -138,7 +138,7 @@ private static final long serialVersionUID = 1L; // 修改为相同的版本ID
 
         if(boxNum==2){
             if(!boxes[0].isMovable() && !boxes[1].isMovable()){
-                URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                 Parent root = FXMLLoader.load(Objects.requireNonNull(url));
                 Scene scene = new Scene(root);
                 primaryStage.setScene(scene);
@@ -147,7 +147,7 @@ private static final long serialVersionUID = 1L; // 修改为相同的版本ID
         }
         else if(boxNum==3){
             if(!boxes[0].isMovable() && !boxes[1].isMovable() && !boxes[2].isMovable()){
-                URL url = getClass().getResource("/Sokoban/Failed.fxml");
+                URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                 Parent root = FXMLLoader.load(Objects.requireNonNull(url));
                 Scene scene = new Scene(root);
                 primaryStage.setScene(scene);

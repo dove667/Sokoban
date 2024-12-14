@@ -38,7 +38,8 @@ public class FailedController {
     }
     @FXML
     void HomeBtnReleased(MouseEvent event) throws IOException {
-        if (GameSystem.verifyVisitor()) {
+        Account account = Account.loadAccount();
+        if (account.verifyVisitor()) {
             AudioManager.playbackgroundPeace();
             URL url = getClass().getResource("/Sokoban/Fxml/LoginScene.fxml");
             Parent root = FXMLLoader.load(Objects.requireNonNull(url));
@@ -57,31 +58,31 @@ public class FailedController {
     void TryAgainBtnReleased(MouseEvent event) throws IOException {
         Account account = Account.loadAccount();
          if(account.getCurrentLevel()==1){
-             URL url = getClass().getResource("/Sokoban/Level1.fxml");
+             URL url = getClass().getResource("/Sokoban/Fxml/Level1.fxml");
              Parent root = FXMLLoader.load(Objects.requireNonNull(url));
              Scene scene = new Scene(root);
              primaryStage.setScene(scene);
          }
          else if(account.getCurrentLevel()==2){
-             URL url = getClass().getResource("/Sokoban/Level2.fxml");
+             URL url = getClass().getResource("/Sokoban/Fxml/Level2.fxml");
              Parent root = FXMLLoader.load(Objects.requireNonNull(url));
              Scene scene = new Scene(root);
              primaryStage.setScene(scene);
          }
          else if(account.getCurrentLevel()==3){
-             URL url = getClass().getResource("/Sokoban/Level3.fxml");
+             URL url = getClass().getResource("/Sokoban/Fxml/Level3.fxml");
              Parent root = FXMLLoader.load(Objects.requireNonNull(url));
              Scene scene = new Scene(root);
              primaryStage.setScene(scene);
          }
          else if(account.getCurrentLevel()==4){
-             URL url = getClass().getResource("/Sokoban/Level4.fxml");
+             URL url = getClass().getResource("/Sokoban/Fxml/Level4.fxml");
              Parent root = FXMLLoader.load(Objects.requireNonNull(url));
              Scene scene = new Scene(root);
              primaryStage.setScene(scene);
          }
          else if(account.getCurrentLevel()==5){
-             URL url = getClass().getResource("/Sokoban/Level5.fxml");
+             URL url = getClass().getResource("/Sokoban/Fxml/Level5.fxml");
              Parent root = FXMLLoader.load(Objects.requireNonNull(url));
              Scene scene = new Scene(root);
              primaryStage.setScene(scene);

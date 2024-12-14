@@ -11,8 +11,6 @@ public class AccountsSystem {
     private static final List<String> passwords = new ArrayList<>();
     private static final List<String> names = new ArrayList<>();
     private static final List<Account> accounts = new ArrayList<>();
-    private static int i=0;
-    private static int j=0;
 
     public static List<Account> getAccounts() {
         return accounts;

@@ -196,7 +196,8 @@ public class Level1Controller {
 
     @FXML
     void HomeBtnPressed(MouseEvent event) throws IOException {
-        if (GameSystem.verifyVisitor()) {
+        Account account = Account.loadAccount();
+        if (account.verifyVisitor()) {
             gameSystem.setGameOver(true);
             URL url = getClass().getResource("/Sokoban/Fxml/LoginScene.fxml");
             AudioManager.playbackgroundPeace();
