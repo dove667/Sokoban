@@ -1,5 +1,6 @@
 package Sokoban.Controller;
 
+import Sokoban.Model.Account;
 import Sokoban.Model.GameSystem;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -19,7 +20,7 @@ import static Sokoban.Login_Application.primaryStage;
 public class FailedController {
 
     @FXML
-    private Button Btn_TryAgain, Btn_Home;
+    private Button Btn_TryAgain,Btn_Home;
 
     @FXML
     private Label Label_Failed;
@@ -29,8 +30,12 @@ public class FailedController {
         Platform.runLater(() -> {
             lose.playLose();
         });
+        Account account = Account.loadAccount();
+        if (account.verifyVisitor()){
+            Btn_Home.setDisable(true);
+            Btn_Home.setVisible(false);
+        }
     }
-
     @FXML
     void HomeBtnReleased(MouseEvent event) throws IOException {
         if (GameSystem.verifyVisitor()) {
@@ -50,32 +55,37 @@ public class FailedController {
 
     @FXML
     void TryAgainBtnReleased(MouseEvent event) throws IOException {
-        if (GameSystem.getCurrentLevel() == 1) {
-            URL url = getClass().getResource("/Sokoban/Fxml/Level1.fxml");
-            Parent root = FXMLLoader.load(Objects.requireNonNull(url));
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-        } else if (GameSystem.getCurrentLevel() == 2) {
-            URL url = getClass().getResource("/Sokoban/Fxml/Level2.fxml");
-            Parent root = FXMLLoader.load(Objects.requireNonNull(url));
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-        } else if (GameSystem.getCurrentLevel() == 3) {
-            URL url = getClass().getResource("/Sokoban/Fxml/Level3.fxml");
-            Parent root = FXMLLoader.load(Objects.requireNonNull(url));
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-        } else if (GameSystem.getCurrentLevel() == 4) {
-            URL url = getClass().getResource("/Sokoban/Fxml/Level4.fxml");
-            Parent root = FXMLLoader.load(Objects.requireNonNull(url));
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-        } else if (GameSystem.getCurrentLevel() == 5) {
-            URL url = getClass().getResource("/Sokoban/Fxml/Level5.fxml");
-            Parent root = FXMLLoader.load(Objects.requireNonNull(url));
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-        }
+        Account account = Account.loadAccount();
+         if(account.getCurrentLevel()==1){
+             URL url = getClass().getResource("/Sokoban/Level1.fxml");
+             Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+             Scene scene = new Scene(root);
+             primaryStage.setScene(scene);
+         }
+         else if(account.getCurrentLevel()==2){
+             URL url = getClass().getResource("/Sokoban/Level2.fxml");
+             Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+             Scene scene = new Scene(root);
+             primaryStage.setScene(scene);
+         }
+         else if(account.getCurrentLevel()==3){
+             URL url = getClass().getResource("/Sokoban/Level3.fxml");
+             Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+             Scene scene = new Scene(root);
+             primaryStage.setScene(scene);
+         }
+         else if(account.getCurrentLevel()==4){
+             URL url = getClass().getResource("/Sokoban/Level4.fxml");
+             Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+             Scene scene = new Scene(root);
+             primaryStage.setScene(scene);
+         }
+         else if(account.getCurrentLevel()==5){
+             URL url = getClass().getResource("/Sokoban/Level5.fxml");
+             Parent root = FXMLLoader.load(Objects.requireNonNull(url));
+             Scene scene = new Scene(root);
+             primaryStage.setScene(scene);
+         }
 
 
     }

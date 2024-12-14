@@ -1,5 +1,7 @@
 package Sokoban.Controller;
 
+import Sokoban.Model.Account;
+import Sokoban.Model.AccountsSystem;
 import Sokoban.Model.GameSystem;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -9,18 +11,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
-
 import static Sokoban.Login_Application.primaryStage;
 
 public class LoginSceneController {
 
     @FXML
-    private Button Btn_login, Btn_SignUp, Btn_visitor;
+    private Button Btn_login,Btn_SignUp,Btn_visitor;
 
     @FXML
     private AnchorPane Pane;
@@ -42,27 +43,13 @@ public class LoginSceneController {
 
     @FXML
     void LoginBtnReleased() throws IOException {
+        AccountsSystem.loadAccounts();
         String username = Input_username.getText();
         String passwd = Input_passwd.getText();
-        GameSystem system = new GameSystem();
-        system = system.loadAccount();
 
-        if (username.equals("admin") && passwd.equals("admin")) {
-            GameSystem.setIsAdmin(true);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Reminder");
-            alert.setHeaderText(String.format("Welcome, Niker %s!", username));
-            alert.setContentText("Log in successfully.");
-            alert.showAndWait();
-            //切换场景
-            URL url = getClass().getResource("/Sokoban/Fxml/LevelScene.fxml");
-            //加载完fxml文件后，获取其中的root
-            Parent root = FXMLLoader.load(Objects.requireNonNull(url));
-            //设置场景
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-        } else if (Arrays.asList(system.getName()).contains(username) && Arrays.asList(system.getPassword()).contains(passwd)
-                && system.checkMatch(system.getName(), system.getPassword(), username, passwd)) {
+         if (AccountsSystem.checkAccount(AccountsSystem.getNames(),username, AccountsSystem.getPasswords(),passwd)) {
+            Account account = AccountsSystem.getAccount(username);
+            Account.saveAccount(account);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Reminder");
@@ -98,8 +85,11 @@ public class LoginSceneController {
 
     @FXML
     void VisitorBtnReleased() throws IOException {
+        Account visitor = new Account(true);
+        AccountsSystem.addAccount(visitor);
+
         Platform.runLater(AudioManager::stop);
-        GameSystem.setIsVisitor(true);
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("caution");
         alert.setHeaderText("visitor mode");

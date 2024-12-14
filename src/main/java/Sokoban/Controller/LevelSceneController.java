@@ -1,5 +1,6 @@
 package Sokoban.Controller;
 
+import Sokoban.Model.Account;
 import Sokoban.Model.GameSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,51 +37,32 @@ public class LevelSceneController {
     @FXML
     private Button Btn_Return;
 
+    Account account = Account.loadAccount();
+
     public void initialize() {
         if (GameSystem.isTimeMode()) {
             Label_Mode.setText("open");
         } else {
             Label_Mode.setText("closed");
         }
-        if (!GameSystem.verifyAdmin()) {
-            if (!GameSystem.isL1win()) {
-                Btn_Level2.setDisable(true);
-                Btn_Level2.setVisible(false);
-                Btn_Level3.setDisable(true);
-                Btn_Level3.setVisible(false);
-                Btn_Level4.setDisable(true);
-                Btn_Level4.setVisible(false);
-                Btn_Level5.setDisable(true);
-                Btn_Level5.setVisible(false);
-                Btn_Level6.setDisable(true);
-                Btn_Level6.setVisible(false);
-            } else if (!GameSystem.isL2win()) {
-                Btn_Level3.setDisable(true);
-                Btn_Level3.setVisible(false);
-                Btn_Level4.setDisable(true);
-                Btn_Level4.setVisible(false);
-                Btn_Level5.setDisable(true);
-                Btn_Level5.setVisible(false);
-                Btn_Level6.setDisable(true);
-                Btn_Level6.setVisible(false);
-            } else if (!GameSystem.isL3win()) {
-                Btn_Level4.setDisable(true);
-                Btn_Level4.setVisible(false);
-                Btn_Level5.setDisable(true);
-                Btn_Level5.setVisible(false);
-                Btn_Level6.setDisable(true);
-                Btn_Level6.setVisible(false);
-            } else if (!GameSystem.isL4win()) {
-                Btn_Level5.setDisable(true);
-                Btn_Level5.setVisible(false);
-                Btn_Level6.setDisable(true);
-                Btn_Level6.setVisible(false);
-            } else if (!GameSystem.isL5win()) {
-                Btn_Level6.setDisable(true);
-                Btn_Level6.setVisible(false);
-            }
+        if(!account.isL1win()){
+            Btn_Level2.setDisable(true); Btn_Level2.setVisible(false);
+            Btn_Level3.setDisable(true);Btn_Level3.setVisible(false);
+            Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
+            Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
         }
-
+        else if(!account.isL2win()){
+            Btn_Level3.setDisable(true);Btn_Level3.setVisible(false);
+            Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
+            Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
+        }
+        else if(!account.isL3win()){
+            Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
+            Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
+        }
+        else if(!account.isL4win()){
+            Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
+        }
         Btn_TimeMode.setFont(Font.font("Century", 20));
         Btn_Return.setFont(Font.font("Century", 20));
         Label_Mode.setFont(Font.font("Century", FontWeight.BOLD, 20));
@@ -99,8 +81,7 @@ public class LevelSceneController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        GameSystem.setCurrentLevel(1);
-        GameSystem.setCurrentLevel("Level1");
+        account.setCurrentLevel(1);
         GameSystem.setTimeMode(setMode());
     }
 
@@ -113,8 +94,7 @@ public class LevelSceneController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        GameSystem.setCurrentLevel(2);
-        GameSystem.setCurrentLevel("Level2");
+        account.setCurrentLevel(2);
         GameSystem.setTimeMode(setMode());
     }
 
@@ -126,8 +106,7 @@ public class LevelSceneController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        GameSystem.setCurrentLevel(3);
-        GameSystem.setCurrentLevel("Level3");
+        account.setCurrentLevel(3);
         GameSystem.setTimeMode(setMode());
     }
 
@@ -139,8 +118,7 @@ public class LevelSceneController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        GameSystem.setCurrentLevel(4);
-        GameSystem.setCurrentLevel("Level4");
+        account.setCurrentLevel(4);
         GameSystem.setTimeMode(setMode());
     }
 
@@ -152,8 +130,7 @@ public class LevelSceneController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        GameSystem.setCurrentLevel(5);
-        GameSystem.setCurrentLevel("Level5");
+        account.setCurrentLevel(5);
         GameSystem.setTimeMode(setMode());
     }
 

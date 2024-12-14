@@ -31,7 +31,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import static Sokoban.Login_Application.primaryStage;
-import static Sokoban.Model.GameSystem.verifyVisitor;
+
 
 import java.util.Objects;
 
@@ -119,18 +119,18 @@ public class Level3Controller {
             gameSystem3.setPlayeriniRow(GridPane.getRowIndex(Niker));
 
 
-            //判断是否为游客模式
-            if (verifyVisitor()) {
-                Img_load.setVisible(false);
-                Img_save.setVisible(false);
-                Img_home.setVisible(false);
-                Btn_load.setDisable(true);
-                Btn_save.setDisable(true);
-                Btn_home.setDisable(true);
-            }
-            GameSystem.setCurrentLevel(3);
-            GameSystem.setCurrentLevel("Level3");
-            Pane.requestFocus(); // 确保焦点设置
+        Account account = Account.loadAccount();
+        //判断是否为游客模式
+        if (account.verifyVisitor()){
+            Img_load.setVisible(false);
+            Img_save.setVisible(false);
+            Img_home.setVisible(false);
+            Btn_load.setDisable(true);
+            Btn_save.setDisable(true);
+            Btn_home.setDisable(true);
+        }
+        account.setCurrentLevel(3);
+        Pane.requestFocus(); // 确保焦点设置
 
 
             if (GameSystem.isTimeMode()) {

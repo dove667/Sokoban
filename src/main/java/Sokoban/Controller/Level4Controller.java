@@ -119,21 +119,19 @@ public class Level4Controller {
             gameSystem4.addPlayerPositons(GridPane.getColumnIndex(Niker), GridPane.getRowIndex(Niker));
             gameSystem4.setPlayeriniCol(GridPane.getColumnIndex(Niker));
             gameSystem4.setPlayeriniRow(GridPane.getRowIndex(Niker));
-
-
-            //判断是否为游客模式
-            if (GameSystem.verifyVisitor()) {
-                Img_load.setVisible(false);
-                Img_save.setVisible(false);
-                Img_home.setVisible(false);
-                Btn_load.setDisable(true);
-                Btn_save.setDisable(true);
-                Btn_home.setDisable(true);
-            }
-
-            GameSystem.setCurrentLevel(4);
-            GameSystem.setCurrentLevel("Level4");
-            Pane.requestFocus(); // 确保焦点设置
+        });
+        Account account = Account.loadAccount();
+        //判断是否为游客模式
+        if (account.verifyVisitor()){
+            Img_load.setVisible(false);
+            Img_save.setVisible(false);
+            Img_home.setVisible(false);
+            Btn_load.setDisable(true);
+            Btn_save.setDisable(true);
+            Btn_home.setDisable(true);
+        }
+        account.setCurrentLevel(4);
+        Pane.requestFocus(); // 确保焦点设置
 
             if (GameSystem.isTimeMode()) {
                 timeline = new Timeline(

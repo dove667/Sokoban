@@ -139,16 +139,16 @@ public class Level1Controller {
             gameSystem.setPlayeriniCol(GridPane.getColumnIndex(Niker));
             gameSystem.setPlayeriniRow(GridPane.getRowIndex(Niker));
 
-            //判断是否为游客模式
-            if (GameSystem.verifyVisitor()) {
+            Account account = Account.loadAccount();
+           //判断是否为游客模式
+            if (account.verifyVisitor()){
                 Img_load.setVisible(false);
                 Img_save.setVisible(false);
                 Btn_load.setDisable(true);
                 Btn_save.setDisable(true);
 
             }
-            GameSystem.setCurrentLevel(1);
-            GameSystem.setCurrentLevel("Level1");
+            account.setCurrentLevel(1);
             Pane.requestFocus(); // 确保焦点设置
 
             //计时模式
