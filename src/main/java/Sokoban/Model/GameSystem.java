@@ -15,6 +15,9 @@ import static Sokoban.Login_Application.primaryStage;
 public class GameSystem implements Serializable {
 //原本levelwin采用单例模式，静态储存关卡状态，使得关卡记忆为所有实例公用。但关卡信息应该依附于不同账号，属于账号的成员变量。
     //因此，本版本将levelwin分离成账号类，并将关卡信息储存在账号类中。gamesystem类只负责关卡内游戏逻辑。
+@Serial
+private static final long serialVersionUID = 1L; // 修改为相同的版本ID
+
     private int timeRemaining;
     private int steps;
     Player niker ;

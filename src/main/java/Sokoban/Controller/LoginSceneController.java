@@ -37,13 +37,10 @@ public class LoginSceneController {
     private Label Label_username,Label_Sokoban,Label_passwd;
 
 
-    public void initialize() {
-        AccountsSystem.loadAccounts();
-    }
-
 
     @FXML
     void LoginBtnReleased() throws IOException {
+        AccountsSystem.loadAccounts();
         String username = Input_username.getText();
         String passwd = Input_passwd.getText();
 
