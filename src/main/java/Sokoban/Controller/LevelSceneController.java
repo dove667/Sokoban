@@ -45,24 +45,45 @@ public class LevelSceneController {
         } else {
             Label_Mode.setText("closed");
         }
-        if(!account.isL1win()){
-            Btn_Level2.setDisable(true); Btn_Level2.setVisible(false);
-            Btn_Level3.setDisable(true);Btn_Level3.setVisible(false);
-            Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
-            Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
+        if (!account.verifyAdimin()) {
+            if (!account.isL1win()) {
+                Btn_Level2.setDisable(true);
+                Btn_Level2.setVisible(false);
+                Btn_Level3.setDisable(true);
+                Btn_Level3.setVisible(false);
+                Btn_Level4.setDisable(true);
+                Btn_Level4.setVisible(false);
+                Btn_Level5.setDisable(true);
+                Btn_Level5.setVisible(false);
+                Btn_Level6.setDisable(true);
+                Btn_Level6.setVisible(false);
+            } else if (!account.isL2win()) {
+                Btn_Level3.setDisable(true);
+                Btn_Level3.setVisible(false);
+                Btn_Level4.setDisable(true);
+                Btn_Level4.setVisible(false);
+                Btn_Level5.setDisable(true);
+                Btn_Level5.setVisible(false);
+                Btn_Level6.setDisable(true);
+                Btn_Level6.setVisible(false);
+            } else if (!account.isL3win()) {
+                Btn_Level4.setDisable(true);
+                Btn_Level4.setVisible(false);
+                Btn_Level5.setDisable(true);
+                Btn_Level5.setVisible(false);
+                Btn_Level6.setDisable(true);
+                Btn_Level6.setVisible(false);
+            } else if (!account.isL4win()) {
+                Btn_Level5.setDisable(true);
+                Btn_Level5.setVisible(false);
+                Btn_Level6.setDisable(true);
+                Btn_Level6.setVisible(false);
+            } else if (!account.isL5win()) {
+                Btn_Level6.setDisable(true);
+                Btn_Level6.setVisible(false);
+            }
         }
-        else if(!account.isL2win()){
-            Btn_Level3.setDisable(true);Btn_Level3.setVisible(false);
-            Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
-            Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
-        }
-        else if(!account.isL3win()){
-            Btn_Level4.setDisable(true);Btn_Level4.setVisible(false);
-            Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
-        }
-        else if(!account.isL4win()){
-            Btn_Level5.setDisable(true);Btn_Level5.setVisible(false);
-        }
+
         Btn_TimeMode.setFont(Font.font("Century", 20));
         Btn_Return.setFont(Font.font("Century", 20));
         Label_Mode.setFont(Font.font("Century", FontWeight.BOLD, 20));

@@ -7,6 +7,8 @@ import java.util.List;
 public class AccountsSystem {
 
 
+
+
     //账号密码
     private static final List<String> passwords = new ArrayList<>();
     private static final List<String> names = new ArrayList<>();
@@ -80,6 +82,8 @@ public class AccountsSystem {
 
     // 用于保存静态成员状态的非静态内部类
     private static class AccountData implements Serializable {
+        @Serial
+        private static final long serialVersionUID = 2L;
         private final List<String> names;
         private final List<String> passwords;
         private final List<Account> accounts;

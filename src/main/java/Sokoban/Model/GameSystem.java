@@ -1,42 +1,42 @@
 package Sokoban.Model;
 
-import java.io.*;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.Objects;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import java.io.*;
+import java.net.URL;
+import java.util.Objects;
+
 import static Sokoban.Login_Application.primaryStage;
 
 public class GameSystem implements Serializable {
-//原本levelwin采用单例模式，静态储存关卡状态，使得关卡记忆为所有实例公用。但关卡信息应该依附于不同账号，属于账号的成员变量。
+    //原本levelwin采用单例模式，静态储存关卡状态，使得关卡记忆为所有实例公用。但关卡信息应该依附于不同账号，属于账号的成员变量。
     //因此，本版本将levelwin分离成账号类，并将关卡信息储存在账号类中。gamesystem类只负责关卡内游戏逻辑。
-@Serial
-private static final long serialVersionUID = 1L; // 修改为相同的版本ID
+    @Serial
+    private static final long serialVersionUID = 1L; // 修改为相同的版本ID
 
     private int timeRemaining;
     private int steps;
-    Player niker ;
-    private Box[]boxes;
+    Player niker;
+    private Box[] boxes;
     private Board[] boards;
-    private Target[]targets;
+    private Target[] targets;
     private int[][] matrix;
     private static boolean isTimeMode;
     //静态字段允许在没有实例创建时使用(选择关卡时),但仍会在构造方法中被赋予默认值
 
     private int boxNum;
-    private  boolean isGameOver;
+    private boolean isGameOver;
 
 
     public boolean isGameOver() {
         return isGameOver;
     }
 
-    public  void setGameOver(boolean b) {
+    public void setGameOver(boolean b) {
         this.isGameOver = b;
     }
 
@@ -46,11 +46,11 @@ private static final long serialVersionUID = 1L; // 修改为相同的版本ID
     }
 
 
-
-
     //constructor
-    public GameSystem() {}
-    public GameSystem(int boxNumber, int targetNumber,int boardNumber, int width, int height,int time) {
+    public GameSystem() {
+    }
+
+    public GameSystem(int boxNumber, int targetNumber, int boardNumber, int width, int height, int time) {
         timeRemaining = time;
         steps = 0;
         boxNum = boxNumber;
@@ -71,21 +71,24 @@ private static final long serialVersionUID = 1L; // 修改为相同的版本ID
         niker = new Player();
     }
 
-    public void setBox(int i,int col,int row){
-        boxes[i-1].setCurrentCol(col);
-        boxes[i-1].setCurrentRow(row);
-        boxes[i-1].setId(i);
-        boxes[i-1].setMovable(true);
+    public void setBox(int i, int col, int row) {
+        boxes[i - 1].setCurrentCol(col);
+        boxes[i - 1].setCurrentRow(row);
+        boxes[i - 1].setId(i);
+        boxes[i - 1].setMovable(true);
     }
-    public void setBoard(int i,int col,int row) {
+
+    public void setBoard(int i, int col, int row) {
         boards[i].setCurrentCol(col);
         boards[i].setCurrentRow(row);
     }
-    public void setTarget(int i,int col,int row){
+
+    public void setTarget(int i, int col, int row) {
         targets[i].setCurrentCol(col);
         targets[i].setCurrentRow(row);
     }
-    public void setPlayer(int col,int row){
+
+    public void setPlayer(int col, int row) {
         niker.setCurrentCol(col);
         niker.setCurrentRow(row);
     }
@@ -93,24 +96,23 @@ private static final long serialVersionUID = 1L; // 修改为相同的版本ID
 
     public void victoryJudge() throws IOException {
 
-        for(int i=0;i<matrix.length;i++){
-            for(int j=0;j<matrix.length;j++){
-                if(matrix[i][j] == 12){
-                    for (int m = 0; m < matrix.length; m++){
-                        for (int n = 0; n < matrix.length; n++){
-                            if(matrix[m][n] == 12 && !(m==i && n==j)){
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                if (matrix[i][j] == 12) {
+                    for (int m = 0; m < matrix.length; m++) {
+                        for (int n = 0; n < matrix.length; n++) {
+                            if (matrix[m][n] == 12 && !(m == i && n == j)) {
                                 //同时有两个box达到target了
-                                if(boxNum==2){
+                                if (boxNum == 2) {
                                     URL url = getClass().getResource("/Sokoban/Fxml/Victory.fxml");
                                     Parent root = FXMLLoader.load(Objects.requireNonNull(url));
                                     Scene scene = new Scene(root);
                                     primaryStage.setScene(scene);
                                     isGameOver = true;
-                                }
-                                else if(boxNum==3){
-                                    for(int p=0;p<matrix.length;p++){
-                                        for(int q=0;q<matrix.length;q++){
-                                            if(matrix[p][q] == 12  && !(p==i && q==j) && !(p==m && q==n)){
+                                } else if (boxNum == 3) {
+                                    for (int p = 0; p < matrix.length; p++) {
+                                        for (int q = 0; q < matrix.length; q++) {
+                                            if (matrix[p][q] == 12 && !(p == i && q == j) && !(p == m && q == n)) {
                                                 URL url = getClass().getResource("/Sokoban/Fxml/Victory.fxml");
                                                 Parent root = FXMLLoader.load(Objects.requireNonNull(url));
                                                 Scene scene = new Scene(root);
@@ -122,7 +124,6 @@ private static final long serialVersionUID = 1L; // 修改为相同的版本ID
                                 }
 
 
-
                             }
                         }
                     }
@@ -132,21 +133,20 @@ private static final long serialVersionUID = 1L; // 修改为相同的版本ID
     }
 
     public void failedJudge() throws IOException {
-        for(Box box:boxes){
+        for (Box box : boxes) {
             judgeBoxMovable(box);
         }
 
-        if(boxNum==2){
-            if(!boxes[0].isMovable() && !boxes[1].isMovable()){
+        if (boxNum == 2) {
+            if (!boxes[0].isMovable() && !boxes[1].isMovable()) {
                 URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                 Parent root = FXMLLoader.load(Objects.requireNonNull(url));
                 Scene scene = new Scene(root);
                 primaryStage.setScene(scene);
                 isGameOver = true;
             }
-        }
-        else if(boxNum==3){
-            if(!boxes[0].isMovable() && !boxes[1].isMovable() && !boxes[2].isMovable()){
+        } else if (boxNum == 3) {
+            if (!boxes[0].isMovable() && !boxes[1].isMovable() && !boxes[2].isMovable()) {
                 URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                 Parent root = FXMLLoader.load(Objects.requireNonNull(url));
                 Scene scene = new Scene(root);
@@ -158,86 +158,86 @@ private static final long serialVersionUID = 1L; // 修改为相同的版本ID
 
     public void judgeBoxMovable(@NotNull Box box) throws IOException {
         //左右，上下各有一面时board时
-        if((matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 1)
-        || (matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 1)
-        || (matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 1)
-        || (matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 1)){
+        if ((matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 1)
+                || (matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 1)
+                || (matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 1)
+                || (matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 1)) {
             box.setMovable(false);
         }
         //左右，上下一面board一面box时(1--10,12)4
-        else if(matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 10
-        || matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 10
-        || matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 10
-        || matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 10
-        || matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 1 && matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 10
-        || matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 1 && matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 10
-        || matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 1 && matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 10
-        || matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 1 && matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 10
-        ||matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 12
-        || matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 12
-        || matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 12
-        || matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 12
-        || matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 1 && matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 12
-        || matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 1 && matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 12
-        || matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 1 && matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 12
-        || matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 1 && matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 12){
+        else if (matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 10
+                || matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 10
+                || matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 10
+                || matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 10
+                || matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 1 && matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 10
+                || matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 1 && matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 10
+                || matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 1 && matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 10
+                || matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 1 && matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 10
+                || matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 12
+                || matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 12
+                || matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 12
+                || matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 1 && matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 12
+                || matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 1 && matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 12
+                || matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 1 && matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 12
+                || matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 1 && matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 12
+                || matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 1 && matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 12) {
             box.setMovable(false);
         }
         //左右，上下各一面box时(10,12--10,12)4
-        else if(matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 10
-               || matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 10
-               || matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 10
-               || matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 10
-               || matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 10 && matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 10
-               || matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 10 && matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 10
-               || matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 10 && matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 10
-               || matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 10 && matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 10
-               ||matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 12
-               || matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 12
-               || matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 12
-               || matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 12
-               || matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 10 && matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 12
-               || matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 10 && matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 12
-               || matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 10 && matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 12
-               || matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 10 && matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 12
-               || matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 12 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 10
-                || matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 12 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 10
-                || matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 12 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 10
-                || matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 12 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 10
-                || matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 12 && matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 10
-                || matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 12 && matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 10
-                || matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 12 && matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 10
-                || matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 12 && matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 10
-                ||matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 12 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 12
-                || matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 12 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 12
-                || matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 12 && matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 12
-                || matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 12 && matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 12
-                || matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 12 && matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 12
-                || matrix[box.getCurrentRow()][box.getCurrentCol()-1] == 12 && matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 12
-                || matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 12 && matrix[box.getCurrentRow()-1][box.getCurrentCol()] == 12
-                || matrix[box.getCurrentRow()][box.getCurrentCol()+1] == 12 && matrix[box.getCurrentRow()+1][box.getCurrentCol()] == 12){
-           box.setMovable(false);
-       }
-       else{
-           box.setMovable(true);
+        else if (matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 10
+                || matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 10
+                || matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 10
+                || matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 10
+                || matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 10 && matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 10
+                || matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 10 && matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 10
+                || matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 10 && matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 10
+                || matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 10 && matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 10
+                || matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 12
+                || matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 12
+                || matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 12
+                || matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 10 && matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 12
+                || matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 10 && matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 12
+                || matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 10 && matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 12
+                || matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 10 && matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 12
+                || matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 10 && matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 12
+                || matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 12 && matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 10
+                || matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 12 && matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 10
+                || matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 12 && matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 10
+                || matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 12 && matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 10
+                || matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 12 && matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 10
+                || matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 12 && matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 10
+                || matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 12 && matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 10
+                || matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 12 && matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 10
+                || matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 12 && matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 12
+                || matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 12 && matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 12
+                || matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 12 && matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 12
+                || matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 12 && matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 12
+                || matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 12 && matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 12
+                || matrix[box.getCurrentRow()][box.getCurrentCol() - 1] == 12 && matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 12
+                || matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 12 && matrix[box.getCurrentRow() - 1][box.getCurrentCol()] == 12
+                || matrix[box.getCurrentRow()][box.getCurrentCol() + 1] == 12 && matrix[box.getCurrentRow() + 1][box.getCurrentCol()] == 12) {
+            box.setMovable(false);
+        } else {
+            box.setMovable(true);
         }
     }
-
 
 
     public int getSteps() {
         return steps;
     }
-    public  int getTimeRemaining() {
+
+    public int getTimeRemaining() {
         return timeRemaining;
     }
+
     public void setSteps(int steps) {
         this.steps = steps;
     }
-    public  void setTimeRemaining(int timeRemaining) {
+
+    public void setTimeRemaining(int timeRemaining) {
         this.timeRemaining = timeRemaining;
     }
-
 
 
     public void saveGameProgress(GameSystem progress) {
@@ -282,52 +282,58 @@ private static final long serialVersionUID = 1L; // 修改为相同的版本ID
 
 
     //矩阵大小初始化，boxes和targets数组已经指向默认类对象
-        /*
-         * This class is to record the map of one game. For example:
-         * matrix =
-         * {1, 1,  1, 1,  1, 1},
-         * {1, 20, 0, 0,  0, 1},
-         * {1, 0,  0, 10, 2, 1},
-         * {1, 0,  2, 10, 0, 1},
-         * {1, 1,  1, 1,  1, 1}
-         * The Unit digit number cannot be changed during one game.
-         * 1  wall
-         * 0 free space
-         * 2  target location
-         * The Then digit number can be changed during one game.
-         * 十位数 1 box
-         * 十位数 2  player
-         * So that 12 represents a box on the target location and
-         * 22 represents the player on the target location.
-         */
-   //在controller的初始化方法中调用，量化矩阵
-    public void addBoxPositons(){
-        for(Box box : boxes){
-             int x = box.getCurrentRow(); int y = box.getCurrentCol();
-            matrix[x][y] =10;
+    /*
+     * This class is to record the map of one game. For example:
+     * matrix =
+     * {1, 1,  1, 1,  1, 1},
+     * {1, 20, 0, 0,  0, 1},
+     * {1, 0,  0, 10, 2, 1},
+     * {1, 0,  2, 10, 0, 1},
+     * {1, 1,  1, 1,  1, 1}
+     * The Unit digit number cannot be changed during one game.
+     * 1  wall
+     * 0 free space
+     * 2  target location
+     * The Then digit number can be changed during one game.
+     * 十位数 1 box
+     * 十位数 2  player
+     * So that 12 represents a box on the target location and
+     * 22 represents the player on the target location.
+     */
+    //在controller的初始化方法中调用，量化矩阵
+    public void addBoxPositons() {
+        for (Box box : boxes) {
+            int x = box.getCurrentRow();
+            int y = box.getCurrentCol();
+            matrix[x][y] = 10;
         }
     }
-    public void addTargetPositons(){
-        for(Target target : targets){
+
+    public void addTargetPositons() {
+        for (Target target : targets) {
             int x = target.getCurrentRow();
             int y = target.getCurrentCol();
             matrix[x][y] = 2;
         }
     }
-    public void addBoardPositons(){
-        for(Board board : boards){
-            int x = board.getCurrentRow(); int y = board.getCurrentCol();
+
+    public void addBoardPositons() {
+        for (Board board : boards) {
+            int x = board.getCurrentRow();
+            int y = board.getCurrentCol();
             matrix[x][y] = 1;
         }
     }
-    public void addPlayerPositons(int row,int col){
+
+    public void addPlayerPositons(int row, int col) {
         matrix[row][col] = 20;
     }
 
-    public int getPlayerRow(){
+    public int getPlayerRow() {
         return niker.getCurrentRow();
     }
-    public int getPlayerCol(){
+
+    public int getPlayerCol() {
         return niker.getCurrentCol();
     }
 
@@ -342,14 +348,17 @@ private static final long serialVersionUID = 1L; // 修改为相同的版本ID
     public void setPlayeriniCol(int col) {
         niker.setInitialcol(col);
     }
-    public void setPlayeriniRow(int row ){
+
+    public void setPlayeriniRow(int row) {
         niker.setInitialrow(row);
     }
-    public int getBoxRow(int i){
-        return boxes[i-1].getCurrentRow();
+
+    public int getBoxRow(int i) {
+        return boxes[i - 1].getCurrentRow();
     }
-    public int getBoxCol(int i){
-        return boxes[i-1].getCurrentCol();
+
+    public int getBoxCol(int i) {
+        return boxes[i - 1].getCurrentCol();
     }
 
 
@@ -365,62 +374,61 @@ private static final long serialVersionUID = 1L; // 修改为相同的版本ID
     public boolean isBox3(int col, int row) {
         return boxes[2].getCurrentCol() == col && boxes[2].getCurrentRow() == row;
     }
+
     public boolean notWall(int col, int row) {
         return matrix[row][col] != 1;
     }
 
     public void moveoutNiker(int col, int row) {
-        if(matrix[row][col] == 20){
+        if (matrix[row][col] == 20) {
             matrix[row][col] = 0;
-        }
-        else if(matrix[row][col] == 22){
+        } else if (matrix[row][col] == 22) {
             matrix[row][col] = 2;
         }
     }
+
     public void moveinNiker(int col, int row) {
         niker.setCurrentRow(row);
         niker.setCurrentCol(col);
-        if(matrix[row][col] == 0||matrix[row][col] == 10){
+        if (matrix[row][col] == 0 || matrix[row][col] == 10) {
             matrix[row][col] = 20;
-        }
-        else if(matrix[row][col] == 2||matrix[row][col] == 12){
+        } else if (matrix[row][col] == 2 || matrix[row][col] == 12) {
             matrix[row][col] = 22;
         }
         steps++;
     }
 
-    public void moveoutBox(int col,int row){
-        if(matrix[row][col] == 10){
+    public void moveoutBox(int col, int row) {
+        if (matrix[row][col] == 10) {
             matrix[row][col] = 0;
-        }
-        else if(matrix[row][col] == 12){
+        } else if (matrix[row][col] == 12) {
             matrix[row][col] = 2;
         }
     }
-    public void moveinBox(int i,int col,int row){
-        boxes[i-1].setCurrentRow(row);
-        boxes[i-1].setCurrentCol(col);
-        if (matrix[row][col] == 0){
+
+    public void moveinBox(int i, int col, int row) {
+        boxes[i - 1].setCurrentRow(row);
+        boxes[i - 1].setCurrentCol(col);
+        if (matrix[row][col] == 0) {
             matrix[row][col] = 10;
-        }
-        else if(matrix[row][col] == 2){
+        } else if (matrix[row][col] == 2) {
             matrix[row][col] = 12;
         }
     }
 
-    public void reset(int InitRow1, int InitCol1,int InitRow2,int InitCol2) {
+    public void reset(int InitRow1, int InitCol1, int InitRow2, int InitCol2) {
         steps = 0;
         moveoutNiker(niker.getCurrentCol(), niker.getCurrentRow());
         moveinNiker(niker.getInitialcol(), niker.getInitialrow());
-        setBox(1, InitRow1 , InitCol1);
+        setBox(1, InitRow1, InitCol1);
         setBox(2, InitRow2, InitCol2);
     }
 
-    public void reset(int InitRow1, int InitCol1,int InitRow2,int InitCol2,int InitRow3,int InitCol3){
+    public void reset(int InitRow1, int InitCol1, int InitRow2, int InitCol2, int InitRow3, int InitCol3) {
         steps = 0;
         moveoutNiker(niker.getCurrentCol(), niker.getCurrentRow());
         moveinNiker(niker.getInitialcol(), niker.getInitialrow());
-        setBox(1, InitRow1 , InitCol1);
+        setBox(1, InitRow1, InitCol1);
         setBox(2, InitRow2, InitCol2);
         setBox(3, InitRow3, InitCol3);
         //希望为player加上初始坐标属性以便重设时正常

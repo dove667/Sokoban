@@ -18,8 +18,7 @@ public class AudioManager {
     private static final MediaPlayer backgroundFG;
 
 
-
-    static{//静态初始化块
+    static {//静态初始化块
         Media media1 = new Media(Objects.requireNonNull(AudioManager.class.getResource("/Sokoban/Music/TownTheme.mp3")).toExternalForm());
         backgroundPeace = new MediaPlayer(media1);
         Media media2 = new Media(Objects.requireNonNull(AudioManager.class.getResource("/Sokoban/Music/The History.mp3")).toExternalForm());
@@ -42,9 +41,11 @@ public class AudioManager {
     public void playWin() {
         Platform.runLater(win::play);
     }
+
     public void playLose() {
         Platform.runLater(lose::play);
     }
+
     public void playmoveSound() {
         Platform.runLater(moveSound::play);
     }
@@ -56,12 +57,16 @@ public class AudioManager {
 
 
     public static void playbackgroundPeace() {
-        Platform.runLater(() -> {backgroundPeace.play();});
+        Platform.runLater(() -> {
+            backgroundPeace.play();
+        });
     }
 
 
     public static void playbackgroundFG() {
-        Platform.runLater(() -> { backgroundFG.play();});
+        Platform.runLater(() -> {
+            backgroundFG.play();
+        });
     }
 
 

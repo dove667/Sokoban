@@ -1,12 +1,14 @@
 package Sokoban.Controller;
 
-import Sokoban.Model.*;
-import javafx.animation.*;
+import Sokoban.Model.Account;
+import Sokoban.Model.GameSystem;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -29,10 +31,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 import static Sokoban.Login_Application.primaryStage;
-
-import java.util.Objects;
 
 
 public class Level1Controller {
@@ -59,6 +60,7 @@ public class Level1Controller {
 
 
     GameSystem gameSystem = new GameSystem(2, 2, 18, 6, 5, 30);
+    Account account = Account.loadAccount();
 
     //在boxes，targets，boards，matrix数组中都规定大小并建立新引用，初始化全局变量
     //Gridpane静态方法不能再类体中调用，只能在initialize中调用，
@@ -97,26 +99,6 @@ public class Level1Controller {
             imageViewRight.setFitWidth(60);
             Btn_right.setGraphic(imageViewRight);
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Instruction");
-            alert.setHeaderText("To be a Niker...");
-            alert.setContentText("""
-                    You are a Niker, a hero who has been trapped in CS109.
-                    You need to accomplish your project and graduate from
-                    CS109 by moving Niker and pushing boxes to the targets.""");
-            alert.showAndWait();
-            alert.setContentText("""
-                    1. Press arrow or wasd keys or click arrow buttons to move
-                    2. Push boxes to the targets.Only push one box at a time""");
-
-            alert.showAndWait();
-            alert.setContentText("""
-                    3. You can save and load your progress.
-                    4. CLick the Back button to try again.""");
-            alert.showAndWait();
-            alert.setContentText("""
-                    5. quit the game anytime by clicking the Home button.""");
-            alert.showAndWait();
             gameSystem.setBox(1, GridPane.getColumnIndex(box1), GridPane.getRowIndex(box1));
             gameSystem.setBox(2, GridPane.getColumnIndex(box2), GridPane.getRowIndex(box2));
             //设置好system中Box的坐标
@@ -139,9 +121,9 @@ public class Level1Controller {
             gameSystem.setPlayeriniCol(GridPane.getColumnIndex(Niker));
             gameSystem.setPlayeriniRow(GridPane.getRowIndex(Niker));
 
-            Account account = Account.loadAccount();
-           //判断是否为游客模式
-            if (account.verifyVisitor()){
+
+            //判断是否为游客模式
+            if (account.verifyVisitor()) {
                 Img_load.setVisible(false);
                 Img_save.setVisible(false);
                 Btn_load.setDisable(true);
@@ -181,7 +163,26 @@ public class Level1Controller {
                 myTime.setVisible(false);
                 Label_timer.setVisible(false);
             }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Instruction");
+            alert.setHeaderText("To be a Niker...");
+            alert.setContentText("""
+                    You are a Niker, a hero who has been trapped in CS109.
+                    You need to accomplish your project and graduate from
+                    CS109 by moving Niker and pushing boxes to the targets.""");
+            alert.showAndWait();
+            alert.setContentText("""
+                    1. Press arrow or wasd keys or click arrow buttons to move
+                    2. Push boxes to the targets.Only push one box at a time""");
 
+            alert.showAndWait();
+            alert.setContentText("""
+                    3. You can save and load your progress.
+                    4. CLick the Back button to try again.""");
+            alert.showAndWait();
+            alert.setContentText("""
+                    5. quit the game anytime by clicking the Home button.""");
+            alert.showAndWait();
         });
 
     }
@@ -196,7 +197,7 @@ public class Level1Controller {
 
     @FXML
     void HomeBtnPressed(MouseEvent event) throws IOException {
-        Account account = Account.loadAccount();
+
         if (account.verifyVisitor()) {
             gameSystem.setGameOver(true);
             URL url = getClass().getResource("/Sokoban/Fxml/LoginScene.fxml");

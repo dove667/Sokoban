@@ -1,12 +1,14 @@
 package Sokoban.Controller;
 
-import Sokoban.Model.*;
-import javafx.animation.*;
+import Sokoban.Model.Account;
+import Sokoban.Model.GameSystem;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -28,10 +30,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 import static Sokoban.Login_Application.primaryStage;
-
-import java.util.Objects;
 
 public class Level5Controller {
 
@@ -116,18 +117,18 @@ public class Level5Controller {
             gameSystem5.setPlayeriniRow(GridPane.getRowIndex(Niker));
 
 
-        Account account = Account.loadAccount();
-        //判断是否为游客模式
-        if (account.verifyVisitor()){
-            Img_load.setVisible(false);
-            Img_save.setVisible(false);
-            Img_home.setVisible(false);
-            Btn_load.setDisable(true);
-            Btn_save.setDisable(true);
-            Btn_home.setDisable(true);
-        }
-        account.setCurrentLevel(5);
-        Pane.requestFocus(); // 确保焦点设置
+            Account account = Account.loadAccount();
+            //判断是否为游客模式
+            if (account.verifyVisitor()) {
+                Img_load.setVisible(false);
+                Img_save.setVisible(false);
+                Img_home.setVisible(false);
+                Btn_load.setDisable(true);
+                Btn_save.setDisable(true);
+                Btn_home.setDisable(true);
+            }
+            account.setCurrentLevel(5);
+            Pane.requestFocus(); // 确保焦点设置
 
 
             if (GameSystem.isTimeMode()) {

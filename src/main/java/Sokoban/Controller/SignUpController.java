@@ -2,12 +2,14 @@ package Sokoban.Controller;
 
 import Sokoban.Model.Account;
 import Sokoban.Model.AccountsSystem;
-import Sokoban.Model.GameSystem;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -52,7 +54,6 @@ public class SignUpController {
     }
 
 
-
     @FXML
     void SignUpBtnClicked(MouseEvent event) {
         if (!Text_Name.getText().matches("[a-zA-Z0-9]+")) {
@@ -73,15 +74,13 @@ public class SignUpController {
             password.setHeaderText(null);
             password.setContentText("Passwords do not match.");
             password.showAndWait();
-        }
-        else if(AccountsSystem.checkSameName(Text_Name.getText())){
+        } else if (AccountsSystem.checkSameName(Text_Name.getText())) {
             Alert name = new Alert(Alert.AlertType.ERROR);
             name.setTitle("Invalid Name");
             name.setHeaderText(null);
             name.setContentText("Name already exists.");
             name.showAndWait();
-        }
-        else{
+        } else {
             Alert success = new Alert(Alert.AlertType.INFORMATION);
             success.setTitle("Success");
             success.setHeaderText("Sign up successful");
@@ -91,7 +90,7 @@ public class SignUpController {
 
             AccountsSystem.addName(Text_Name.getText());
             AccountsSystem.addPassword(Password_Ensure.getText());
-            Account account = new Account(false);
+            Account account = new Account(false, false);
             AccountsSystem.addAccount(account);
             AccountsSystem.saveAccounts();
             URL url = getClass().getResource("/Sokoban/Fxml/LoginScene.fxml");

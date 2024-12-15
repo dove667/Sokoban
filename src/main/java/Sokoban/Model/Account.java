@@ -6,7 +6,8 @@ import java.io.*;
 
 public class Account implements Serializable {
 //储存Level win信息，currentLevel信息，visitor信息
-
+@Serial
+private static final long serialVersionUID = 1L;
     public static void saveAccount(Account account) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("account.ser"))) {
             out.writeObject(account);
@@ -90,7 +91,11 @@ public class Account implements Serializable {
         } else if (currentLevel == 4) {
             L4win = true;
             return "/Sokoban/Fxml/Level5.fxml";
-        } else {
+        } else if (currentLevel == 5) {
+            L5win = true;
+            return "/Sokoban/Fxml/Level6.fxml";
+        }
+        else {
             return "/Sokoban/Fxml/LevelScene.fxml";
         }
     }
@@ -110,9 +115,17 @@ public class Account implements Serializable {
         return isVisitor;
     }
 
-    public Account(boolean isVisitor) {
+    private final boolean isAdimin;
+
+    public boolean verifyAdimin() {
+        return isAdimin;
+    }
+
+
+    public Account(boolean isVisitor, boolean isAdimin) {
         this.currentLevel = 1;
         this.isVisitor = isVisitor;
+        this.isAdimin = isAdimin;
     }
 
 

@@ -1,7 +1,6 @@
 package Sokoban.Controller;
 
 import Sokoban.Model.Account;
-import Sokoban.Model.GameSystem;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,26 +31,26 @@ public class VictoryController {
     private Label Label_Victory;
 
     AudioManager win = new AudioManager();
+    Account account = Account.loadAccount();
 
     public void initialize() {
-        Account account = Account.loadAccount();
-        if (account.verifyVisitor()){
-            Btn_Home.setDisable(true);
+
+        if (account.verifyVisitor()) {
             Btn_NextLevel.setDisable(true);
             Btn_NextLevel.setVisible(false);
-            Btn_Home.setVisible(false);
+
         }
         account.getNextLevel();//更新Lnwin状态
         Platform.runLater(() -> {
             win.playWin();
         });
-        account.getNextLevel();//更新L win 信息
+
     }
 
     @FXML
     void HomeBtnReleased(MouseEvent event) throws IOException {
         Stage primaryStage = (Stage) Btn_Home.getScene().getWindow();
-        Account account = Account.loadAccount();
+
         if (account.verifyVisitor()) {
             AudioManager.playbackgroundPeace();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -80,7 +79,7 @@ public class VictoryController {
 
     @FXML
     void NextLevelBtnReleased(MouseEvent event) throws IOException {
-        Account account = Account.loadAccount();
+
         String nextLevelPath = account.getNextLevel();
         if (nextLevelPath != null) {
             URL url = getClass().getResource(nextLevelPath);
@@ -88,26 +87,26 @@ public class VictoryController {
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             // 更新当前关卡信息
-            if(account.getCurrentLevel() ==1){
+            if (account.getCurrentLevel() == 1) {
                 account.setL1win(true);
                 account.setCurrentLevel(2);
-            }
-            else if(account.getCurrentLevel() ==2){
+            } else if (account.getCurrentLevel() == 2) {
                 account.setL2win(true);
                 account.setCurrentLevel(3);
-            }
-            else if(account.getCurrentLevel() ==3){
+            } else if (account.getCurrentLevel() == 3) {
                 account.setL3win(true);
                 account.setCurrentLevel(4);
-            }
-            else if(account.getCurrentLevel() ==4){
+            } else if (account.getCurrentLevel() == 4) {
                 account.setL4win(true);
                 account.setCurrentLevel(5);
+            } else if (account.getCurrentLevel() == 5) {
+                account.setL5win(true);
+                account.setCurrentLevel(6);
             }
+
             Account.saveAccount(account);
-        }
-        else {
-            System.out.println("没有更多的关卡可加载");
+        } else {
+            System.out.println("No more levels");
         }
     }
 
