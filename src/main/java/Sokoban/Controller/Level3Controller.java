@@ -93,6 +93,27 @@ public class Level3Controller {
             imageViewRight.setFitWidth(60);
             Btn_right.setGraphic(imageViewRight);
 
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Instruction");
+            alert.setHeaderText("To be a Niker...");
+            alert.setContentText("""
+                    You are a Niker, a hero who has been trapped in CS109.
+                    You need to accomplish your project and graduate from
+                    CS109 by moving Niker and pushing boxes to the targets.""");
+            alert.showAndWait();
+            alert.setContentText("""
+                    1. Press arrow or wasd keys or click arrow buttons to move
+                    2. Push boxes to the targets.Only push one box at a time""");
+
+            alert.showAndWait();
+            alert.setContentText("""
+                    3. You can save and load your progress.
+                    4. CLick the Back button to try again.""");
+            alert.showAndWait();
+            alert.setContentText("""
+                    5. quit the game anytime by clicking the Home button.""");
+            alert.showAndWait();
+
             gameSystem3.setBox(1,GridPane.getColumnIndex(box1),GridPane.getRowIndex(box1));
             gameSystem3.setBox(2,GridPane.getColumnIndex(box2),GridPane.getRowIndex(box2));
             //设置好system中Box的坐标
@@ -119,10 +140,8 @@ public class Level3Controller {
         if (verifyVisitor()){
             Img_load.setVisible(false);
             Img_save.setVisible(false);
-            Img_home.setVisible(false);
             Btn_load.setDisable(true);
             Btn_save.setDisable(true);
-            Btn_home.setDisable(true);
         }
         GameSystem.setCurrentLevel(3);GameSystem.setCurrentLevel("Level3");
         Pane.requestFocus(); // 确保焦点设置
@@ -171,37 +190,53 @@ public class Level3Controller {
 
     @FXML
     void HomeBtnPressed(MouseEvent event) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Comfirm");
-        alert.setHeaderText("Are you sure to quit?");
-        alert.setContentText("Choose OK to quit or Cancel to continue.");
-        // 显示对话框并等待用户操作
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                AudioManager.playbackgroundPeace();
-                gameSystem3.setGameOver(true);stopTimeline();
-                gameSystem3.saveGameProgress(gameSystem3);
-                //切换场景
-                URL url = getClass().getResource("/Sokoban/Fxml/LevelScene.fxml");
-                Parent root;
-                try {
-                    root = FXMLLoader.load(Objects.requireNonNull(url));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+        if(verifyVisitor()){
+            gameSystem3.setGameOver(true);
+            URL url = getClass().getResource("/Sokoban/Fxml/LoginScene.fxml");
+            AudioManager.playbackgroundPeace();
+            Parent root;
+            try {
+                root = FXMLLoader.load(Objects.requireNonNull(url));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+//设置场景
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+        }else{ Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Comfirm");
+            alert.setHeaderText("Are you sure to quit?");
+            alert.setContentText("Choose OK to quit or Cancel to continue.");
+// 显示对话框并等待用户操作
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    gameSystem3.setGameOver(true);stopTimeline();
+                    gameSystem3.saveGameProgress(gameSystem3);
+//切换场景
+                    Platform.runLater(() -> {
+                        AudioManager.playbackgroundPeace();
+                        URL url = getClass().getResource("/Sokoban/Fxml/LevelScene.fxml");
+                        Parent root;
+                        try {
+                            root = FXMLLoader.load(Objects.requireNonNull(url));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        //设置场景
+                        Scene scene = new Scene(root);
+                        primaryStage.setScene(scene);
+                    });
                 }
-                //设置场景
-                Scene scene = new Scene(root);
-                primaryStage.setScene(scene);
-            }
-            else {
-                System.out.println("Operation cancelled.");
-                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                alert1.setTitle("Cancel");
-                alert1.setHeaderText(null);
-                alert1.setContentText("Operation cancelled.");
-                alert1.showAndWait();
-            }
-        });
+                else {
+                    System.out.println("Operation cancelled.");
+                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                    alert1.setTitle("Cancel");
+                    alert1.setHeaderText(null);
+                    alert1.setContentText("Operation cancelled.");
+                    alert1.showAndWait();
+                }
+            });}
+
     }
     @FXML
     void BackBtnPressed() throws IOException {

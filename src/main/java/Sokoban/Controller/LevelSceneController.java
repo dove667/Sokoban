@@ -148,12 +148,12 @@ public class LevelSceneController {
     @FXML
     void Level6BtnReleased() throws IOException {
         AudioManager.stop();
-        Stage primaryStage = (Stage) Btn_Level5.getScene().getWindow();
+        Stage primaryStage = (Stage) Btn_Level6.getScene().getWindow();
         URL url = getClass().getResource("/Sokoban/Fxml/Level6.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        GameSystem.setCurrentLevel(5);
+        GameSystem.setCurrentLevel(6);
         GameSystem.setCurrentLevel("Level6");
         GameSystem.setTimeMode(setMode());
     }
