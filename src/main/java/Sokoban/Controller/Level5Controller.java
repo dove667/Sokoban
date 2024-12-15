@@ -93,26 +93,6 @@ public class Level5Controller {
             Btn_right.setGraphic(imageViewRight);
 
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Instruction");
-            alert.setHeaderText("To be a Niker...");
-            alert.setContentText("""
-                    You are a Niker, a hero who has been trapped in CS109.
-                    You need to accomplish your project and graduate from
-                    CS109 by moving Niker and pushing boxes to the targets.""");
-            alert.showAndWait();
-            alert.setContentText("""
-                    1. Press arrow or wasd keys or click arrow buttons to move
-                    2. Push boxes to the targets.Only push one box at a time""");
-
-            alert.showAndWait();
-            alert.setContentText("""
-                    3. You can save and load your progress.
-                    4. CLick the Back button to try again.""");
-            alert.showAndWait();
-            alert.setContentText("""
-                    5. quit the game anytime by clicking the Home button.""");
-            alert.showAndWait();
 
             gameSystem5.setBox(1, GridPane.getColumnIndex(box1), GridPane.getRowIndex(box1));
             gameSystem5.setBox(2, GridPane.getColumnIndex(box2), GridPane.getRowIndex(box2));
