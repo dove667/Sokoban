@@ -65,7 +65,7 @@ public class Level3Controller {
 
 
     GameSystem gameSystem3 = new GameSystem(2, 2, 25, 7, 7, 30);
-
+    Account account = Account.loadAccount();
     public void initialize() {
         Platform.runLater(() -> {
             //图形初始化
@@ -119,17 +119,8 @@ public class Level3Controller {
             gameSystem3.setPlayeriniRow(GridPane.getRowIndex(Niker));
 
 
-            Account account = Account.loadAccount();
-            //判断是否为游客模式
-            if (account.verifyVisitor()) {
-                Img_load.setVisible(false);
-                Img_save.setVisible(false);
-                Img_home.setVisible(false);
-                Btn_load.setDisable(true);
-                Btn_save.setDisable(true);
-                Btn_home.setDisable(true);
-            }
-            account.setCurrentLevel(3);
+
+            account.setCurrentLevel(3);Account.saveAccount(account);
             Pane.requestFocus(); // 确保焦点设置
 
 

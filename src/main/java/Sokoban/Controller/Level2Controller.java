@@ -64,8 +64,10 @@ public class Level2Controller {
     private Timeline timeline;
 
     GameSystem gameSystem2 = new GameSystem(2, 2, 23, 7, 6, 30);
-
+    Account account = Account.loadAccount();
     public void initialize() {
+
+
         Platform.runLater(() -> {
 
             //图形初始化
@@ -119,17 +121,8 @@ public class Level2Controller {
             gameSystem2.setPlayeriniCol(GridPane.getColumnIndex(Niker));
             gameSystem2.setPlayeriniRow(GridPane.getRowIndex(Niker));
 
-            Account account = Account.loadAccount();
-            //判断是否为游客模式
-            if (account.verifyVisitor()) {
-                Img_load.setVisible(false);
-                Img_save.setVisible(false);
-                Img_home.setVisible(false);
-                Btn_load.setDisable(true);
-                Btn_save.setDisable(true);
-                Btn_home.setDisable(true);
-            }
-            account.setCurrentLevel(2);
+
+            account.setCurrentLevel(2);Account.saveAccount(account);
             Pane.requestFocus(); // 确保焦点设置
 
             //计时模式

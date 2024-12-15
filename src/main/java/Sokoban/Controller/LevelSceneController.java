@@ -103,6 +103,7 @@ public class LevelSceneController {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         account.setCurrentLevel(1);
+        Account.saveAccount(account);
         GameSystem.setTimeMode(setMode());
     }
 
@@ -116,6 +117,7 @@ public class LevelSceneController {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         account.setCurrentLevel(2);
+        Account.saveAccount(account);
         GameSystem.setTimeMode(setMode());
     }
 
@@ -127,7 +129,7 @@ public class LevelSceneController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        account.setCurrentLevel(3);
+        account.setCurrentLevel(3);Account.saveAccount(account);
         GameSystem.setTimeMode(setMode());
     }
 
@@ -139,7 +141,7 @@ public class LevelSceneController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        account.setCurrentLevel(4);
+        account.setCurrentLevel(4);Account.saveAccount(account);
         GameSystem.setTimeMode(setMode());
     }
 
@@ -151,7 +153,7 @@ public class LevelSceneController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        account.setCurrentLevel(5);
+        account.setCurrentLevel(5);Account.saveAccount(account);
         GameSystem.setTimeMode(setMode());
     }
 
@@ -163,7 +165,7 @@ public class LevelSceneController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(url));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        account.setCurrentLevel(5);
+        account.setCurrentLevel(5);Account.saveAccount(account);
         GameSystem.setTimeMode(setMode());
     }
 

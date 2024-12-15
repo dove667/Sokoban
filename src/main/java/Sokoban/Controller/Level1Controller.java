@@ -130,7 +130,7 @@ public class Level1Controller {
                 Btn_save.setDisable(true);
 
             }
-            account.setCurrentLevel(1);
+            account.setCurrentLevel(1);Account.saveAccount(account);
             Pane.requestFocus(); // 确保焦点设置
 
             //计时模式

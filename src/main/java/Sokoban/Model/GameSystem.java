@@ -374,6 +374,12 @@ public class GameSystem implements Serializable {
     public boolean isBox3(int col, int row) {
         return boxes[2].getCurrentCol() == col && boxes[2].getCurrentRow() == row;
     }
+    public boolean isBox4(int col, int row) {
+        return boxes[3].getCurrentCol() == col && boxes[3].getCurrentRow() == row;
+    }
+    public boolean isBox5(int col, int row) {
+        return boxes[4].getCurrentCol() == col && boxes[4].getCurrentRow() == row;
+    }
 
     public boolean notWall(int col, int row) {
         return matrix[row][col] != 1;
@@ -432,5 +438,16 @@ public class GameSystem implements Serializable {
         setBox(2, InitRow2, InitCol2);
         setBox(3, InitRow3, InitCol3);
         //希望为player加上初始坐标属性以便重设时正常
+    }
+
+    public void reset(Integer rowIndex, Integer columnIndex, Integer rowIndex1, Integer columnIndex1, Integer rowIndex2, Integer columnIndex2, Integer rowIndex3, Integer columnIndex3, Integer rowIndex4, Integer columnIndex4) {
+        steps = 0;
+        moveoutNiker(niker.getCurrentCol(), niker.getCurrentRow());
+        moveinNiker(niker.getInitialcol(), niker.getInitialrow());
+        setBox(1, rowIndex , columnIndex);
+        setBox(2, rowIndex1, columnIndex1);
+        setBox(3, rowIndex2, columnIndex2);
+        setBox(4, rowIndex3, columnIndex3);
+        setBox(5, rowIndex4, columnIndex4);
     }
 }

@@ -12,7 +12,7 @@ public class AnimationManager {
     static int L1 = 100;
     static int L2 = 80;
     static int L345 = 70;
-
+    static int L6 = 50;
     public static void resetNodePosition(Node node) {
         node.setTranslateX(0); // 重置水平偏移
         node.setTranslateY(0); // 重置垂直偏移
@@ -22,10 +22,11 @@ public class AnimationManager {
     public static void MoveRight(Node node, int col, int row) {
         Account account = Account.loadAccount();
         TranslateTransition MoveRight = new TranslateTransition();
-        MoveRight.setDuration(Duration.seconds(0.25));
+        MoveRight.setDuration(Duration.seconds(0.1));
         MoveRight.setNode(node);// 应用到的控件
         if (account.getCurrentLevel() == 1) MoveRight.setByX(L1);
         else if (account.getCurrentLevel() == 2) MoveRight.setByX(L2);
+        else if (account.getCurrentLevel() == 6) MoveRight.setByX(L6);
         else MoveRight.setByX(L345);
         MoveRight.setCycleCount(1);  // 动画循环次数
         MoveRight.setAutoReverse(false);  // 不反转
@@ -35,10 +36,11 @@ public class AnimationManager {
     public static void MoveLeft(Node node, int col, int row) {
         Account account = Account.loadAccount();
         TranslateTransition MoveRight = new TranslateTransition();
-        MoveRight.setDuration(Duration.seconds(0.25));
+        MoveRight.setDuration(Duration.seconds(0.1));
         MoveRight.setNode(node);  // 应用到的控件
         if (account.getCurrentLevel() == 1) MoveRight.setByX(-L1);
         else if (account.getCurrentLevel() == 2) MoveRight.setByX(-L2);
+        else if (account.getCurrentLevel() == 6) MoveRight.setByX(-L6);
         else MoveRight.setByX(-L345);
         MoveRight.setCycleCount(1);  // 动画循环次数
         MoveRight.setAutoReverse(false);  // 不反转
@@ -48,10 +50,11 @@ public class AnimationManager {
     public static void MoveUp(Node node, int col, int row) {
         Account account = Account.loadAccount();
         TranslateTransition MoveRight = new TranslateTransition();
-        MoveRight.setDuration(Duration.seconds(0.25));
+        MoveRight.setDuration(Duration.seconds(0.1));
         MoveRight.setNode(node);  // 应用到的控件
         if (account.getCurrentLevel() == 1) MoveRight.setByY(-L1);
         else if (account.getCurrentLevel() == 2) MoveRight.setByY(-L2);
+        else if (account.getCurrentLevel() == 6) MoveRight.setByY(-L6);
         else MoveRight.setByY(-L345);
         MoveRight.setCycleCount(1);  // 动画循环次数
         MoveRight.setAutoReverse(false);  // 不反转
@@ -61,10 +64,11 @@ public class AnimationManager {
     public static void MoveDown(Node node, int col, int row) {
         Account account = Account.loadAccount();
         TranslateTransition MoveRight = new TranslateTransition();
-        MoveRight.setDuration(Duration.seconds(0.25));
+        MoveRight.setDuration(Duration.seconds(0.1));
         MoveRight.setNode(node);  // 应用到的控件
         if (account.getCurrentLevel() == 1) MoveRight.setByY(L1);
         else if (account.getCurrentLevel() == 2) MoveRight.setByY(L2);
+        else if (account.getCurrentLevel() == 6) MoveRight.setByY(L6);
         else MoveRight.setByY(L345);
         MoveRight.setCycleCount(1);  // 动画循环次数
         MoveRight.setAutoReverse(false);  // 不反转
