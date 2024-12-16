@@ -103,7 +103,6 @@ public class VictoryController {
                 account.setL5win(true);
                 account.setCurrentLevel(6);
             }
-
             Account.saveAccount(account);
         } else {
             System.out.println("No more levels");

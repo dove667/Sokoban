@@ -37,9 +37,10 @@ public class LevelSceneController {
     @FXML
     private Button Btn_Return;
 
-    Account account = Account.loadAccount();
+
 
     public void initialize() {
+        Account account = Account.loadAccount();
         if (GameSystem.isTimeMode()) {
             Label_Mode.setText("open");
         } else {
@@ -96,6 +97,7 @@ public class LevelSceneController {
 
     @FXML
     void Level1BtnReleased() throws IOException {
+        Account account = Account.loadAccount();
         AudioManager.stop();
         Stage primaryStage = (Stage) Btn_Level1.getScene().getWindow();
         URL url = getClass().getResource("/Sokoban/Fxml/Level1.fxml");
@@ -110,6 +112,7 @@ public class LevelSceneController {
 
     @FXML
     void Level2BtnReleased() throws IOException {
+        Account account = Account.loadAccount();
         AudioManager.stop();
         Stage primaryStage = (Stage) Btn_Level2.getScene().getWindow();
         URL url = getClass().getResource("/Sokoban/Fxml/Level2.fxml");
@@ -123,6 +126,7 @@ public class LevelSceneController {
 
     @FXML
     void Level3BtnReleased() throws IOException {
+        Account account = Account.loadAccount();
         AudioManager.stop();
         Stage primaryStage = (Stage) Btn_Level3.getScene().getWindow();
         URL url = getClass().getResource("/Sokoban/Fxml/Level3.fxml");
@@ -135,6 +139,7 @@ public class LevelSceneController {
 
     @FXML
     void Level4BtnReleased() throws IOException {
+        Account account = Account.loadAccount();
         AudioManager.stop();
         Stage primaryStage = (Stage) Btn_Level4.getScene().getWindow();
         URL url = getClass().getResource("/Sokoban/Fxml/Level4.fxml");
@@ -147,6 +152,7 @@ public class LevelSceneController {
 
     @FXML
     void Level5BtnReleased() throws IOException {
+        Account account = Account.loadAccount();
         AudioManager.stop();
         Stage primaryStage = (Stage) Btn_Level5.getScene().getWindow();
         URL url = getClass().getResource("/Sokoban/Fxml/Level5.fxml");
@@ -159,6 +165,7 @@ public class LevelSceneController {
 
     @FXML
     void Level6BtnReleased() throws IOException {
+        Account account = Account.loadAccount();
         AudioManager.stop();
         Stage primaryStage = (Stage) Btn_Level5.getScene().getWindow();
         URL url = getClass().getResource("/Sokoban/Fxml/Level6.fxml");

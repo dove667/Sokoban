@@ -65,7 +65,7 @@ public class Level4Controller {
 
 
     GameSystem gameSystem4 = new GameSystem(3, 3, 25, 7, 7, 30);
-    Account account = Account.loadAccount();
+
     public void initialize() {
 
 
@@ -121,6 +121,7 @@ public class Level4Controller {
             gameSystem4.addPlayerPositons(GridPane.getColumnIndex(Niker), GridPane.getRowIndex(Niker));
             gameSystem4.setPlayeriniCol(GridPane.getColumnIndex(Niker));
             gameSystem4.setPlayeriniRow(GridPane.getRowIndex(Niker));
+            Account account = Account.loadAccount();
             account.setCurrentLevel(4);Account.saveAccount(account);
             Pane.requestFocus(); // 确保焦点设置
 

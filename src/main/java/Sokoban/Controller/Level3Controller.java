@@ -65,7 +65,7 @@ public class Level3Controller {
 
 
     GameSystem gameSystem3 = new GameSystem(2, 2, 25, 7, 7, 30);
-    Account account = Account.loadAccount();
+
     public void initialize() {
         Platform.runLater(() -> {
             //图形初始化
@@ -119,7 +119,7 @@ public class Level3Controller {
             gameSystem3.setPlayeriniRow(GridPane.getRowIndex(Niker));
 
 
-
+            Account account = Account.loadAccount();
             account.setCurrentLevel(3);Account.saveAccount(account);
             Pane.requestFocus(); // 确保焦点设置
 

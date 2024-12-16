@@ -52,10 +52,11 @@ public class SignUpController {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
     }
-
+    
 
     @FXML
     void SignUpBtnClicked(MouseEvent event) {
+        AccountsSystem.loadAccounts();
         if (!Text_Name.getText().matches("[a-zA-Z0-9]+")) {
             Alert name = new Alert(Alert.AlertType.ERROR);
             name.setTitle("Invalid Name");

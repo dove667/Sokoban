@@ -64,7 +64,7 @@ public class Level2Controller {
     private Timeline timeline;
 
     GameSystem gameSystem2 = new GameSystem(2, 2, 23, 7, 6, 30);
-    Account account = Account.loadAccount();
+
     public void initialize() {
 
 
@@ -121,7 +121,7 @@ public class Level2Controller {
             gameSystem2.setPlayeriniCol(GridPane.getColumnIndex(Niker));
             gameSystem2.setPlayeriniRow(GridPane.getRowIndex(Niker));
 
-
+            Account account = Account.loadAccount();
             account.setCurrentLevel(2);Account.saveAccount(account);
             Pane.requestFocus(); // 确保焦点设置
 

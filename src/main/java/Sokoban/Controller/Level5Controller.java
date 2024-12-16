@@ -62,7 +62,7 @@ public class Level5Controller {
 
     private Timeline timeline;
     GameSystem gameSystem5 = new GameSystem(3, 3, 25, 8, 6, 30);
-    Account account = Account.loadAccount();
+
     public void initialize() {
         Platform.runLater(() -> {
             //图形初始化
@@ -115,7 +115,7 @@ public class Level5Controller {
             gameSystem5.addPlayerPositons(GridPane.getColumnIndex(Niker), GridPane.getRowIndex(Niker));
             gameSystem5.setPlayeriniCol(GridPane.getColumnIndex(Niker));
             gameSystem5.setPlayeriniRow(GridPane.getRowIndex(Niker));
-
+            Account account = Account.loadAccount();
             account.setCurrentLevel(5);Account.saveAccount(account);
             Pane.requestFocus(); // 确保焦点设置
 

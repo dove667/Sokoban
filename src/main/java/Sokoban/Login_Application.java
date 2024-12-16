@@ -1,5 +1,6 @@
 package Sokoban;
 
+import Sokoban.Model.AccountsSystem;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -30,7 +31,6 @@ public class Login_Application extends Application {
         primaryStage.setTitle("登录界面");
         primaryStage.setScene(scene); // 设置场景
         primaryStage.show(); // 显示窗口
-
     }
 
     public static void main(String[] args) {

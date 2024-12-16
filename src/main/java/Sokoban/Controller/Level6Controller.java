@@ -555,7 +555,7 @@ public class Level6Controller {
 
 
     GameSystem gameSystem6=new GameSystem(5,5,45,12,10,200);
-    Account account = Account.loadAccount();
+
     public void initialize() {
         Platform.runLater(() -> {
             //图形初始化
@@ -613,7 +613,7 @@ public class Level6Controller {
             gameSystem6.addPlayerPositons(GridPane.getColumnIndex(Niker), GridPane.getRowIndex(Niker));
             gameSystem6.setPlayeriniCol(GridPane.getColumnIndex(Niker));
             gameSystem6.setPlayeriniRow(GridPane.getRowIndex(Niker));
-
+            Account account = Account.loadAccount();
             account.setCurrentLevel(6);Account.saveAccount(account);
             pane.requestFocus(); // 确保焦点设置
 

@@ -60,7 +60,7 @@ public class Level1Controller {
 
 
     GameSystem gameSystem = new GameSystem(2, 2, 18, 6, 5, 30);
-    Account account = Account.loadAccount();
+
 
     //在boxes，targets，boards，matrix数组中都规定大小并建立新引用，初始化全局变量
     //Gridpane静态方法不能再类体中调用，只能在initialize中调用，
@@ -70,7 +70,7 @@ public class Level1Controller {
         //JavaFX是单线程模型，所有的UI更新都必须在JavaFX线程上完成，否则会导致不一致性或错误
         //任何需要在JavaFX线程上执行的代码（例如，修改UI组件、更新标签内容等）都应该放在这个方法里面。
         Platform.runLater(() -> {
-
+            Account account = Account.loadAccount();
             //图形初始化
             Image SUST = new Image("file:src/main/resources/Sokoban/Sokoban/pictures/SUST.jpeg");
             Niker.setFill(new ImagePattern(SUST));
@@ -197,7 +197,7 @@ public class Level1Controller {
 
     @FXML
     void HomeBtnPressed(MouseEvent event) throws IOException {
-
+        Account account = Account.loadAccount();
         if (account.verifyVisitor()) {
             gameSystem.setGameOver(true);
             URL url = getClass().getResource("/Sokoban/Fxml/LoginScene.fxml");
