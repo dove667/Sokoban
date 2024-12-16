@@ -134,8 +134,10 @@ public class Level1Controller {
             Pane.requestFocus(); // 确保焦点设置
 
             //计时模式
-
-            if (GameSystem.isTimeMode()) {
+            gameSystem.setTimeMode(LevelSceneController.isL1isTimeMode());
+            if (gameSystem.isTimeMode()) {
+                myTime.setVisible(true);
+                Label_timer.setVisible(true);
                 timeline = new Timeline(
                         new KeyFrame(Duration.seconds(1), event -> {
                             gameSystem.setTimeRemaining(gameSystem.getTimeRemaining() - 1); // 每秒减少 1
@@ -308,7 +310,10 @@ public class Level1Controller {
                         GridPane.setColumnIndex(box2, gameSystem.getBoxCol(2));
                         currentColumnIndex = gameSystem.getPlayerCol();
                         currentRowIndex = gameSystem.getPlayerRow();
-                        if (GameSystem.isTimeMode()) {
+                        gameSystem.setTimeMode(LevelSceneController.isL1isTimeMode());
+                        if (gameSystem.isTimeMode()) {
+                            myTime.setVisible(true);
+                            Label_timer.setVisible(true);
                             timeline = new Timeline(
                                     new KeyFrame(Duration.seconds(1), event -> {
                                         gameSystem.setTimeRemaining(gameSystem.getTimeRemaining() - 1); // 每秒减少 1
@@ -375,7 +380,20 @@ public class Level1Controller {
         }
         event.consume();  // 确保事件不会被其他地方消费
     }
-
+//JavaFX 的事件处理系统基于 事件冒泡（Bubbling） 和 事件捕获（Capturing） 两种阶段：
+//
+//捕获阶段（Capturing Phase）：
+//
+//事件从根节点向目标节点传递，逐层向下传播。
+//在这个阶段，可以通过 addEventFilter() 来捕获事件。
+//目标处理（Target Phase）：
+//
+//到达目标节点时，事件会在目标节点处理。
+//你通常通过 setOnKeyPressed() 或类似的方法处理目标节点的事件。
+//冒泡阶段（Bubbling Phase）：
+//
+//如果事件没有被 consume()，它会从目标节点逐层向上传递到根节点。
+//你可以在冒泡阶段使用 addEventHandler() 处理事件。
 
     //以下是移动事件
     Integer currentColumnIndex = 1;

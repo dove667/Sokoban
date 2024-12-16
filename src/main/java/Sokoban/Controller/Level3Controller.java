@@ -68,7 +68,7 @@ public class Level3Controller {
 
     public void initialize() {
         Platform.runLater(() -> {
-            //图形初始化
+
             Image SUST = new Image("file:src/main/resources/Sokoban/Sokoban/pictures/SUST.jpeg");
             Niker.setFill(new ImagePattern(SUST));
 
@@ -123,8 +123,10 @@ public class Level3Controller {
             account.setCurrentLevel(3);Account.saveAccount(account);
             Pane.requestFocus(); // 确保焦点设置
 
-
-            if (GameSystem.isTimeMode()) {
+            gameSystem3.setTimeMode(LevelSceneController.isL3isTimeMode());
+            if (gameSystem3.isTimeMode()) {
+                myTime.setVisible(true);
+                Label_timer.setVisible(true);
                 timeline = new Timeline(
                         new KeyFrame(Duration.seconds(1), event -> {
                             gameSystem3.setTimeRemaining(gameSystem3.getTimeRemaining() - 1); // 每秒减少 1
@@ -133,6 +135,7 @@ public class Level3Controller {
                             // 检查倒计时是否结束
                             if (gameSystem3.getTimeRemaining() <= 0) {
                                 myTime.setText("time's up");
+                                stopTimeline();
                                 URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                                 Parent root = null;
                                 try {
@@ -252,7 +255,11 @@ public class Level3Controller {
                         GridPane.setColumnIndex(box2, gameSystem3.getBoxCol(2));
                         currentColumnIndex = gameSystem3.getPlayerCol();
                         currentRowIndex = gameSystem3.getPlayerRow();
-                        if (GameSystem.isTimeMode()) {
+                        //可以在计时模式与正常模式之间正常加载进度转化，不需要推出
+                        gameSystem3.setTimeMode(LevelSceneController.isL1isTimeMode());
+                        if (gameSystem3.isTimeMode()) {
+                            myTime.setVisible(true);
+                            Label_timer.setVisible(true);
                             timeline = new Timeline(
                                     new KeyFrame(Duration.seconds(1), event -> {
                                         gameSystem3.setTimeRemaining(gameSystem3.getTimeRemaining() - 1); // 每秒减少 1
@@ -260,7 +267,7 @@ public class Level3Controller {
 
                                         // 检查倒计时是否结束
                                         if (gameSystem3.getTimeRemaining() <= 0) {
-                                            myTime.setText("time's up");
+                                            myTime.setText("time's up");stopTimeline();
                                             URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                                             Parent root = null;
                                             try {

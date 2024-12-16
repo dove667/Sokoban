@@ -25,7 +25,7 @@ public class GameSystem implements Serializable {
     private Board[] boards;
     private Target[] targets;
     private int[][] matrix;
-    private static boolean isTimeMode;
+    private boolean isTimeMode;
     //静态字段允许在没有实例创建时使用(选择关卡时),但仍会在构造方法中被赋予默认值
 
     private int boxNum;
@@ -414,11 +414,11 @@ public class GameSystem implements Serializable {
 
 
 
-    public static boolean isTimeMode() {
+    public boolean isTimeMode() {
         return isTimeMode;
     }
 
-    public static void setTimeMode(boolean a) {
+    public void setTimeMode(boolean a) {
         isTimeMode = a;
     }
 

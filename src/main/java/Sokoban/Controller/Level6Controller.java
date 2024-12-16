@@ -618,8 +618,10 @@ public class Level6Controller {
             pane.requestFocus(); // 确保焦点设置
 
             //计时模式
-
-            if (GameSystem.isTimeMode()) {
+            gameSystem6.setTimeMode(LevelSceneController.isL6isTimeMode());
+            if (gameSystem6.isTimeMode()) {
+                myTime.setVisible(true);
+                Label_timer.setVisible(true);
                 timeline = new Timeline(
                         new KeyFrame(Duration.seconds(1), event -> {
                             gameSystem6.setTimeRemaining(gameSystem6.getTimeRemaining() - 1); // 每秒减少 1
@@ -756,7 +758,10 @@ public class Level6Controller {
                         GridPane.setColumnIndex(box5, gameSystem6.getBoxCol(5));
                         currentColumnIndex = gameSystem6.getPlayerCol();
                         currentRowIndex = gameSystem6.getPlayerRow();
-                        if (GameSystem.isTimeMode()) {
+                        gameSystem6.setTimeMode(LevelSceneController.isL5isTimeMode());
+                        if (gameSystem6.isTimeMode()) {
+                            myTime.setVisible(true);
+                            Label_timer.setVisible(true);
                             timeline = new Timeline(
                                     new KeyFrame(Duration.seconds(1), event -> {
                                         gameSystem6.setTimeRemaining(gameSystem6.getTimeRemaining() - 1); // 每秒减少 1

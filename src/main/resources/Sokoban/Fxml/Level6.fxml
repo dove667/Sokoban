@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.Level6Controller">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#MovePlayer" prefHeight="633.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Sokoban.Controller.Level6Controller">
    <children>
       <SplitPane dividerPositions="0.12068419385492556" layoutX="-1.0" layoutY="-2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="646.0" prefWidth="922.0">
          <items>
@@ -50,7 +50,7 @@
                   <Button fx:id="Btn_home" layoutX="56.0" layoutY="21.0" mnemonicParsing="false" onMousePressed="#HomeBtnPressed" opacity="0.25" prefHeight="38.0" prefWidth="40.0" />
                   <Button fx:id="Btn_load" layoutX="155.0" layoutY="21.0" mnemonicParsing="false" onMousePressed="#LoadBtnPressed" opacity="0.225" prefHeight="38.0" prefWidth="40.0" />
                   <Button fx:id="Btn_save" layoutX="204.0" layoutY="21.0" mnemonicParsing="false" onMousePressed="#SaveBtnPressed" opacity="0.25" prefHeight="38.0" prefWidth="40.0" />
-                  <HBox alignment="CENTER_LEFT" layoutX="663.0" layoutY="-1.0" prefHeight="74.0" prefWidth="216.0">
+                  <HBox alignment="CENTER_LEFT" layoutX="663.0" layoutY="-1.0" prefHeight="74.0" prefWidth="263.0">
                      <children>
                         <Label fx:id="Label_steps" prefHeight="38.0" prefWidth="70.0" text="steps:">
                            <font>
@@ -72,7 +72,7 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="myTime" prefHeight="32.0" prefWidth="0.0" text="0">
+                        <Label fx:id="myTime" prefHeight="32.0" prefWidth="54.0" text="0">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -81,7 +81,7 @@
                   </HBox>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="pane" minHeight="0.0" minWidth="0.0" onKeyReleased="#MovePlayer" prefHeight="530.0" prefWidth="910.0">
+            <AnchorPane focusTraversable="true" minHeight="0.0" minWidth="0.0" onKeyReleased="#MovePlayer" prefHeight="530.0" prefWidth="910.0">
                <children>
                   <ImageView fitHeight="708.0" fitWidth="931.0" pickOnBounds="true" preserveRatio="true">
                      <image>

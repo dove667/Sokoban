@@ -126,8 +126,10 @@ public class Level2Controller {
             Pane.requestFocus(); // 确保焦点设置
 
             //计时模式
-
-            if (GameSystem.isTimeMode()) {
+            gameSystem2.setTimeMode(LevelSceneController.isL2isTimeMode());
+            if (gameSystem2.isTimeMode()) {
+                myTime.setVisible(true);
+                Label_timer.setVisible(true);
                 timeline = new Timeline(
                         new KeyFrame(Duration.seconds(1), event -> {
                             gameSystem2.setTimeRemaining(gameSystem2.getTimeRemaining() - 1); // 每秒减少 1
@@ -256,7 +258,10 @@ public class Level2Controller {
                         GridPane.setColumnIndex(box2, gameSystem2.getBoxCol(2));
                         currentColumnIndex = gameSystem2.getPlayerCol();
                         currentRowIndex = gameSystem2.getPlayerRow();
-                        if (GameSystem.isTimeMode()) {
+                        gameSystem2.setTimeMode(LevelSceneController.isL1isTimeMode());
+                        if (gameSystem2.isTimeMode()) {
+                            myTime.setVisible(true);
+                            Label_timer.setVisible(true);
                             timeline = new Timeline(
                                     new KeyFrame(Duration.seconds(1), event -> {
                                         gameSystem2.setTimeRemaining(gameSystem2.getTimeRemaining() - 1); // 每秒减少 1

@@ -124,8 +124,10 @@ public class Level4Controller {
             Account account = Account.loadAccount();
             account.setCurrentLevel(4);Account.saveAccount(account);
             Pane.requestFocus(); // 确保焦点设置
-
-            if (GameSystem.isTimeMode()) {
+            gameSystem4.setTimeMode(LevelSceneController.isL4isTimeMode());
+            if (gameSystem4.isTimeMode()) {
+                myTime.setVisible(true);
+                Label_timer.setVisible(true);
                 timeline = new Timeline(
                         new KeyFrame(Duration.seconds(1), event -> {
                             gameSystem4.setTimeRemaining(gameSystem4.getTimeRemaining() - 1); // 每秒减少 1
@@ -252,7 +254,10 @@ public class Level4Controller {
                         GridPane.setColumnIndex(box2, gameSystem4.getBoxCol(2));
                         currentColumnIndex = gameSystem4.getPlayerCol();
                         currentRowIndex = gameSystem4.getPlayerRow();
-                        if (GameSystem.isTimeMode()) {
+                        gameSystem4.setTimeMode(LevelSceneController.isL1isTimeMode());
+                        if (gameSystem4.isTimeMode()) {
+                            myTime.setVisible(true);
+                            Label_timer.setVisible(true);
                             timeline = new Timeline(
                                     new KeyFrame(Duration.seconds(1), event -> {
                                         gameSystem4.setTimeRemaining(gameSystem4.getTimeRemaining() - 1); // 每秒减少 1

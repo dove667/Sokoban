@@ -119,8 +119,10 @@ public class Level5Controller {
             account.setCurrentLevel(5);Account.saveAccount(account);
             Pane.requestFocus(); // 确保焦点设置
 
-
-            if (GameSystem.isTimeMode()) {
+            gameSystem5.setTimeMode(LevelSceneController.isL5isTimeMode());
+            if (gameSystem5.isTimeMode()) {
+                myTime.setVisible(true);
+                Label_timer.setVisible(true);
                 timeline = new Timeline(
                         new KeyFrame(Duration.seconds(1), event -> {
                             gameSystem5.setTimeRemaining(gameSystem5.getTimeRemaining() - 1); // 每秒减少 1
@@ -247,7 +249,10 @@ public class Level5Controller {
                         GridPane.setColumnIndex(box2, gameSystem5.getBoxCol(2));
                         currentColumnIndex = gameSystem5.getPlayerCol();
                         currentRowIndex = gameSystem5.getPlayerRow();
-                        if (GameSystem.isTimeMode()) {
+                        gameSystem5.setTimeMode(LevelSceneController.isL5isTimeMode());
+                        if (gameSystem5.isTimeMode()) {
+                            myTime.setVisible(true);
+                            Label_timer.setVisible(true);
                             timeline = new Timeline(
                                     new KeyFrame(Duration.seconds(1), event -> {
                                         gameSystem5.setTimeRemaining(gameSystem5.getTimeRemaining() - 1); // 每秒减少 1

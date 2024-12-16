@@ -41,11 +41,7 @@ public class LevelSceneController {
 
     public void initialize() {
         Account account = Account.loadAccount();
-        if (GameSystem.isTimeMode()) {
-            Label_Mode.setText("open");
-        } else {
-            Label_Mode.setText("closed");
-        }
+
         if (!account.verifyAdimin()) {
             if (!account.isL1win()) {
                 Btn_Level2.setDisable(true);
@@ -95,12 +91,37 @@ public class LevelSceneController {
 
     CornerRadii cornerRadii = new CornerRadii(50, 50, 50, 50, false); // false 表示不使用默认的圆角
 
-    private boolean L1isTimeMode ;
-    private boolean L2isTimeMode ;
-    private boolean L3isTimeMode ;
-    private boolean L4isTimeMode ;
-    private boolean L5isTimeMode ;
-    private boolean L6isTimeMode ;
+    private static boolean L1isTimeMode ;
+    private static boolean L2isTimeMode ;
+    private static boolean L3isTimeMode ;
+    private static boolean L4isTimeMode ;
+    private static boolean L5isTimeMode ;
+    private static boolean L6isTimeMode ;
+
+    public static boolean isL1isTimeMode() {
+        return L1isTimeMode;
+    }
+
+    public static boolean isL2isTimeMode() {
+        return L2isTimeMode;
+    }
+
+    public static boolean isL3isTimeMode() {
+        return L3isTimeMode;
+    }
+
+    public static boolean isL4isTimeMode() {
+        return L4isTimeMode;
+    }
+
+    public static boolean isL5isTimeMode() {
+        return L5isTimeMode;
+    }
+
+    public static boolean isL6isTimeMode() {
+        return L6isTimeMode;
+    }
+
     @FXML
     void Level1BtnReleased() throws IOException {
         Account account = Account.loadAccount();
@@ -112,7 +133,7 @@ public class LevelSceneController {
         primaryStage.setScene(scene);
         account.setCurrentLevel(1);
         Account.saveAccount(account);
-        GameSystem.setTimeMode(setMode());
+        L1isTimeMode = setMode();
     }
 
 
@@ -127,7 +148,7 @@ public class LevelSceneController {
         primaryStage.setScene(scene);
         account.setCurrentLevel(2);
         Account.saveAccount(account);
-        GameSystem.setTimeMode(setMode());
+        L2isTimeMode = setMode();
     }
 
     @FXML
@@ -140,7 +161,7 @@ public class LevelSceneController {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         account.setCurrentLevel(3);Account.saveAccount(account);
-        GameSystem.setTimeMode(setMode());
+        L3isTimeMode = setMode();
     }
 
     @FXML
@@ -153,7 +174,7 @@ public class LevelSceneController {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         account.setCurrentLevel(4);Account.saveAccount(account);
-        GameSystem.setTimeMode(setMode());
+        L4isTimeMode = setMode();
     }
 
     @FXML
@@ -166,7 +187,7 @@ public class LevelSceneController {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         account.setCurrentLevel(5);Account.saveAccount(account);
-        GameSystem.setTimeMode(setMode());
+        L5isTimeMode = setMode();
     }
 
     @FXML
@@ -179,18 +200,16 @@ public class LevelSceneController {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         account.setCurrentLevel(5);Account.saveAccount(account);
-        GameSystem.setTimeMode(setMode());
+        L6isTimeMode = setMode();
     }
 
     @FXML
     void TimeModeBtnReleased() {
         if (Label_Mode.getText().equals("closed")) {
             Label_Mode.setText("open");
-            GameSystem.setTimeMode(true);
             Btn_TimeMode.setBackground(new Background(new BackgroundFill(Color.RED, cornerRadii, Insets.EMPTY)));
         } else {
             Label_Mode.setText("closed");
-            GameSystem.setTimeMode(false);
             Btn_TimeMode.setBackground(new Background(new BackgroundFill(Color.GREEN, cornerRadii, Insets.EMPTY)));
         }
     }
