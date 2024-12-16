@@ -111,7 +111,7 @@ public class AccountsSystem {
         AccountData data = new AccountData(names, passwords, accounts);
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("accounts.ser"))) {
             out.writeObject(data);
-            System.out.println("保存成功");
+            System.out.println("accounts保存成功");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -128,7 +128,7 @@ public class AccountsSystem {
             passwords.addAll(data.getPasswords());
             accounts.clear();
             accounts.addAll(data.getAccounts());
-            System.out.println("加载成功");
+            System.out.println("accoounts加载成功");
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

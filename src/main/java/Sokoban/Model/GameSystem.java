@@ -240,8 +240,8 @@ public class GameSystem implements Serializable {
     }
 
 
-    public void saveGameProgress(GameSystem progress) {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("game_progress.ser"))) {
+    public void saveGame1Progress(GameSystem progress) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("game1_progress.ser"))) {
             out.writeObject(progress);
             System.out.println("Game progress saved successfully!");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -254,10 +254,75 @@ public class GameSystem implements Serializable {
         }
     }
 
+    public void saveGame2Progress(GameSystem progress) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("game2_progress.ser"))) {
+            out.writeObject(progress);
+            System.out.println("Game progress saved successfully!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText("Game progress saved successfully!");
+            alert.setContentText("You can load it in the next time.");
+            alert.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void saveGame3Progress(GameSystem progress) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("game3_progress.ser"))) {
+            out.writeObject(progress);
+            System.out.println("Game progress saved successfully!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText("Game progress saved successfully!");
+            alert.setContentText("You can load it in the next time.");
+            alert.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void saveGame4Progress(GameSystem progress) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("game4_progress.ser"))) {
+            out.writeObject(progress);
+            System.out.println("Game progress saved successfully!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText("Game progress saved successfully!");
+            alert.setContentText("You can load it in the next time.");
+            alert.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void saveGame5Progress(GameSystem progress) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("game5_progress.ser"))) {
+            out.writeObject(progress);
+            System.out.println("Game progress saved successfully!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText("Game progress saved successfully!");
+            alert.setContentText("You can load it in the next time.");
+            alert.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void saveGame6Progress(GameSystem progress) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("game6_progress.ser"))) {
+            out.writeObject(progress);
+            System.out.println("Game progress saved successfully!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText("Game progress saved successfully!");
+            alert.setContentText("You can load it in the next time.");
+            alert.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     //这里的load可以自动实现计时模式转换
-    public GameSystem loadGameProgress() {
+    public GameSystem loadGame1Progress() {
         GameSystem progress = null;
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("game_progress.ser"))) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("game1_progress.ser"))) {
             progress = (GameSystem) in.readObject();
             System.out.println("Game progress loaded successfully!");
         } catch (IOException | ClassNotFoundException e) {
@@ -270,6 +335,83 @@ public class GameSystem implements Serializable {
         }
         return progress;
     }
+    public GameSystem loadGame2Progress() {
+        GameSystem progress = null;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("game2_progress.ser"))) {
+            progress = (GameSystem) in.readObject();
+            System.out.println("Game progress loaded successfully!");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Failed to load game progress");
+            alert.setContentText("The file might be corrupted");
+            alert.showAndWait();
+        }
+        return progress;
+    }
+    public GameSystem loadGame3Progress() {
+        GameSystem progress = null;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("game3_progress.ser"))) {
+            progress = (GameSystem) in.readObject();
+            System.out.println("Game progress loaded successfully!");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Failed to load game progress");
+            alert.setContentText("The file might be corrupted");
+            alert.showAndWait();
+        }
+        return progress;
+    }
+    public GameSystem loadGame4Progress() {
+        GameSystem progress = null;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("game4_progress.ser"))) {
+            progress = (GameSystem) in.readObject();
+            System.out.println("Game progress loaded successfully!");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Failed to load game progress");
+            alert.setContentText("The file might be corrupted");
+            alert.showAndWait();
+        }
+        return progress;
+    }
+    public GameSystem loadGame5Progress() {
+        GameSystem progress = null;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("game5_progress.ser"))) {
+            progress = (GameSystem) in.readObject();
+            System.out.println("Game progress loaded successfully!");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Failed to load game progress");
+            alert.setContentText("The file might be corrupted");
+            alert.showAndWait();
+        }
+        return progress;
+    }
+    public GameSystem loadGame6Progress() {
+        GameSystem progress = null;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("game6_progress.ser"))) {
+            progress = (GameSystem) in.readObject();
+            System.out.println("Game progress loaded successfully!");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Failed to load game progress");
+            alert.setContentText("The file might be corrupted");
+            alert.showAndWait();
+        }
+        return progress;
+    }
+
+
 
 
     public static boolean isTimeMode() {

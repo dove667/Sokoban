@@ -221,7 +221,7 @@ public class Level1Controller {
                 if (response == ButtonType.OK) {
                     gameSystem.setGameOver(true);
                     stopTimeline();
-                    gameSystem.saveGameProgress(gameSystem);
+                    gameSystem.saveGame1Progress(gameSystem);
 //切换场景
                     Platform.runLater(() -> {
                         AudioManager.playbackgroundPeace();
@@ -268,7 +268,7 @@ public class Level1Controller {
 
     @FXML
     void SaveBtnPressed() throws IOException {
-        gameSystem.saveGameProgress(gameSystem);
+        gameSystem.saveGame1Progress(gameSystem);
     }
 
     /*  控件偏移量不准确
@@ -286,7 +286,7 @@ public class Level1Controller {
             @Override
             protected Void call() throws Exception {
                 stopTimeline();
-                gameSystem = gameSystem.loadGameProgress();
+                gameSystem = gameSystem.loadGame1Progress();
                 return null;
             }
 

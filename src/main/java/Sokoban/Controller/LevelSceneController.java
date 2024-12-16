@@ -95,6 +95,12 @@ public class LevelSceneController {
 
     CornerRadii cornerRadii = new CornerRadii(50, 50, 50, 50, false); // false 表示不使用默认的圆角
 
+    private boolean L1isTimeMode ;
+    private boolean L2isTimeMode ;
+    private boolean L3isTimeMode ;
+    private boolean L4isTimeMode ;
+    private boolean L5isTimeMode ;
+    private boolean L6isTimeMode ;
     @FXML
     void Level1BtnReleased() throws IOException {
         Account account = Account.loadAccount();

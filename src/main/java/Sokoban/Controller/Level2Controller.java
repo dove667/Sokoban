@@ -179,7 +179,7 @@ public class Level2Controller {
             if (response == ButtonType.OK) {
                 gameSystem2.setGameOver(true);
                 stopTimeline();
-                gameSystem2.saveGameProgress(gameSystem2);
+                gameSystem2.saveGame2Progress(gameSystem2);
                 AudioManager.playbackgroundPeace();
                 //切换场景
                 URL url = getClass().getResource("/Sokoban/Fxml/LevelScene.fxml");
@@ -222,7 +222,7 @@ public class Level2Controller {
 
     @FXML
     void SaveBtnPressed() throws IOException {
-        gameSystem2.saveGameProgress(gameSystem2);
+        gameSystem2.saveGame2Progress(gameSystem2);
     }
 
     @FXML
@@ -234,7 +234,7 @@ public class Level2Controller {
             @Override
             protected Void call() throws Exception {
                 stopTimeline();
-                gameSystem2 = gameSystem2.loadGameProgress();
+                gameSystem2 = gameSystem2.loadGame2Progress();
                 return null;
             }
 

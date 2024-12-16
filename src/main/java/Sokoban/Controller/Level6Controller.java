@@ -671,7 +671,7 @@ public class Level6Controller {
                 AudioManager.playbackgroundPeace();
                 gameSystem6.setGameOver(true);
                 stopTimeline();
-                gameSystem6.saveGameProgress(gameSystem6);
+                gameSystem6.saveGame6Progress(gameSystem6);
                 //切换场景
                 URL url = getClass().getResource("/Sokoban/Fxml/LevelScene.fxml");
                 Parent root;
@@ -713,7 +713,7 @@ public class Level6Controller {
 
     @FXML
     void SaveBtnPressed() throws IOException {
-        gameSystem6.saveGameProgress(gameSystem6);
+        gameSystem6.saveGame6Progress(gameSystem6);
     }
 
     @FXML
@@ -725,7 +725,7 @@ public class Level6Controller {
             @Override
             protected Void call() throws Exception {
                 stopTimeline();
-                gameSystem6 = gameSystem6.loadGameProgress();
+                gameSystem6 = gameSystem6.loadGame6Progress();
                 return null;
             }
 

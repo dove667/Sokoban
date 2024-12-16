@@ -92,6 +92,7 @@ public class SignUpController {
             AccountsSystem.addName(Text_Name.getText());
             AccountsSystem.addPassword(Password_Ensure.getText());
             Account account = new Account(false, false);
+            Account.saveAccount(account);
             AccountsSystem.addAccount(account);
             AccountsSystem.saveAccounts();
             URL url = getClass().getResource("/Sokoban/Fxml/LoginScene.fxml");

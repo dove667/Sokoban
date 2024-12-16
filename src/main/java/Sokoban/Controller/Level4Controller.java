@@ -176,7 +176,7 @@ public class Level4Controller {
                 AudioManager.playbackgroundPeace();
                 gameSystem4.setGameOver(true);
                 stopTimeline();
-                gameSystem4.saveGameProgress(gameSystem4);
+                gameSystem4.saveGame4Progress(gameSystem4);
                 //切换场景
                 URL url = getClass().getResource("/Sokoban/Fxml/LevelScene.fxml");
                 Parent root;
@@ -218,7 +218,7 @@ public class Level4Controller {
 
     @FXML
     void SaveBtnPressed() throws IOException {
-        gameSystem4.saveGameProgress(gameSystem4);
+        gameSystem4.saveGame4Progress(gameSystem4);
     }
 
     @FXML
@@ -230,7 +230,7 @@ public class Level4Controller {
             @Override
             protected Void call() throws Exception {
                 stopTimeline();
-                gameSystem4 = gameSystem4.loadGameProgress();
+                gameSystem4 = gameSystem4.loadGame4Progress();
                 return null;
             }
 

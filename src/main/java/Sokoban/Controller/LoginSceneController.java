@@ -45,13 +45,12 @@ public class LoginSceneController {
 
         //开始一定要有一个accounts.ser，不然会admin空指针
         //不能在这里loadAccounts，ser会被新的空AccountsSystem覆盖
+        //如果没有accounts就不要load
         AccountsSystem.loadAccounts();
         String username = Input_username.getText();
         String passwd = Input_passwd.getText();
 
         if (AccountsSystem.checkAccount(AccountsSystem.getNames(), username, AccountsSystem.getPasswords(), passwd)) {
-            Account account = AccountsSystem.getAccount(username);
-            Account.saveAccount(account);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Reminder");

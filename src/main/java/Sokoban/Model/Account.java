@@ -11,7 +11,7 @@ private static final long serialVersionUID = 1L;
     public static void saveAccount(Account account) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("account.ser"))) {
             out.writeObject(account);
-
+            System.out.println("Account saved successfully!");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -21,6 +21,7 @@ private static final long serialVersionUID = 1L;
         Account account = null;
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("account.ser"))) {
             account = (Account) in.readObject();
+            System.out.println("Account loaded successfully!");
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
