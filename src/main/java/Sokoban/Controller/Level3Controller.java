@@ -267,7 +267,8 @@ public class Level3Controller {
 
                                         // 检查倒计时是否结束
                                         if (gameSystem3.getTimeRemaining() <= 0) {
-                                            myTime.setText("time's up");stopTimeline();
+                                            myTime.setText("time's up");
+                                            stopTimeline();
                                             URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                                             Parent root = null;
                                             try {

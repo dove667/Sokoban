@@ -629,6 +629,7 @@ public class Level6Controller {
 
                             // 检查倒计时是否结束
                             if (gameSystem6.getTimeRemaining() <= 0) {
+                                stopTimeline();
                                 myTime.setText("time's up");
                                 URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                                 Parent root = null;
@@ -764,6 +765,7 @@ public class Level6Controller {
                             Label_timer.setVisible(true);
                             timeline = new Timeline(
                                     new KeyFrame(Duration.seconds(1), event -> {
+                                        stopTimeline();
                                         gameSystem6.setTimeRemaining(gameSystem6.getTimeRemaining() - 1); // 每秒减少 1
                                         myTime.setText(String.valueOf(gameSystem6.getTimeRemaining())); // 更新标签文字
 

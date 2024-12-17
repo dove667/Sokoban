@@ -145,6 +145,7 @@ public class Level1Controller {
 
                             // 检查倒计时是否结束
                             if (gameSystem.getTimeRemaining() <= 0) {
+                                stopTimeline();
                                 myTime.setText("time's up");
                                 URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                                 Parent root = null;
@@ -321,6 +322,7 @@ public class Level1Controller {
 
                                         // 检查倒计时是否结束
                                         if (gameSystem.getTimeRemaining() <= 0) {
+                                            stopTimeline();
                                             myTime.setText("time's up");
                                             URL url = getClass().getResource("/Sokoban/Fxml/Failed.fxml");
                                             Parent root = null;

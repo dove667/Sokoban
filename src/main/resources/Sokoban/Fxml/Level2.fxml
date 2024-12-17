@@ -71,7 +71,7 @@
                   <Polygon fx:id="target2" fill="#1fff33" points="68.69886016845703, -26.198131561279297, 93.4000244140625, 12.300029754638672, 45.19888687133789, 12.300043106079102" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
                </children>
             </GridPane>
-            <Label fx:id="Label_Level2" layoutX="327.0" layoutY="23.0" prefHeight="62.0" prefWidth="306.0" text="Level2 Dorm " textAlignment="CENTER">
+            <Label fx:id="Label_Level2" layoutX="301.0" layoutY="23.0" prefHeight="62.0" prefWidth="338.0" text="Level2 Dorm " textAlignment="CENTER">
                <font>
                   <Font name="Book Antiqua Bold" size="49.0" />
                </font>
