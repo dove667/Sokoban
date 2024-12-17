@@ -51,6 +51,8 @@ public class LoginSceneController {
         String passwd = Input_passwd.getText();
 
         if (AccountsSystem.checkAccount(AccountsSystem.getNames(), username, AccountsSystem.getPasswords(), passwd)) {
+            Account account = AccountsSystem.getAccount(username);
+            Account.saveAccount(account);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Reminder");
